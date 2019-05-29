@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "102551127615",
+    "firebase_url": "https://tragether-242109.firebaseio.com",
+    "project_id": "tragether-242109",
+    "storage_bucket": "tragether-242109.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102551127615:android:4cf715a69b0ec775",
+        "android_client_info": {
+          "package_name": "com.example.tragether"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102551127615-16lm03du8bfsrgg1851dqqkguodhur3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tragether",
+            "certificate_hash": "2ed603424ed987cc0d2f890bdfa6f19553d44947"
+          }
+        },
+        {
+          "client_id": "102551127615-mo82lsalc6q79gt408oua9vi7q35ogfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_-CQniSgGAmx2BFG7blt0r8hiueD25yo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102551127615-mo82lsalc6q79gt408oua9vi7q35ogfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
