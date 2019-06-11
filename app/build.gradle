@@ -29,6 +29,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
 }
 
 apply plugin: 'com.google.gms.google-services'
