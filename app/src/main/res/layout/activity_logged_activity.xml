@@ -9,9 +9,12 @@
     >
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="288dp"
         android:layout_height="120dp"
         android:text="Hello"
+        android:textSize="30sp"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="61dp"
         tools:layout_editor_absoluteY="305dp" />
 
