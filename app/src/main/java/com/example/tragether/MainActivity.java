@@ -78,9 +78,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }else{
 
                 waiting_dialog.dismiss();
+                String msg = result.getStatus().getStatusMessage();
 
                 Log.e("EDMT_ERROR", "Login failed");
-                Log.e("EDMT_ERROR", result.getStatus().getStatusMessage());
+                Log.e("EDMT_ERROR", msg);
 
             }
 
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     public void onSuccess(AuthResult authResult) {
                         //start new activity and pass email to the new activity
                         Intent intent = new Intent(MainActivity.this, logged_activity.class);
-                        intent.putExtra("email", authResult.getUser().getEmail());
+                        //intent.putExtra("email", authResult.getUser().getEmail());
                         startActivity(intent);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         configureGoogleSignIn();
 
         mAuth = FirebaseAuth.getInstance();
+
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,8 +131,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .setCancelable(false)
                 .build();
 
-
-        mAuth = FirebaseAuth.getInstance();
        // https://www.youtube.com/watch?v=4h4y4mnJIBs
 
     }
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
-    //need later to move on if already logged in
+    /*need later to move on if already logged in
     @Override
     public void onStart(){
         super.onStart();
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
-    }
+    }*/
 
 
 

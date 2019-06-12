@@ -15,6 +15,9 @@ public class logged_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_activity);
 
-        txt_logged_email = (TextView)findViewById(R.id.textView);
+       /* txt_logged_email = (TextView)findViewById(R.id.textView);
+        if(getIntent() != null){
+            txt_logged_email.setText(getIntent().getStringExtra("email"));
+        }*/
     }
 }
