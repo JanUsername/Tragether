@@ -44,8 +44,6 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
-import dmax.dialog.SpotsDialog;
-
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final int PERMISSION_SIGN_IN = 1;
@@ -53,21 +51,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     FirebaseAuth mAuth;
     SignInButton signInButton;
 
-    AlertDialog waiting_dialog;
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == PERMISSION_SIGN_IN){
 
-            waiting_dialog.show();
-
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
 
             if(result.isSuccess()){
-
-                waiting_dialog.dismiss();
 
                 GoogleSignInAccount account = result.getSignInAccount();
                 String idToken = account.getIdToken();
@@ -77,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
             }else{
 
-                waiting_dialog.dismiss();
                 String msg = result.getStatus().getStatusMessage();
 
                 Log.e("EDMT_ERROR", "Login failed");
@@ -114,10 +105,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        if(FirebaseAuth.getInstance() != null){
+
+            mAuth = FirebaseAuth.getInstance();
+            Intent intent = new Intent(MainActivity.this, logged_activity.class);
+            startActivity(intent);
+        }
+
+
         configureGoogleSignIn();
-
-        mAuth = FirebaseAuth.getInstance();
-
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,11 +122,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 signIn();
             }
         });
-
-        waiting_dialog = new SpotsDialog.Builder().setContext(this)
-                .setMessage("Please wait...")
-                .setCancelable(false)
-                .build();
 
        // https://www.youtube.com/watch?v=4h4y4mnJIBs
 
