@@ -1,23 +1,14 @@
 package com.example.tragether;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
+
 import android.util.Log;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -40,9 +31,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -110,18 +98,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
             mAuth = FirebaseAuth.getInstance();
             Intent intent = new Intent(MainActivity.this, logged_activity.class);
+            intent.putExtra("username", mAuth.getCurrentUser().getEmail());
             startActivity(intent);
+        }else {
+
+
+            configureGoogleSignIn();
+            signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+            signInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
+                }
+            });
         }
-
-
-        configureGoogleSignIn();
-        signInButton = (SignInButton)findViewById(R.id.sign_in_button);
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
 
        // https://www.youtube.com/watch?v=4h4y4mnJIBs
 
