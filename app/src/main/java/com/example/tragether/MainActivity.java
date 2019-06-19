@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     public void onSuccess(AuthResult authResult) {
                         //start new activity and pass email to the new activity
                         Intent intent = new Intent(MainActivity.this, logged_activity.class);
-                        //intent.putExtra("email", authResult.getUser().getEmail());
+                        intent.putExtra("email", authResult.getUser().getEmail());
                         startActivity(intent);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -93,14 +93,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
 
-        if(FirebaseAuth.getInstance() != null){
 
-            mAuth = FirebaseAuth.getInstance();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+
             Intent intent = new Intent(MainActivity.this, logged_activity.class);
-            intent.putExtra("username", mAuth.getCurrentUser().getEmail());
+            Log.d("login", FirebaseAuth.getInstance().getCurrentUser().toString());
+            intent.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            Log.d("login", FirebaseAuth.getInstance().getCurrentUser().getEmail());
             startActivity(intent);
-        }else {
+        } else {
 
 
             configureGoogleSignIn();
@@ -112,6 +115,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 }
             });
         }
+
+
+
+
 
        // https://www.youtube.com/watch?v=4h4y4mnJIBs
 
@@ -147,16 +154,37 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
-    /*need later to move on if already logged in
-    @Override
-    public void onStart(){
+
+
+//need later to move on if already logged in
+   /* @Override
+    public void onStart() {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-    }*/
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        if (currentUser != null) {
+
+            //mAuth = FirebaseAuth.getInstance();
+            Intent intent = new Intent(MainActivity.this, logged_activity.class);
+            intent.putExtra("username", currentUser.getEmail());
+            Log.d("login", currentUser.getEmail());
+            startActivity(intent);
+        } else {
+
+            FirebaseAuth.getInstance().signOut();
+            configureGoogleSignIn();
+            signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+            signInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
+                }
+            });
+            //updateUI(currentUser);
+        }
+    }*/
 
 
     // @SuppressWarnings("StatementWithEmptyBody")
