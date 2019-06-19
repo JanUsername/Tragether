@@ -3,6 +3,8 @@ package com.example.tragether;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -29,4 +31,14 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed(){
         startActivity(new Intent(ProfileActivity.this, logged_activity.class));
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
 }
