@@ -5,6 +5,8 @@ import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,14 +17,24 @@ public class logged_activity extends AppCompatActivity {
 
 
     TextView txt_logged_email;
-    Intent intent;
+    Button logOut;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_activity);
         txt_logged_email = (TextView)findViewById(textView);
-        intent = this.getIntent();
+        logOut = (Button)findViewById(R.id.btnLogOut);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(logged_activity.this, MainActivity.class));
+            }
+        });
+
+        //intent = this.getIntent();
         Log.d("check", getIntent().toString());
 
         txt_logged_email.setText("Hello " + getIntent().getStringExtra("email"));

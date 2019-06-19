@@ -93,8 +93,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
 
+        /*if(getIntent().hasExtra("logout")){
+            String log_out = getIntent().getStringExtra("logout");
+            if(log_out.equals("yes")){
+                FirebaseAuth.getInstance().signOut();
+            }
+        }*/
+        mAuth = FirebaseAuth.getInstance();
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
