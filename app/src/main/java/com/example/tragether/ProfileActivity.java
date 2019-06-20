@@ -3,6 +3,7 @@ package com.example.tragether;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.Window;
@@ -22,7 +23,17 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
 
-        imageView = (ImageView)findViewById(R.id.imageView1);
+        //toolbar
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.toolbar);
+        /*
+        Sets the Toolbar to act as the ActionBar for this Activity window.
+        Make sure the toolbar exists in the activity and is not null
+        */
+        setSupportActionBar(toolbar);
+
+        imageView = findViewById(R.id.imageView1);
         int imageRes = getResources().getIdentifier("@drawable/cat", null, this.getPackageName());
         imageView.setImageResource(imageRes);
     }
