@@ -12,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MenuHandler extends Activity {
+public class MenuHandler extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -20,7 +20,7 @@ public class MenuHandler extends Activity {
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
-/*
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -39,6 +39,6 @@ public class MenuHandler extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }*/
+    }
 
 }

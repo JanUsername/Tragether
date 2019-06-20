@@ -14,8 +14,8 @@
         <activity
             android:name=".MenuHandler"
 
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
-        <!--android:label="@string/title_activity_menu_handler" move from under menuhandler -->
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
