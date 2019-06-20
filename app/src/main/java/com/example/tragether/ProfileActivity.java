@@ -10,7 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity  extends  AppCompatActivity {
 
     ImageView imageView;
 
@@ -21,17 +21,6 @@ public class ProfileActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_profile);
-
-
-        //toolbar
-        // Find the toolbar view inside the activity layout
-        Toolbar toolbar;
-        toolbar = findViewById(R.id.toolbar);
-        /*
-        Sets the Toolbar to act as the ActionBar for this Activity window.
-        Make sure the toolbar exists in the activity and is not null
-        */
-        setSupportActionBar(toolbar);
 
         imageView = findViewById(R.id.imageView1);
         int imageRes = getResources().getIdentifier("@drawable/cat", null, this.getPackageName());

@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import static com.example.tragether.R.id.textView;
 
-public class logged_activity extends AppCompatActivity {
+public class logged_activity extends  MenuHandler {
 
 
     TextView txt_logged_email;
@@ -33,8 +33,8 @@ public class logged_activity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_logged_activity);
-        txt_logged_email = (TextView)findViewById(textView);
-        logOut = (Button)findViewById(R.id.btnLogOut);
+        txt_logged_email = findViewById(textView);
+        logOut = findViewById(R.id.btnLogOut);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +42,7 @@ public class logged_activity extends AppCompatActivity {
                 startActivity(new Intent(logged_activity.this, MainActivity.class));
             }
         });
-        goToProfile = (Button)findViewById(R.id.btnProfile);
+        goToProfile = findViewById(R.id.btnProfile);
         goToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +67,7 @@ public class logged_activity extends AppCompatActivity {
         startActivity(a);
     }
 
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -74,5 +75,5 @@ public class logged_activity extends AppCompatActivity {
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
-
+ */
 }

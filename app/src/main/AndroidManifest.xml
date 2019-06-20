@@ -11,11 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".MenuHandler"
+
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+        <!--android:label="@string/title_activity_menu_handler" move from under menuhandler -->
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".logged_activity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
