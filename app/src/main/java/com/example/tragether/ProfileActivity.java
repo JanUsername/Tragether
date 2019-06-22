@@ -6,10 +6,16 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.w3c.dom.Text;
 
 public class ProfileActivity extends AppCompatActivity {
 
     ImageView imageView;
+    TextView greetinsProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,8 @@ public class ProfileActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageView1);
         int imageRes = getResources().getIdentifier("@drawable/cat", null, this.getPackageName());
         imageView.setImageResource(imageRes);
+        greetinsProfile = (TextView)findViewById(R.id.greetingsProfile);
+        greetinsProfile.setText("Hello " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
     @Override

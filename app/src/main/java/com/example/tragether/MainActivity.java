@@ -49,54 +49,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     Button signIn;
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PERMISSION_SIGN_IN){
-
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-
-            if(result.isSuccess()){
-
-                GoogleSignInAccount account = result.getSignInAccount();
-                String idToken = account.getIdToken();
-
-                AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
-                firebaseAuthWithGoogle(credential);
-
-            }else{
-
-                String msg = result.getStatus().getStatusMessage();
-
-                Log.e("EDMT_ERROR", "Login failed");
-                Log.e("EDMT_ERROR", msg);
-
-            }
-
-        }
-    }
-
-    private void firebaseAuthWithGoogle(AuthCredential credential) {
-
-        mAuth.signInWithCredential(credential)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        //start new activity and pass email to the new activity
-                        Intent intent = new Intent(MainActivity.this, logged_activity.class);
-                        intent.putExtra("email", authResult.getUser().getEmail());
-                        startActivity(intent);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,11 +110,54 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }*/
 
 
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == PERMISSION_SIGN_IN){
 
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
 
-        // https://www.youtube.com/watch?v=4h4y4mnJIBs
+            if(result.isSuccess()){
+
+                GoogleSignInAccount account = result.getSignInAccount();
+                String idToken = account.getIdToken();
+
+                AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
+                firebaseAuthWithGoogle(credential);
+
+            }else{
+
+                String msg = result.getStatus().getStatusMessage();
+
+                Log.e("EDMT_ERROR", "Login failed");
+                Log.e("EDMT_ERROR", msg);
+
+            }
+
+        }
+    }
+
+    private void firebaseAuthWithGoogle(AuthCredential credential) {
+
+        mAuth.signInWithCredential(credential)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        //start new activity and pass email to the new activity
+                        Intent intent = new Intent(MainActivity.this, logged_activity.class);
+                        intent.putExtra("email", authResult.getUser().getEmail());
+                        startActivity(intent);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
