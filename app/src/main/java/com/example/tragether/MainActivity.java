@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -26,8 +27,10 @@ import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,10 +41,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final int PERMISSION_SIGN_IN = 1;
-    GoogleApiClient mGoogleApiClient;
+    public static GoogleApiClient mGoogleApiClient;
     FirebaseAuth mAuth;
     SignInButton signInButton;
+    EditText user;
+    EditText password;
     Button signIn;
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -99,47 +105,63 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        user = (EditText)findViewById(R.id.eTUsername);
+        password = (EditText)findViewById(R.id.eTPassword);
+
         signIn = (Button)findViewById(R.id.btnSignIn);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, logged_activity.class));
+                mAuth.signInWithEmailAndPassword(user.getText().toString(), password.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    startActivity(new Intent(MainActivity.this, logged_activity.class));
+                                }else{
+                                    Toast.makeText(MainActivity.this, task.getException().getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
             }
         });
 
-        /*if(getIntent().hasExtra("logout")){
-            String log_out = getIntent().getStringExtra("logout");
-            if(log_out.equals("yes")){
-                FirebaseAuth.getInstance().signOut();
-            }
-        }*/
         mAuth = FirebaseAuth.getInstance();
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
-            Intent intent = new Intent(MainActivity.this, logged_activity.class);
-            Log.d("login", FirebaseAuth.getInstance().getCurrentUser().toString());
-            intent.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-            Log.d("login", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-            startActivity(intent);
-        } else {
+                Intent intent = new Intent(MainActivity.this, logged_activity.class);
+                Log.d("login", FirebaseAuth.getInstance().getCurrentUser().toString());
+                //intent.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                Log.d("login", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                startActivity(intent);
+            } /*else {
 
-
-            configureGoogleSignIn();
-            signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-            signInButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    signIn();
+                /*if(getIntent().hasExtra("logout")) {
+                    FirebaseAuth.getInstance().signOut();
+                    //Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                 }
-            });
-        }
+                configureGoogleSignIn();
+                boolean res = mGoogleApiClient.isConnected();
+                Log.d("porcodio", "sono qui");
+                Log.d("porcodio", String.valueOf(res));
+                signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+                signInButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        signIn();
+                    }
+                });
+
+            }*/
 
 
 
 
 
-       // https://www.youtube.com/watch?v=4h4y4mnJIBs
+
+        // https://www.youtube.com/watch?v=4h4y4mnJIBs
 
     }
 
@@ -162,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
 
         mGoogleApiClient.connect();
+
+
 
     }
 

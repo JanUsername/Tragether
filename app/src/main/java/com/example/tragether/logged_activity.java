@@ -11,8 +11,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import static com.example.tragether.MainActivity.mGoogleApiClient;
 import static com.example.tragether.R.id.textView;
 
 public class logged_activity extends AppCompatActivity {
@@ -30,14 +34,22 @@ public class logged_activity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         setContentView(R.layout.activity_logged_activity);
+
         txt_logged_email = (TextView)findViewById(textView);
         logOut = (Button)findViewById(R.id.btnLogOut);
+
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(logged_activity.this, MainActivity.class));
+
+                Intent intent = new Intent(logged_activity.this, MainActivity.class);
+
+                startActivity(intent);
             }
         });
         goToProfile = (Button)findViewById(R.id.btnProfile);
@@ -53,7 +65,7 @@ public class logged_activity extends AppCompatActivity {
         //intent = this.getIntent();
         Log.d("check", getIntent().toString());
 
-        txt_logged_email.setText("Hello " + getIntent().getStringExtra("email"));
+        txt_logged_email.setText("Hello " + user.getEmail());
 
     }
 

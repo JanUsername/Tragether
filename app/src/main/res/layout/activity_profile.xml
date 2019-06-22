@@ -9,16 +9,16 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="146dp"
-        android:layout_height="158dp"
-        android:background="#FFEB3B"
+        android:layout_width="155dp"
+        android:layout_height="163dp"
+        android:layout_marginBottom="552dp"
+        android:layout_marginTop="20dp"
+
+
+
         app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/colorPrimary"
-        tools:layout_editor_absoluteY="56dp"
-        tools:srcCompat="@tools:sample/avatars[3]" />
-
-
+        tools:srcCompat="@tools:sample/avatars" />
+     />
 </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@
     <string name="password">Password</string>
     <string name="log_out">Log out</string>
     <string name="profile">Go to profile!</string>
+    <string name="changeUrs">Change user</string>
 
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="dummy_button">Dummy Button</string>
