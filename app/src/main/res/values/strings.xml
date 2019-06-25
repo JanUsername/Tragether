@@ -19,7 +19,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="yourTrips">YOUR TRIPS</string>
     <string name="yourEvents">YOUR EVENTS</string>
-
+    <string name="editProfile">Edit profile!</string>
 
 
 </resources>

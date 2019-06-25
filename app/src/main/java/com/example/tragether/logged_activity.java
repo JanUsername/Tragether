@@ -1,7 +1,6 @@
 package com.example.tragether;
 
 import android.content.Intent;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,12 +10,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import static com.example.tragether.MainActivity.mGoogleApiClient;
 import static com.example.tragether.R.id.textView;
 
 public class logged_activity extends AppCompatActivity {
@@ -52,7 +48,7 @@ public class logged_activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        goToProfile = (Button)findViewById(R.id.btnProfile);
+        goToProfile = (Button)findViewById(R.id.btnEditProfile);
         goToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
