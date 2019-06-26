@@ -1,5 +1,6 @@
 package com.example.tragether;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -15,6 +16,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     Spinner countries;
     ArrayList<String> countriesArray = new ArrayList<String>();
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +50,11 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onStart();
 
 
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        //se esco e ho apportato modifiche non salvate, avviso e richiedo come procedere
     }
 }
