@@ -105,4 +105,15 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toEndOf="@+id/usernameLabel"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/countriesSpinner"
+        android:layout_width="213dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toEndOf="@+id/countryLabel"
+        app:layout_constraintTop_toBottomOf="@+id/bDay" />
+
 </android.support.constraint.ConstraintLayout>
