@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.tragether.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,6 +22,7 @@ public class logged_activity extends AppCompatActivity {
     TextView txt_logged_email;
     Button logOut;
     Button goToProfile;
+    User appUser = User.getInstance();
 
 
     @Override
@@ -34,6 +36,7 @@ public class logged_activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_logged_activity);
 
+        appUser.setEmail(user.getEmail());
         txt_logged_email = (TextView)findViewById(textView);
         logOut = (Button)findViewById(R.id.btnLogOut);
 
@@ -42,6 +45,7 @@ public class logged_activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 FirebaseAuth.getInstance().signOut();
+                appUser.resetUser();
 
                 Intent intent = new Intent(logged_activity.this, MainActivity.class);
 
@@ -71,6 +75,13 @@ public class logged_activity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        Log.d("logged", appUser.getEmail());
     }
 
 }

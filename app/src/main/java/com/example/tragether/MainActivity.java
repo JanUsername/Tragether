@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tragether.model.User;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     EditText user;
     EditText password;
     Button signIn;
+    User appUser = User.getInstance();
 
 
 
@@ -85,10 +87,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
                 Intent intent = new Intent(MainActivity.this, logged_activity.class);
+
                 Log.d("login", FirebaseAuth.getInstance().getCurrentUser().toString());
                 //intent.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
                 Log.d("login", FirebaseAuth.getInstance().getCurrentUser().getEmail());
                 startActivity(intent);
+
             } /*else {
 
                 /*if(getIntent().hasExtra("logout")) {
@@ -97,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 }
                 configureGoogleSignIn();
                 boolean res = mGoogleApiClient.isConnected();
-                Log.d("porcodio", "sono qui");
-                Log.d("porcodio", String.valueOf(res));
+                Log.d("check", "sono qui");
+                Log.d("check", String.valueOf(res));
                 signInButton = (SignInButton) findViewById(R.id.sign_in_button);
                 signInButton.setOnClickListener(new View.OnClickListener() {
                     @Override
