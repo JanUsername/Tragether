@@ -12,21 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-<<<<<<< HEAD
+
             android:name=".MenuHandler"
 
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".ProfileActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-=======
+
             android:name=".EditProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
->>>>>>> profileImplementation
+
         <activity
             android:name=".logged_activity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />

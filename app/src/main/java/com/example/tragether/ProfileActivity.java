@@ -3,14 +3,14 @@ package com.example.tragether;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
+
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-=======
+
 import android.view.View;
->>>>>>> profileImplementation
+
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -38,11 +38,11 @@ public class ProfileActivity  extends  MenuHandler {
         imageView = findViewById(R.id.imageView1);
         int imageRes = getResources().getIdentifier("@drawable/cat", null, this.getPackageName());
         imageView.setImageResource(imageRes);
-<<<<<<< HEAD
+
        // getSupportActionBar().hide();
        // Toolbar toolbar =  findViewById(R.id.toolbar);
         // setSupportActionBar(toolbar);
-=======
+
         greetingsProfile = (TextView)findViewById(R.id.greetingsProfile);
         greetingsProfile.setText("Hello " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
         editProfile = (Button) findViewById(R.id.btnEditProfile);
@@ -52,7 +52,7 @@ public class ProfileActivity  extends  MenuHandler {
                 startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
             }
         });
->>>>>>> profileImplementation
+
     }
 
     @Override

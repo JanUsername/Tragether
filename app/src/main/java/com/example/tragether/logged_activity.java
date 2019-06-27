@@ -38,16 +38,15 @@ public class logged_activity extends  MenuHandler {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         setContentView(R.layout.activity_logged_activity);
-<<<<<<< HEAD
+
         txt_logged_email = findViewById(textView);
         logOut = findViewById(R.id.btnLogOut);
-=======
+
 
         appUser.setEmail(user.getEmail());
         txt_logged_email = (TextView)findViewById(textView);
         logOut = (Button)findViewById(R.id.btnLogOut);
 
->>>>>>> profileImplementation
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,11 +59,11 @@ public class logged_activity extends  MenuHandler {
                 startActivity(intent);
             }
         });
-<<<<<<< HEAD
+
         goToProfile = findViewById(R.id.btnProfile);
-=======
+
         goToProfile = (Button)findViewById(R.id.btnEditProfile);
->>>>>>> profileImplementation
+
         goToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,14 +76,13 @@ public class logged_activity extends  MenuHandler {
         //intent = this.getIntent();
         Log.d("check", getIntent().toString());
 
-<<<<<<< HEAD
+
         //getSupportActionBar().hide();
        // Toolbar toolbar =  findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         txt_logged_email.setText("Hello " + getIntent().getStringExtra("email"));
-=======
+
         txt_logged_email.setText("Hello " + user.getEmail());
->>>>>>> profileImplementation
 
     }
 
@@ -96,7 +94,7 @@ public class logged_activity extends  MenuHandler {
         startActivity(a);
     }
 
-<<<<<<< HEAD
+
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -106,7 +104,7 @@ public class logged_activity extends  MenuHandler {
         return true;
     }
  */
-=======
+
     @Override
     public void onStart(){
         super.onStart();
@@ -114,5 +112,4 @@ public class logged_activity extends  MenuHandler {
         Log.d("logged", appUser.getEmail());
     }
 
->>>>>>> profileImplementation
 }

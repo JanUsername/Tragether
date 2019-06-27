@@ -18,9 +18,9 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-<<<<<<< HEAD
+
     <string name="title_activity_menu_handler">MenuHandler</string>
-=======
+
     <string name="yourTrips">YOUR TRIPS</string>
     <string name="yourEvents">YOUR EVENTS</string>
     <string name="editProfile">Edit profile!</string>
@@ -33,6 +33,6 @@
     <string name="descriptionLabel">Description</string>
 
 
->>>>>>> profileImplementation
+
 
 </resources>
