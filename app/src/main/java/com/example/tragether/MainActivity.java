@@ -39,15 +39,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity {
 
 
     FirebaseAuth mAuth;
-
     EditText user;
     EditText password;
     Button signIn;
-    User appUser = User.getInstance();
 
 
     @Override
@@ -95,13 +93,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-        Toast.makeText(this, "" + connectionResult.getErrorMessage(), Toast.LENGTH_SHORT).show();
-
-    }
 
 
 }
