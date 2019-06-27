@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.example.tragether.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +18,12 @@ import java.util.Locale;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    TextView username;
     Spinner countries;
     ArrayList<String> countriesArray = new ArrayList<String>();
+    EditText description;
     AlertDialog.Builder builder;
+    User appUser = User.getUserInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,9 @@ public class EditProfileActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_edit_profile);
+
+        username = (TextView)findViewById(R.id.username);
+        username.setText(appUser.getUsername());
 
         countries = (Spinner) findViewById(R.id.countriesSpinner);
         Locale[] locale = Locale.getAvailableLocales();
@@ -41,6 +51,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, countriesArray);
         countries.setAdapter(adapter);
+
+        description = (EditText)findViewById(R.id.description);
+        description.setText(appUser.getDescription());
+
 
 
     }

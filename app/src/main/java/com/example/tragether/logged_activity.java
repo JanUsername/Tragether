@@ -40,6 +40,8 @@ public class logged_activity extends  MenuHandler {
 
 
         appUser.setEmail(user.getEmail());
+        appUser.setUsername("greta");
+        appUser.setDescription(" found a way to make the constraint layout scrollable in the design tool, using a horizontal guideline to push down the constraint layout border and extend it beyond the device, after that, you can use the guideline as the new bottom of the constraint layout to anchor the components.");
         txt_logged_email = (TextView)findViewById(textView);
         logOut = (Button)findViewById(R.id.btnLogOut);
 
