@@ -12,10 +12,27 @@
     <string name="password">Password</string>
     <string name="log_out">Log out</string>
     <string name="profile">Go to profile!</string>
+    <string name="changeUrs">Change user</string>
 
+    <!-- profile activity -->
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+<<<<<<< HEAD
     <string name="title_activity_menu_handler">MenuHandler</string>
+=======
+    <string name="yourTrips">YOUR TRIPS</string>
+    <string name="yourEvents">YOUR EVENTS</string>
+    <string name="editProfile">Edit profile!</string>
+
+    <!-- edit profile activity -->
+    <string name="usrnLabel">Username</string>
+    <string name="bdayLabel">Birthday</string>
+    <string name="countryLabel">Country</string>
+    <string name="interestsLabel">Interests</string>
+    <string name="descriptionLabel">Description</string>
+
+
+>>>>>>> profileImplementation
 
 </resources>
