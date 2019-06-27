@@ -31,10 +31,6 @@ public class ProfileActivity  extends  MenuHandler {
         int imageRes = getResources().getIdentifier("@drawable/cat", null, this.getPackageName());
         imageView.setImageResource(imageRes);
 
-       // getSupportActionBar().hide();
-       // Toolbar toolbar =  findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
-
         greetingsProfile = (TextView)findViewById(R.id.greetingsProfile);
         greetingsProfile.setText("Hello " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
         editProfile = (Button) findViewById(R.id.btnGoToProfile);
@@ -51,37 +47,5 @@ public class ProfileActivity  extends  MenuHandler {
     public void onBackPressed(){
         startActivity(new Intent(ProfileActivity.this, logged_activity.class));
     }
-
-
-
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.home:
-                startActivity(new Intent(this, logged_activity.class));
-                return true;
-            case R.id.user_profile:
-                startActivity(new Intent(this, ProfileActivity.class));
-                return true;
-            case R.id.create_event:
-                // do what you want here
-                return true;
-            case R.id.chat:
-                // do what you want here
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    */
 
 }

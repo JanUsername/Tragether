@@ -72,10 +72,6 @@ public class logged_activity extends  MenuHandler {
         //intent = this.getIntent();
         Log.d("check", getIntent().toString());
 
-
-        //getSupportActionBar().hide();
-       // Toolbar toolbar =  findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
         txt_logged_email.setText("Hello " + getIntent().getStringExtra("email"));
 
         txt_logged_email.setText("Hello " + user.getEmail());
@@ -90,16 +86,6 @@ public class logged_activity extends  MenuHandler {
         startActivity(a);
     }
 
-
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
- */
 
     @Override
     public void onStart(){
