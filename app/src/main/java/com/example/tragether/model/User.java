@@ -13,7 +13,7 @@ public class User {
     private String email;
     private Date birthday;
     private String country;
-    private ArrayList<Interest> interests;
+    private ArrayList<String> interests;
     private String description;
     private Image profilePic;
     private ArrayList<Travel> travels;
@@ -59,11 +59,11 @@ public class User {
         this.country = country;
     }
 
-    public ArrayList<Interest> getInterests() {
+    public ArrayList<String> getInterests() {
         return interests;
     }
 
-    public void setInterests(ArrayList<Interest> interests) {
+    public void setInterests(ArrayList<String> interests) {
         this.interests = interests;
     }
 
