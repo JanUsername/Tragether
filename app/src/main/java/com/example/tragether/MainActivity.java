@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tragether.model.FirebaseUtility;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText user;
     EditText password;
     Button signIn;
+    FirebaseUtility fbu;
 
 
     @Override
@@ -35,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.content_main);
+
+        fbu = FirebaseUtility.getInstance();
+        fbu.getInterests();
+
 
         user = (EditText) findViewById(R.id.eTUsername);
         password = (EditText) findViewById(R.id.eTPassword);

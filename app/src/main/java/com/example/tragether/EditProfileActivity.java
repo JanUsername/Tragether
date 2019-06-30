@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,7 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
     boolean[] checked;
     User appUser = User.getUserInstance();
-    ArrayList<String> interests;
+    public static ArrayList<String> interests ;
     ArrayList<Integer> interestsPos;
     FloatingActionButton intBtn;
     FirebaseUtility fbu;
@@ -42,6 +43,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_edit_profile);
         fbu = FirebaseUtility.getInstance();
+
+
 
         username = (TextView)findViewById(R.id.username);
         username.setText(appUser.getUsername());
@@ -64,25 +67,21 @@ public class EditProfileActivity extends AppCompatActivity {
 
         intBtn = (FloatingActionButton)findViewById(R.id.btnInterests);
 
-        interests = new ArrayList<>();
-        interestsPos = new ArrayList<>();
 
-        interests.add("chill");
-        interests.add("sport");
-        interests.add("culture");
-        interests.add("party");
-        interests.add("music");
-        interests.add("tour");
+        interestsPos = new ArrayList<>();
+        Log.d("getInterests", interests.toString() + " dc 2");
+        Log.d("dio cane", String.valueOf(interests.size()));
 
         checked = new boolean[interests.size()];
         final CharSequence[] cs = interests.toArray(new CharSequence[interests.size()]);
 
+
         intBtn.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  ArrayList<String> a = fbu.getInterests();
                   AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditProfileActivity.this);
                   mBuilder.setTitle("YOUR INTERESTS");
+
                   mBuilder.setMultiChoiceItems(cs, checked, new DialogInterface.OnMultiChoiceClickListener() {
                       @Override
                       public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {

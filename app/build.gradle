@@ -35,6 +35,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:20.1.0'
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

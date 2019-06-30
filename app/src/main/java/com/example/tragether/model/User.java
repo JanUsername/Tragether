@@ -2,13 +2,21 @@ package com.example.tragether.model;
 
 import android.media.Image;
 
+import androidx.lifecycle.LiveData;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class User {
+
+//@Entity(tableName = "user_table")
+public class User extends LiveData<User> {
 
     private static User userInstance = null;
 
+    //@PrimaryKey(autoGenerate = true)
+    private int id;
     private String username;
     private String email;
     private Date birthday;
@@ -26,6 +34,10 @@ public class User {
     public static void setUserInstance(User userInstance) {
         User.userInstance = userInstance;
     }
+
+    public int getId(){return id;}
+
+    public void setId(int id){this.id = id;}
 
     public String getUsername() {
         return username;
@@ -104,6 +116,7 @@ public class User {
 
 
     }
+
 
     public void resetUser(){
         username = null;
