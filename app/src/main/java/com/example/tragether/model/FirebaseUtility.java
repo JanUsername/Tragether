@@ -135,7 +135,7 @@ public void getUser(){
 
                                     User.getInstance().setInterests(result);
                                 }
-                                
+
                             }
 
 
