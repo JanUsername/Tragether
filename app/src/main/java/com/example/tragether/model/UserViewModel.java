@@ -1,23 +1,60 @@
 package com.example.tragether.model;
-
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-public class UserViewModel extends AndroidViewModel {
+import com.example.tragether.UserRepository;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public class UserViewModel extends ViewModel {
+
     private UserRepository repository;
-    LiveData<User> userLiveData;
+    private MutableLiveData<User> userLiveData;
 
-    public UserViewModel(@NonNull Application application) {
+    public void init(){
 
-        super(application);
-        repository = new UserRepository(application);
-        userLiveData = repository.getUser();
+            repository = UserRepository.getInstance();
+            userLiveData = repository.getUser();
+
     }
 
-    public LiveData<User> getUserLiveData(){
+    public LiveData<User> getUser(){
         return userLiveData;
     }
+
+    public void updateUsername(String username){
+        User temp = User.getInstance();
+        temp.setUsername(username);
+        userLiveData.postValue(temp);
+    }
+
+    public void updateBirthday(Date bDay){
+        User temp = User.getInstance();
+        temp.setBirthday(bDay);
+        userLiveData.postValue(temp);
+    }
+
+    public void updateCountry(String country){
+        User temp = User.getInstance();
+        temp.setCountry(country);
+        userLiveData.postValue(temp);
+    }
+
+    public void updateInterests(ArrayList interests){
+        User temp = User.getInstance();
+        temp.setInterests(interests);
+        userLiveData.postValue(temp);
+    }
+
+    public void updateDescription(String description){
+        User temp = User.getInstance();
+        temp.setDescription(description);
+        userLiveData.postValue(temp);
+    }
+
+
+
+
 }

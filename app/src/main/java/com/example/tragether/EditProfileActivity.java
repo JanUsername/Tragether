@@ -3,6 +3,11 @@ package com.example.tragether;
 import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
+import com.example.tragether.model.UserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -27,31 +33,39 @@ public class EditProfileActivity extends AppCompatActivity {
     Spinner countries;
     ArrayList<String> countriesArray = new ArrayList<String>();
     EditText description;
+    EditText bDay;
     AlertDialog.Builder builder;
     boolean[] checked;
-    User appUser = User.getUserInstance();
+    User appUser;
     public static ArrayList<String> interests ;
     ArrayList<Integer> interestsPos;
     FloatingActionButton intBtn;
     FirebaseUtility fbu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_edit_profile);
+        appUser = User.getInstance();
         fbu = FirebaseUtility.getInstance();
 
+        username = findViewById(R.id.username);
+        bDay = findViewById(R.id.bDay);
+        countries = findViewById(R.id.countriesSpinner);
+        description = findViewById(R.id.description);
 
-
-        username = (TextView)findViewById(R.id.username);
         username.setText(appUser.getUsername());
+        bDay.setText(appUser.getBirthday().toString());
+        description.setText(appUser.getDescription());
+        String countryName = appUser.getCountry();
 
-        countries = (Spinner) findViewById(R.id.countriesSpinner);
+
+
+        //Country spinner
         Locale[] locale = Locale.getAvailableLocales();
-
         String country;
         for( Locale loc : locale ){
             country = loc.getDisplayCountry();
@@ -64,17 +78,20 @@ public class EditProfileActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, countriesArray);
         countries.setAdapter(adapter);
+        if(appUser.getCountry() != null){
 
-        intBtn = (FloatingActionButton)findViewById(R.id.btnInterests);
+            int index = adapter.getPosition(countryName);
+            countries.setSelection(index);
+        }
 
+
+        //Interests checkbox
+        intBtn = findViewById(R.id.btnInterests);
 
         interestsPos = new ArrayList<>();
-        Log.d("getInterests", interests.toString() + " dc 2");
-        Log.d("dio cane", String.valueOf(interests.size()));
 
         checked = new boolean[interests.size()];
         final CharSequence[] cs = interests.toArray(new CharSequence[interests.size()]);
-
 
         intBtn.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -100,20 +117,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
           });
 
-
-        description = (EditText)findViewById(R.id.description);
-        description.setText(appUser.getDescription());
-
-
-
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-    }
 
     @Override
     protected void onStop(){

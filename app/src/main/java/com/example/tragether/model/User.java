@@ -27,13 +27,18 @@ public class User extends LiveData<User> {
     private ArrayList<Travel> travels;
     private ArrayList<User> friends;
 
-    public static User getUserInstance() {
+
+
+    public static User getInstance(){
+
+        if(userInstance == null){
+            userInstance = new User();
+        }
+
         return userInstance;
+
     }
 
-    public static void setUserInstance(User userInstance) {
-        User.userInstance = userInstance;
-    }
 
     public int getId(){return id;}
 
@@ -112,11 +117,6 @@ public class User extends LiveData<User> {
     }
 
 
-    private User(){
-
-
-    }
-
 
     public void resetUser(){
         username = null;
@@ -128,16 +128,6 @@ public class User extends LiveData<User> {
         profilePic = null;
         travels = null;
         friends = null;
-
-    }
-
-    public static User getInstance(){
-
-        if(userInstance == null){
-            userInstance = new User();
-        }
-
-        return userInstance;
 
     }
 
