@@ -1,7 +1,6 @@
 package com.example.tragether.model;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import android.util.Log;
 
@@ -13,9 +12,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -34,10 +31,7 @@ public class FirebaseUtility {
 
 
     private FirebaseUtility(){
-
         db = FirebaseFirestore.getInstance();
-
-
     }
 
     public static FirebaseUtility getInstance(){
@@ -125,31 +119,21 @@ public void getUser(){
                                     User.getInstance().setCountry(pair.getValue().toString());
                                 }else if(pair.getKey().toString().equals(INTERESTS)){
                                     Log.d("getUser", "onComplete: in interests");
-
-
                                     ArrayList<String> stuff = (ArrayList<String>) pair.getValue();
                                     while(!stuff.isEmpty()){
                                         result.add(stuff.get(0));
                                         stuff.remove(0);
                                     }
-
                                     User.getInstance().setInterests(result);
                                 }
-
                             }
-
-
                         } else {
                             Log.d("getUser", "No such document");
                         }
-
-
                     } else {
                         Log.d("getUser", "get failed with ", task.getException());
                     }
                 }
             });
-
-
     }
 }

@@ -3,11 +3,8 @@ package com.example.tragether;
 import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
-import com.example.tragether.model.UserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -35,12 +31,13 @@ public class EditProfileActivity extends AppCompatActivity {
     EditText description;
     EditText bDay;
     AlertDialog.Builder builder;
-    boolean[] checked;
+    boolean[] checked = new boolean[interests.size()];
     User appUser;
     public static ArrayList<String> interests ;
     ArrayList<Integer> interestsPos;
     FloatingActionButton intBtn;
     FirebaseUtility fbu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,7 +59,21 @@ public class EditProfileActivity extends AppCompatActivity {
         description.setText(appUser.getDescription());
         String countryName = appUser.getCountry();
 
+        Log.d("interests", ""+appUser.getInterests().isEmpty());
+        ArrayList<String> stuff = new ArrayList<>(appUser.getInterests());
 
+        if(!stuff.isEmpty()){
+
+            for(int i = 0; i < appUser.getInterests().size(); i++){
+                Log.d("interests", "onCreate" + appUser.getInterests().get(i));
+            }
+            while(!stuff.isEmpty()){
+                int index = interests.indexOf(stuff.get(0));
+                stuff.remove(0);
+                checked[index] = true;
+            }
+
+        }
 
         //Country spinner
         Locale[] locale = Locale.getAvailableLocales();
@@ -87,10 +98,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
         //Interests checkbox
         intBtn = findViewById(R.id.btnInterests);
-
         interestsPos = new ArrayList<>();
 
-        checked = new boolean[interests.size()];
+        final boolean[] checkedCopy = checked;
+
+
+        for(int i = 0; i<checked.length; i++){
+            Log.d("checked", "" + checked[i]);
+        }
         final CharSequence[] cs = interests.toArray(new CharSequence[interests.size()]);
 
         intBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +114,7 @@ public class EditProfileActivity extends AppCompatActivity {
                   AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditProfileActivity.this);
                   mBuilder.setTitle("YOUR INTERESTS");
 
-                  mBuilder.setMultiChoiceItems(cs, checked, new DialogInterface.OnMultiChoiceClickListener() {
+                  mBuilder.setMultiChoiceItems(cs, checkedCopy, new DialogInterface.OnMultiChoiceClickListener() {
                       @Override
                       public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
                           //
@@ -110,10 +125,10 @@ public class EditProfileActivity extends AppCompatActivity {
                           }
                       }
                   });
+
                   AlertDialog mDialog = mBuilder.create();
                   mDialog.show();
               }
-
 
           });
 
@@ -125,4 +140,10 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onStop();
         //se esco e ho apportato modifiche non salvate, avviso e richiedo come procedere
     }
+
+    @Override
+    public void onBackPressed(){
+       super.onBackPressed();
+    }
+
 }

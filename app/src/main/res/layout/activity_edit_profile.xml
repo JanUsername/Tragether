@@ -80,21 +80,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/interestsLabel" />
 
-        <EditText
-            android:id="@+id/bDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginLeft="48dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toEndOf="@+id/birthdayLabel"
-            app:layout_constraintTop_toBottomOf="@+id/username" />
+            <EditText
+                android:id="@+id/bDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toEndOf="@+id/birthdayLabel"
+                app:layout_constraintTop_toBottomOf="@+id/username"
+                tools:text="@tools:sample/date/ddmmyy" />
 
         <EditText
             android:id="@+id/username"
@@ -144,10 +143,8 @@
                 android:layout_width="354dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="28dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="2dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
