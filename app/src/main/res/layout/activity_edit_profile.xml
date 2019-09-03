@@ -123,14 +123,12 @@
             app:layout_constraintTop_toBottomOf="@+id/bDay" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="56dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:background="#D9B596"
                 android:text="Save"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -119,12 +119,11 @@ public class User extends LiveData<User> {
 
 
     public void resetUser(){
-        username = null;
-        email = null;
+        username = "";
         birthday = null;
-        country = null;
+        country = "";
         interests = null;
-        description = null;
+        description = "";
         profilePic = null;
         travels = null;
         friends = null;

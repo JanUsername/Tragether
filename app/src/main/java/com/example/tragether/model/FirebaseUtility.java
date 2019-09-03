@@ -6,13 +6,18 @@ import android.util.Log;
 
 import com.example.tragether.EditProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -28,6 +33,7 @@ public class FirebaseUtility {
     private final String BDAY = "birthday";
     private final String COUNTRY = "country";
     private final String INTERESTS = "interests";
+    private final String TAG = "FirebaseUtility";
 
 
     private FirebaseUtility(){
@@ -42,7 +48,7 @@ public class FirebaseUtility {
     }
 
 
-public void getInterests(){
+    public void getInterests(){
 
     DocumentReference interest = db.collection("utility").document("interests");
 
@@ -84,7 +90,7 @@ public void getInterests(){
 
 }
 
-public void getUser(){
+    public void getUser(){
 
     DocumentReference interest = db.collection("users").document(User.getInstance().getEmail());
 
@@ -129,11 +135,37 @@ public void getUser(){
                             }
                         } else {
                             Log.d("getUser", "No such document");
+                            User.getInstance().resetUser();
                         }
                     } else {
                         Log.d("getUser", "get failed with ", task.getException());
                     }
                 }
             });
+    }
+
+    public void saveUser(User user){
+
+        Map<String, Object> docData = new HashMap<>();
+        docData.put(USERNAME, user.getUsername());
+        docData.put(BDAY, new Timestamp(user.getBirthday()));
+        docData.put(COUNTRY, user.getCountry());
+        docData.put(DESCRIPTION, user.getDescription());
+        docData.put(INTERESTS, user.getInterests());
+
+        db.collection("users").document(user.getEmail()).set(docData, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
     }
 }

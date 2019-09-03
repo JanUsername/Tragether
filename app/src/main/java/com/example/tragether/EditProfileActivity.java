@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
@@ -30,7 +33,7 @@ public class EditProfileActivity extends AppCompatActivity {
     ArrayList<String> countriesArray = new ArrayList<String>();
     EditText description;
     EditText bDay;
-    AlertDialog.Builder builder;
+    Button save;
     boolean[] checked = new boolean[interests.size()];
     User appUser;
     public static ArrayList<String> interests ;
@@ -53,29 +56,33 @@ public class EditProfileActivity extends AppCompatActivity {
         bDay = findViewById(R.id.bDay);
         countries = findViewById(R.id.countriesSpinner);
         description = findViewById(R.id.description);
+        save = findViewById(R.id.btnSave);
 
         username.setText(appUser.getUsername());
-        bDay.setText(appUser.getBirthday().toString());
+        if(appUser.getBirthday() == null){
+            bDay.setText("");
+        }else{
+            bDay.setText(appUser.getBirthday().toString());
+        }
         description.setText(appUser.getDescription());
         String countryName = appUser.getCountry();
 
-        Log.d("interests", ""+appUser.getInterests().isEmpty());
-        ArrayList<String> stuff = new ArrayList<>(appUser.getInterests());
+        if(appUser.getInterests() != null){
 
-        if(!stuff.isEmpty()){
+            ArrayList<String> stuff = new ArrayList<>(appUser.getInterests());
 
-            for(int i = 0; i < appUser.getInterests().size(); i++){
-                Log.d("interests", "onCreate" + appUser.getInterests().get(i));
+            if(!stuff.isEmpty()){
+                while(!stuff.isEmpty()){
+                    int index = interests.indexOf(stuff.get(0));
+                    stuff.remove(0);
+                    checked[index] = true;
+                }
+
             }
-            while(!stuff.isEmpty()){
-                int index = interests.indexOf(stuff.get(0));
-                stuff.remove(0);
-                checked[index] = true;
-            }
-
         }
 
         //Country spinner
+        //add also "select a country" in order to know if something has been added??
         Locale[] locale = Locale.getAvailableLocales();
         String country;
         for( Locale loc : locale ){
@@ -86,7 +93,6 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         Collections.sort(countriesArray, String.CASE_INSENSITIVE_ORDER);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, countriesArray);
         countries.setAdapter(adapter);
         if(appUser.getCountry() != null){
@@ -95,13 +101,11 @@ public class EditProfileActivity extends AppCompatActivity {
             countries.setSelection(index);
         }
 
-
         //Interests checkbox
         intBtn = findViewById(R.id.btnInterests);
         interestsPos = new ArrayList<>();
 
         final boolean[] checkedCopy = checked;
-
 
         for(int i = 0; i<checked.length; i++){
             Log.d("checked", "" + checked[i]);
@@ -132,8 +136,33 @@ public class EditProfileActivity extends AppCompatActivity {
 
           });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateUser();
+                fbu.saveUser(appUser);
+
+            }
+        });
+
     }
 
+    private void updateUser() {
+        appUser.setUsername(username.getText().toString());
+        try {
+            appUser.setBirthday(new SimpleDateFormat().parse(bDay.getText().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        appUser.setDescription(description.getText().toString());
+        appUser.setCountry(countries.getSelectedItem().toString());
+        ArrayList<String> toUpdate = new ArrayList<>();
+        for(int i = 0; i < interestsPos.size(); i ++){
+            toUpdate.add(interests.get(interestsPos.get(i)));
+        }
+
+        appUser.setInterests(toUpdate);
+    }
 
     @Override
     protected void onStop(){

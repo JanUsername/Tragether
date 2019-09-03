@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         fbu.getInterests();
 
 
-        user = (EditText) findViewById(R.id.eTUsername);
-        password = (EditText) findViewById(R.id.eTPassword);
+        user = findViewById(R.id.eTUsername);
+        password = findViewById(R.id.eTPassword);
 
         signIn = (Button) findViewById(R.id.btnSignIn);
         signIn.setOnClickListener(new View.OnClickListener() {
