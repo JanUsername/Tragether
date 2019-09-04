@@ -147,11 +147,27 @@ public class FirebaseUtility {
     public void saveUser(User user){
 
         Map<String, Object> docData = new HashMap<>();
-        docData.put(USERNAME, user.getUsername());
-        docData.put(BDAY, new Timestamp(user.getBirthday()));
-        docData.put(COUNTRY, user.getCountry());
-        docData.put(DESCRIPTION, user.getDescription());
-        docData.put(INTERESTS, user.getInterests());
+
+        if(user.getUsername() != null){
+            docData.put(USERNAME, user.getUsername());
+        }
+
+        if(user.getBirthday() != null){
+            docData.put(BDAY, new Timestamp(user.getBirthday()));
+        }
+
+        if(user.getCountry() != null) {
+            docData.put(COUNTRY, user.getCountry());
+        }
+
+        if(user.getDescription() != null) {
+            docData.put(DESCRIPTION, user.getDescription());
+        }
+
+        if(!user.getInterests().isEmpty() || user.getInterests() != null) {
+            docData.put(INTERESTS, user.getInterests());
+        }
+
 
         db.collection("users").document(user.getEmail()).set(docData, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
