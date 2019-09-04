@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,12 +22,17 @@ public class logged_activity extends  MenuHandler {
     TextView txt_logged_email;
     Button logOut;
     Button goToProfile;
-    User appUser = User.getInstance();
+    User appUser;
+    FirebaseUtility fbu;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        appUser = User.getInstance();
+        fbu = FirebaseUtility.getInstance();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -38,8 +44,10 @@ public class logged_activity extends  MenuHandler {
         txt_logged_email = findViewById(textView);
         logOut = findViewById(R.id.btnLogOut);
 
-
         appUser.setEmail(user.getEmail());
+
+        fbu.getUser();
+
         txt_logged_email = (TextView)findViewById(textView);
         logOut = (Button)findViewById(R.id.btnLogOut);
 
@@ -75,6 +83,9 @@ public class logged_activity extends  MenuHandler {
         txt_logged_email.setText("Hello " + getIntent().getStringExtra("email"));
 
         txt_logged_email.setText("Hello " + user.getEmail());
+
+        UserRepository.getInstance();
+
 
     }
 

@@ -2,41 +2,24 @@ package com.example.tragether;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 import android.util.Log;
 import android.view.View;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.Api;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     EditText user;
     EditText password;
     Button signIn;
+    FirebaseUtility fbu;
 
 
     @Override
@@ -55,8 +39,12 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.content_main);
 
-        user = (EditText) findViewById(R.id.eTUsername);
-        password = (EditText) findViewById(R.id.eTPassword);
+        fbu = FirebaseUtility.getInstance();
+        fbu.getInterests();
+
+
+        user = findViewById(R.id.eTUsername);
+        password = findViewById(R.id.eTPassword);
 
         signIn = (Button) findViewById(R.id.btnSignIn);
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -81,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
+
             Intent intent = new Intent(MainActivity.this, logged_activity.class);
 
             Log.d("login", FirebaseAuth.getInstance().getCurrentUser().toString());
-            //intent.putExtra("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
             Log.d("login", FirebaseAuth.getInstance().getCurrentUser().getEmail());
             startActivity(intent);
 

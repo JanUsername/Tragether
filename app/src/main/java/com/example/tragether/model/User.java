@@ -2,30 +2,47 @@ package com.example.tragether.model;
 
 import android.media.Image;
 
+import androidx.lifecycle.LiveData;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class User {
+
+//@Entity(tableName = "user_table")
+public class User extends LiveData<User> {
 
     private static User userInstance = null;
 
+    //@PrimaryKey(autoGenerate = true)
+    private int id;
     private String username;
     private String email;
     private Date birthday;
     private String country;
-    private ArrayList<Interest> interests;
+    private ArrayList<String> interests;
     private String description;
     private Image profilePic;
     private ArrayList<Travel> travels;
     private ArrayList<User> friends;
 
-    public static User getUserInstance() {
+
+
+    public static User getInstance(){
+
+        if(userInstance == null){
+            userInstance = new User();
+        }
+
         return userInstance;
+
     }
 
-    public static void setUserInstance(User userInstance) {
-        User.userInstance = userInstance;
-    }
+
+    public int getId(){return id;}
+
+    public void setId(int id){this.id = id;}
 
     public String getUsername() {
         return username;
@@ -59,11 +76,11 @@ public class User {
         this.country = country;
     }
 
-    public ArrayList<Interest> getInterests() {
+    public ArrayList<String> getInterests() {
         return interests;
     }
 
-    public void setInterests(ArrayList<Interest> interests) {
+    public void setInterests(ArrayList<String> interests) {
         this.interests = interests;
     }
 
@@ -100,31 +117,16 @@ public class User {
     }
 
 
-    private User(){
-
-
-    }
 
     public void resetUser(){
-        username = null;
-        email = null;
+        username = "";
         birthday = null;
-        country = null;
+        country = "";
         interests = null;
-        description = null;
+        description = "";
         profilePic = null;
         travels = null;
         friends = null;
-
-    }
-
-    public static User getInstance(){
-
-        if(userInstance == null){
-            userInstance = new User();
-        }
-
-        return userInstance;
 
     }
 
