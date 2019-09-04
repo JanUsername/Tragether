@@ -3,8 +3,6 @@ package com.example.tragether;
 import android.content.DialogInterface;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,15 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Locale;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -38,6 +35,7 @@ public class EditProfileActivity extends AppCompatActivity {
     User appUser;
     public static ArrayList<String> interests ;
     ArrayList<Integer> interestsPos;
+    ArrayList<String> toUpdate = new ArrayList<>();
     FloatingActionButton intBtn;
     FirebaseUtility fbu;
 
@@ -59,10 +57,13 @@ public class EditProfileActivity extends AppCompatActivity {
         save = findViewById(R.id.btnSave);
 
         username.setText(appUser.getUsername());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         if(appUser.getBirthday() == null){
             bDay.setText("");
         }else{
-            bDay.setText(appUser.getBirthday().toString());
+            Date date = appUser.getBirthday();
+            bDay.setText(dateFormat.format(date));
         }
         description.setText(appUser.getDescription());
         String countryName = appUser.getCountry();
@@ -124,14 +125,26 @@ public class EditProfileActivity extends AppCompatActivity {
                           //
                           if (isChecked) {
                               interestsPos.add(position);
+
+
                           } else {
                               interestsPos.remove((Integer.valueOf(position)));
                           }
+
+
+                          for(int i = 0; i<checkedCopy.length; i++){
+                              Log.d("checkedCopy", "onClick: " + checkedCopy[i]);
+                              if(checkedCopy[i]){
+                                  toUpdate.add(interests.get(i));
+                              }
+                          }
+
                       }
                   });
 
                   AlertDialog mDialog = mBuilder.create();
                   mDialog.show();
+
               }
 
           });
@@ -150,17 +163,13 @@ public class EditProfileActivity extends AppCompatActivity {
     private void updateUser() {
         appUser.setUsername(username.getText().toString());
         try {
-            appUser.setBirthday(new SimpleDateFormat().parse(bDay.getText().toString()));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            appUser.setBirthday(dateFormat.parse(bDay.getText().toString()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         appUser.setDescription(description.getText().toString());
         appUser.setCountry(countries.getSelectedItem().toString());
-        ArrayList<String> toUpdate = new ArrayList<>();
-        for(int i = 0; i < interestsPos.size(); i ++){
-            toUpdate.add(interests.get(interestsPos.get(i)));
-        }
-
         appUser.setInterests(toUpdate);
     }
 
