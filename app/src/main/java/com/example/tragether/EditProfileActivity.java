@@ -135,7 +135,9 @@ public class EditProfileActivity extends AppCompatActivity {
                           for(int i = 0; i<checkedCopy.length; i++){
                               Log.d("checkedCopy", "onClick: " + checkedCopy[i]);
                               if(checkedCopy[i]){
-                                  toUpdate.add(interests.get(i));
+                                  if(!toUpdate.contains(interests.get(i))) {
+                                      toUpdate.add(interests.get(i));
+                                  }
                               }
                           }
 
