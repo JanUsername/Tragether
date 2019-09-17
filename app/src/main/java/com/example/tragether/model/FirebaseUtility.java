@@ -13,8 +13,8 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.SetOptions;
-import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,11 +33,12 @@ public class FirebaseUtility {
     private final String BDAY = "birthday";
     private final String COUNTRY = "country";
     private final String INTERESTS = "interests";
+    private final String TIMESTAMP = "timestamp";
     private final String TAG = "FirebaseUtility";
 
 
     private FirebaseUtility(){
-        db = FirebaseFirestore.getInstance();
+       db =  FirebaseFirestore.getInstance();
     }
 
     public static FirebaseUtility getInstance(){
@@ -117,6 +118,10 @@ public class FirebaseUtility {
                                     Timestamp ts = new Timestamp(((Timestamp)pair.getValue()).getSeconds(), ((Timestamp)pair.getValue()).getNanoseconds());
                                     Log.d("getUser", "onComplete: in birthday " + ts.toDate().toString());
                                     User.getInstance().setBirthday(ts.toDate());
+                                }else if(pair.getKey().toString().equals(TIMESTAMP)){
+                                    Timestamp ts = new Timestamp(((Timestamp)pair.getValue()).getSeconds(), ((Timestamp)pair.getValue()).getNanoseconds());
+                                    Log.d("getUser", "onComplete: in timestamp " + ts.toDate().toString());
+                                    User.getInstance().setTimestamp(ts.toDate());
                                 }else if(pair.getKey().toString().equals(DESCRIPTION)){
                                     Log.d("getUser", "onComplete: in description");
                                     User.getInstance().setDescription(pair.getValue().toString());
@@ -166,6 +171,10 @@ public class FirebaseUtility {
 
         if(!user.getInterests().isEmpty() || user.getInterests() != null) {
             docData.put(INTERESTS, user.getInterests());
+        }
+
+        if(user.getTimestamp() != null) {
+            docData.put(TIMESTAMP, new Timestamp(user.getTimestamp()));
         }
 
 

@@ -13,8 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.tragether.database.SupportDataBase;
+import com.example.tragether.database.UserDao;
 import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
+import com.example.tragether.model.Utility;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +42,9 @@ public class EditProfileActivity extends AppCompatActivity {
     ArrayList<String> toUpdate = new ArrayList<>();
     FloatingActionButton intBtn;
     FirebaseUtility fbu;
+    Utility utility;
+    private UserDao dao;
+    private SupportDataBase sdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,11 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         appUser = User.getInstance();
         fbu = FirebaseUtility.getInstance();
+        utility = new Utility();
+
+        sdb = SupportDataBase.getInstance(getApplicationContext());
+        dao = sdb.userDao();
+
 
         username = findViewById(R.id.username);
         bDay = findViewById(R.id.bDay);
@@ -155,7 +167,12 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateUser();
-                fbu.saveUser(appUser);
+
+                //I save the data ONLY if there is internet connection, otherwise I could have
+                //inconsistency problems
+                if(utility.isNetworkAvailable(getApplicationContext())){
+                    fbu.saveUser(appUser);
+                }
 
             }
         });
@@ -173,6 +190,16 @@ public class EditProfileActivity extends AppCompatActivity {
         appUser.setDescription(description.getText().toString());
         appUser.setCountry(countries.getSelectedItem().toString());
         appUser.setInterests(toUpdate);
+        appUser.setTimestamp(new Date(System.currentTimeMillis()));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dao.update(appUser);
+            }
+        }).start();
+
+
     }
 
     @Override

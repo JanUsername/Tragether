@@ -2,7 +2,8 @@ package com.example.tragether.model;
 
 import android.media.Image;
 
-import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,22 +11,29 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-//@Entity(tableName = "user_table")
-public class User extends LiveData<User> {
+@Entity(tableName = "user_table")
+public class User {
 
     private static User userInstance = null;
 
-    //@PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    private @NonNull String email;
+    @ColumnInfo(name = "username")
     private String username;
-    private String email;
+    @ColumnInfo(name = "birthday")
     private Date birthday;
+    @ColumnInfo(name = "country")
     private String country;
+    @ColumnInfo(name = "interests")
     private ArrayList<String> interests;
+    @ColumnInfo(name = "description")
     private String description;
-    private Image profilePic;
+    @ColumnInfo(name = "timestamp")
+    private Date timestamp;
+
+    /*private Image profilePic;
     private ArrayList<Travel> travels;
-    private ArrayList<User> friends;
+    private ArrayList<User> friends;*/
 
 
 
@@ -38,11 +46,6 @@ public class User extends LiveData<User> {
         return userInstance;
 
     }
-
-
-    public int getId(){return id;}
-
-    public void setId(int id){this.id = id;}
 
     public String getUsername() {
         return username;
@@ -92,6 +95,14 @@ public class User extends LiveData<User> {
         this.description = description;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+/*
     public Image getProfilePic() {
         return profilePic;
     }
@@ -115,7 +126,7 @@ public class User extends LiveData<User> {
     public void setFriends(ArrayList<User> friends) {
         this.friends = friends;
     }
-
+*/
 
 
     public void resetUser(){
@@ -124,9 +135,9 @@ public class User extends LiveData<User> {
         country = "";
         interests = null;
         description = "";
-        profilePic = null;
-        travels = null;
-        friends = null;
+        //profilePic = null;
+        //travels = null;
+        //friends = null;
 
     }
 

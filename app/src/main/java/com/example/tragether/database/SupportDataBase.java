@@ -1,4 +1,4 @@
-/*
+
 package com.example.tragether.database;
 
 import android.content.Context;
@@ -8,22 +8,24 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.tragether.model.User;
 
 
 @Database(entities = {User.class}, version = 1, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class SupportDataBase extends RoomDatabase {
 
     private static SupportDataBase instance;
-
+    private static final String DB = "support_database";
     public abstract UserDao userDao();
 
-    public static synchronized SupportDataBase getInstance(Context context) {
+    public static SupportDataBase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    SupportDataBase.class, "support_database")
+                    SupportDataBase.class, DB)
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
@@ -40,4 +42,4 @@ public abstract class SupportDataBase extends RoomDatabase {
     };
 
 }
-*/
+

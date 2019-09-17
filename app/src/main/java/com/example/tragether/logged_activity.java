@@ -1,5 +1,6 @@
 package com.example.tragether;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.tragether.database.SupportDataBase;
 import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +26,11 @@ public class logged_activity extends  MenuHandler {
     Button goToProfile;
     User appUser;
     FirebaseUtility fbu;
-
+    SupportDataBase ldb;
+    /*
+    internet check
+    https://stackoverflow.com/questions/4238921/detect-whether-there-is-an-internet-connection-available-on-android
+     */
 
 
     @Override
@@ -38,6 +44,7 @@ public class logged_activity extends  MenuHandler {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        ldb = SupportDataBase.getInstance(getApplicationContext());
 
         setContentView(R.layout.activity_logged_activity);
 
@@ -66,8 +73,6 @@ public class logged_activity extends  MenuHandler {
 
         goToProfile = findViewById(R.id.btnGoToProfile);
 
-        goToProfile = (Button)findViewById(R.id.btnGoToProfile);
-
         goToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,15 +82,7 @@ public class logged_activity extends  MenuHandler {
         });
 
 
-        //intent = this.getIntent();
-        Log.d("check", getIntent().toString());
-
-        txt_logged_email.setText("Hello " + getIntent().getStringExtra("email"));
-
         txt_logged_email.setText("Hello " + user.getEmail());
-
-        UserRepository.getInstance();
-
 
     }
 
