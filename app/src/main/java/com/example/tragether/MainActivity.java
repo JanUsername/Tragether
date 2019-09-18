@@ -53,13 +53,12 @@ public class MainActivity extends AppCompatActivity {
         utility = new Utility(getApplicationContext());
         sdb = SupportDataBase.getInstance(getApplicationContext());
         dao = sdb.userDao();
-        fbu.getInterests();
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
 
-            appUser.setEmail(fbUser.getEmail());
-            utility.userCreation(getApplicationContext());
+            /*appUser.setEmail(fbUser.getEmail());
+            utility.userCreation(getApplicationContext());*/
 
             Intent intent = new Intent(MainActivity.this, logged_activity.class);
             startActivity(intent);
@@ -77,9 +76,8 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    appUser.setEmail(fbUser.getEmail());
-                                    utility.userCreation(getApplicationContext());
                                     startActivity(new Intent(MainActivity.this, logged_activity.class));
+
                                 } else {
                                     Toast.makeText(MainActivity.this, task.getException().getMessage(),
                                             Toast.LENGTH_LONG).show();
@@ -89,9 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
 

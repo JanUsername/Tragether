@@ -1,6 +1,6 @@
 package com.example.tragether.model;
 
-class Destination {
+class Location {
 
     private String country;
     private String town;

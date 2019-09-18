@@ -11,6 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.tragether.model.Event;
 import com.example.tragether.model.User;
 
 
@@ -21,6 +22,8 @@ public abstract class SupportDataBase extends RoomDatabase {
     private static SupportDataBase instance;
     private static final String DB = "support_database";
     public abstract UserDao userDao();
+    public abstract TravelDao travelDao();
+    public abstract EventDao eventDao();
 
     public static SupportDataBase getInstance(Context context) {
         if (instance == null) {

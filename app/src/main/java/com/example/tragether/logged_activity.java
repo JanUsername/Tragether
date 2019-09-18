@@ -32,12 +32,10 @@ public class logged_activity extends  MenuHandler {
     SupportDataBase sdb;
     UserDao dao;
     Utility utility;
+
     /*
-    internet check
-    https://stackoverflow.com/questions/4238921/detect-whether-there-is-an-internet-connection-available-on-android
+    In this activity we will show a recycle view for the suggested events
      */
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +43,16 @@ public class logged_activity extends  MenuHandler {
         appUser = User.getInstance();
         fbu = FirebaseUtility.getInstance();
 
+
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         utility = new Utility(getApplicationContext());
         sdb = SupportDataBase.getInstance(getApplicationContext());
         dao = sdb.userDao();
+
+        fbu.getInterests();
 
 
         setContentView(R.layout.activity_logged_activity);
@@ -99,15 +100,19 @@ public class logged_activity extends  MenuHandler {
     public void onStart(){
         super.onStart();
 
-        Log.d("logged", appUser.getEmail());
+        //Log.d("logged", appUser.getEmail());
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                appUser.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                utility.userCreation(getApplicationContext());
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 txt_logged_email.setText("Hello " + User.getInstance().getUsername());
             }
         }).start();

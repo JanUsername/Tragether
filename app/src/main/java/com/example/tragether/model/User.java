@@ -38,6 +38,8 @@ public class User {
     private ArrayList<Travel> travels;
     @Ignore
     private ArrayList<User> friends;
+    @Ignore
+    private ArrayList<Integer> eventID
 
 */
 
