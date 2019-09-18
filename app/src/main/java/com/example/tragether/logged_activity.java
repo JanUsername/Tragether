@@ -3,6 +3,7 @@ package com.example.tragether;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -58,32 +59,8 @@ public class logged_activity extends  MenuHandler {
         txt_logged_email = findViewById(textView);
         logOut = findViewById(R.id.btnLogOut);
 
-        appUser.setEmail(user.getEmail());
-
-
-
-        if(utility.isNetworkAvailable(getApplicationContext())){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    utility.buildUser();
-                }
-            }).start();
-
-        }else{
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    User.setUser(dao.loadUser(appUser.getEmail()));
-                }
-            }).start();
-
-        }
-
-
         txt_logged_email = findViewById(textView);
         logOut = findViewById(R.id.btnLogOut);
-
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +75,6 @@ public class logged_activity extends  MenuHandler {
         });
 
         goToProfile = findViewById(R.id.btnGoToProfile);
-
         goToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,8 +83,6 @@ public class logged_activity extends  MenuHandler {
             }
         });
 
-
-        txt_logged_email.setText("Hello " + user.getEmail());
 
     }
 
@@ -126,6 +100,18 @@ public class logged_activity extends  MenuHandler {
         super.onStart();
 
         Log.d("logged", appUser.getEmail());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                txt_logged_email.setText("Hello " + User.getInstance().getUsername());
+            }
+        }).start();
+
     }
 
 }

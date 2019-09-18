@@ -25,6 +25,26 @@ public class Utility {
         dao = sdb.userDao();
     }
 
+    public void userCreation(Context context){
+        if(isNetworkAvailable(context)){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    buildUser();
+                }
+            }).start();
+
+        }else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    User.setUser(dao.loadUser(User.getInstance().getEmail()));
+                }
+            }).start();
+
+        }
+    }
+
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -41,7 +61,7 @@ public class Utility {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(990);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -14,21 +14,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.tragether.database.SupportDataBase;
+import com.example.tragether.database.UserDao;
 import com.example.tragether.model.FirebaseUtility;
+import com.example.tragether.model.User;
+import com.example.tragether.model.Utility;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
-
 
     FirebaseAuth mAuth;
     EditText user;
     EditText password;
     Button signIn;
     FirebaseUtility fbu;
+    User appUser;
+    SupportDataBase sdb;
+    UserDao dao;
+    Utility utility;
+    FirebaseUser fbUser;
 
 
     @Override
@@ -39,8 +48,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.content_main);
 
         fbu = FirebaseUtility.getInstance();
+        fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        appUser = User.getInstance();
+        utility = new Utility(getApplicationContext());
+        sdb = SupportDataBase.getInstance(getApplicationContext());
+        dao = sdb.userDao();
         fbu.getInterests();
+        mAuth = FirebaseAuth.getInstance();
 
+        if (mAuth.getCurrentUser() != null) {
+
+            appUser.setEmail(fbUser.getEmail());
+            utility.userCreation(getApplicationContext());
+
+            Intent intent = new Intent(MainActivity.this, logged_activity.class);
+            startActivity(intent);
+        }
 
         user = findViewById(R.id.eTUsername);
         password = findViewById(R.id.eTPassword);
@@ -54,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    appUser.setEmail(fbUser.getEmail());
+                                    utility.userCreation(getApplicationContext());
                                     startActivity(new Intent(MainActivity.this, logged_activity.class));
                                 } else {
                                     Toast.makeText(MainActivity.this, task.getException().getMessage(),
@@ -61,21 +86,13 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
-
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
 
-            Intent intent = new Intent(MainActivity.this, logged_activity.class);
 
-            Log.d("login", FirebaseAuth.getInstance().getCurrentUser().toString());
-            Log.d("login", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-            startActivity(intent);
-
-        }
 
 
     }
