@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.tragether.database.SupportDataBase;
+import com.example.tragether.database.UserDao;
 import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.User;
+import com.example.tragether.model.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -26,7 +28,9 @@ public class logged_activity extends  MenuHandler {
     Button goToProfile;
     User appUser;
     FirebaseUtility fbu;
-    SupportDataBase ldb;
+    SupportDataBase sdb;
+    UserDao dao;
+    Utility utility;
     /*
     internet check
     https://stackoverflow.com/questions/4238921/detect-whether-there-is-an-internet-connection-available-on-android
@@ -44,7 +48,10 @@ public class logged_activity extends  MenuHandler {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        ldb = SupportDataBase.getInstance(getApplicationContext());
+        utility = new Utility(getApplicationContext());
+        sdb = SupportDataBase.getInstance(getApplicationContext());
+        dao = sdb.userDao();
+
 
         setContentView(R.layout.activity_logged_activity);
 
@@ -53,10 +60,29 @@ public class logged_activity extends  MenuHandler {
 
         appUser.setEmail(user.getEmail());
 
-        fbu.getUser();
 
-        txt_logged_email = (TextView)findViewById(textView);
-        logOut = (Button)findViewById(R.id.btnLogOut);
+
+        if(utility.isNetworkAvailable(getApplicationContext())){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    utility.buildUser();
+                }
+            }).start();
+
+        }else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    User.setUser(dao.loadUser(appUser.getEmail()));
+                }
+            }).start();
+
+        }
+
+
+        txt_logged_email = findViewById(textView);
+        logOut = findViewById(R.id.btnLogOut);
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override

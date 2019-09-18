@@ -5,6 +5,7 @@ import android.media.Image;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Date;
 @Entity(tableName = "user_table")
 public class User {
 
-    private static User userInstance = null;
+    public static User userInstance = null;
 
     @PrimaryKey
     private @NonNull String email;
@@ -30,12 +31,15 @@ public class User {
     private String description;
     @ColumnInfo(name = "timestamp")
     private Date timestamp;
-
-    /*private Image profilePic;
+/*
+    @Ignore
+    private Image profilePic;
+    @Ignore
     private ArrayList<Travel> travels;
-    private ArrayList<User> friends;*/
+    @Ignore
+    private ArrayList<User> friends;
 
-
+*/
 
     public static User getInstance(){
 
@@ -125,9 +129,7 @@ public class User {
 
     public void setFriends(ArrayList<User> friends) {
         this.friends = friends;
-    }
-*/
-
+    }*/
 
     public void resetUser(){
         username = "";
@@ -135,10 +137,14 @@ public class User {
         country = "";
         interests = null;
         description = "";
-        //profilePic = null;
-        //travels = null;
-        //friends = null;
+       // profilePic = null;
+       // travels = null;
+       // friends = null;
 
+    }
+
+    public static void setUser(User user){
+        userInstance = user;
     }
 
 }

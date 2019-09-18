@@ -9,6 +9,7 @@ import androidx.room.Update;
 import androidx.room.OnConflictStrategy;
 import com.example.tragether.model.User;
 
+import java.util.Date;
 
 
 @Dao
@@ -26,6 +27,8 @@ public interface UserDao {
     @Delete
     void delete(User user);
 
+    @Query("SELECT timestamp FROM user_table WHERE email LIKE :uEmail")
+    Date getTimestamp(String uEmail);
 
 
 }

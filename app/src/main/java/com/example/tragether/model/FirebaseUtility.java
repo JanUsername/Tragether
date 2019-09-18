@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,7 +36,6 @@ public class FirebaseUtility {
     private final String INTERESTS = "interests";
     private final String TIMESTAMP = "timestamp";
     private final String TAG = "FirebaseUtility";
-
 
     private FirebaseUtility(){
        db =  FirebaseFirestore.getInstance();
@@ -93,9 +93,9 @@ public class FirebaseUtility {
 
     public void getUser(){
 
-    DocumentReference interest = db.collection("users").document(User.getInstance().getEmail());
+    DocumentReference user = db.collection("users").document(User.getInstance().getEmail());
 
-    interest.get()
+    user.get()
             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -147,6 +147,41 @@ public class FirebaseUtility {
                     }
                 }
             });
+    }
+
+
+    public void getTimestamp(){
+
+        DocumentReference ts = db.collection("users").document(User.getInstance().getEmail());
+        ts.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String, Object> dbRes;
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        dbRes = document.getData();
+                        Iterator it = dbRes.entrySet().iterator();
+                        while(it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            if (pair.getKey().toString().equals(TIMESTAMP)) {
+                                Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
+                                Log.d("getUser", "onComplete: in timestamp " + ts.toDate().toString());
+                                Date tempTs = ts.toDate();
+
+                                Utility.tempCloud = tempTs;
+                                Log.d("timestampBuildUser", "onComplete: " + tempTs);
+                            }
+                        }
+                    } else {
+                        Log.d("getInterests", "No such document");
+                    }
+                } else {
+                    Log.d("getInterests", "get failed with ", task.getException());
+                }
+            }
+        });
+
     }
 
     public void saveUser(User user){

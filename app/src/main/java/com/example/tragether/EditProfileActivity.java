@@ -14,15 +14,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.tragether.database.SupportDataBase;
-import com.example.tragether.database.UserDao;
-import com.example.tragether.model.FirebaseUtility;
-import com.example.tragether.model.User;
-import com.example.tragether.model.Utility;
+import com.example.tragether.database.*;
+import com.example.tragether.model.*;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
@@ -56,7 +56,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         appUser = User.getInstance();
         fbu = FirebaseUtility.getInstance();
-        utility = new Utility();
+        utility = new Utility(getApplicationContext());
 
         sdb = SupportDataBase.getInstance(getApplicationContext());
         dao = sdb.userDao();
@@ -173,6 +173,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 if(utility.isNetworkAvailable(getApplicationContext())){
                     fbu.saveUser(appUser);
                 }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dao.delete(appUser);
+                        dao.insert(appUser);
+                    }
+                }).start();
 
             }
         });
@@ -190,15 +197,7 @@ public class EditProfileActivity extends AppCompatActivity {
         appUser.setDescription(description.getText().toString());
         appUser.setCountry(countries.getSelectedItem().toString());
         appUser.setInterests(toUpdate);
-        appUser.setTimestamp(new Date(System.currentTimeMillis()));
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                dao.update(appUser);
-            }
-        }).start();
-
+        appUser.setTimestamp(Calendar.getInstance().getTime());
 
     }
 
