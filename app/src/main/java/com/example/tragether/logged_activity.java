@@ -21,6 +21,7 @@ public class logged_activity extends  MenuHandler {
     TextView txt_logged_email;
     Button logOut;
     Button goToProfile;
+    Button addTravel;
     User appUser;
     FirebaseUtility fbu;
     SupportDataBase sdb;
@@ -60,9 +61,7 @@ public class logged_activity extends  MenuHandler {
                 FirebaseAuth.getInstance().signOut();
                 appUser.resetUser();
 
-                Intent intent = new Intent(logged_activity.this, MainActivity.class);
-
-                startActivity(intent);
+                startActivity(new Intent(logged_activity.this, MainActivity.class));
             }
         });
 
@@ -72,6 +71,16 @@ public class logged_activity extends  MenuHandler {
             public void onClick(View v) {
 
                 startActivity(new Intent(logged_activity.this, ProfileActivity.class));
+            }
+        });
+
+        addTravel = findViewById(R.id.addTravel);
+        addTravel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(logged_activity.this, TravelActivity.class));
+
             }
         });
 

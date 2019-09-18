@@ -47,6 +47,7 @@ public class TravelActivity extends AppCompatActivity {
         sdb = SupportDataBase.getInstance(getApplicationContext());
         travelDao = sdb.travelDao();
 
+        countries = findViewById(R.id.countriesTSpinner);
         Locale[] locale = Locale.getAvailableLocales();
         String country;
         for( Locale loc : locale ){

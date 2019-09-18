@@ -7,7 +7,7 @@ import java.util.Date;
 public class Travel {
 
     @PrimaryKey(autoGenerate = true)
-
+    private int id;
     @ColumnInfo(name = "country")
     private String country;
     @ColumnInfo(name = "town")
@@ -17,6 +17,10 @@ public class Travel {
     @ColumnInfo(name = "end")
     private Date end;
 
+
+    public int getId(){return id;}
+
+    public void setId(int id) { this.id = id;}
 
     public String getCountry() {
         return country;

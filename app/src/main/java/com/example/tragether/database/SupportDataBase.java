@@ -12,10 +12,11 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.tragether.model.Event;
+import com.example.tragether.model.Travel;
 import com.example.tragether.model.User;
 
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Travel.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class SupportDataBase extends RoomDatabase {
 
