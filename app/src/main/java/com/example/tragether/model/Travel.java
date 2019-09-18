@@ -1,9 +1,6 @@
 package com.example.tragether.model;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
+import androidx.room.*;
 import java.util.Date;
 
 @Entity(tableName = "travels_table")

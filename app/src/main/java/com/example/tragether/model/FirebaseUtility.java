@@ -5,21 +5,11 @@ import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.example.tragether.EditProfileActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.*;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.*;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class FirebaseUtility {
 
@@ -35,6 +25,9 @@ public class FirebaseUtility {
     private final String INTERESTS = "interests";
     private final String TIMESTAMP = "timestamp";
     private final String TAG = "FirebaseUtility";
+    private final String TOWN = "town";
+    private final String START = "start";
+    private final String END = "end";
 
     private FirebaseUtility(){
        db =  FirebaseFirestore.getInstance();
@@ -148,7 +141,6 @@ public class FirebaseUtility {
             });
     }
 
-
     public void getTimestamp(){
 
         DocumentReference ts = db.collection("users").document(User.getInstance().getEmail());
@@ -213,6 +205,44 @@ public class FirebaseUtility {
 
 
         db.collection("users").document(user.getEmail()).set(docData, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
+    }
+
+    public void saveTravel(Travel travel){
+
+        Map<String, Object> docData = new HashMap<>();
+
+        if(travel.getCountry() != null){
+            docData.put(COUNTRY, travel.getCountry());
+        }
+
+        if(travel.getTown() != null) {
+            docData.put(TOWN, travel.getTown());
+        }
+
+        if(travel.getStart() != null){
+            docData.put(START, new Timestamp(travel.getStart()));
+        }
+        if(travel.getEnd() != null){
+            docData.put(END, new Timestamp(travel.getEnd()));
+        }
+
+
+        db.collection("users").document(User.getInstance().getEmail())
+                .collection("travels").document(travel.getStart().toString()).
+                set(docData, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

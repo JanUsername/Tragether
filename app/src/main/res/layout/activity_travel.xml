@@ -27,6 +27,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Spinner
+            android:id="@+id/countriesTSpinner"
+            android:layout_width="213dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/cityLabel"
             android:layout_width="wrap_content"
@@ -39,29 +48,87 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/countryTLabel" />
 
+        <EditText
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="112dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toEndOf="@+id/cityLabel"
+            app:layout_constraintTop_toBottomOf="@+id/countriesTSpinner" />
+
         <TextView
             android:id="@+id/startTDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="164dp"
+            android:layout_marginTop="132dp"
             android:text="@string/startDay"
             android:textColor="#D9B596"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cityLabel" />
 
+        <EditText
+            android:id="@+id/sTDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="112dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.361"
+            app:layout_constraintStart_toEndOf="@+id/startTDay"
+            app:layout_constraintTop_toBottomOf="@+id/city"
+            tools:text="@tools:sample/date/ddmmyy" />
+
         <TextView
             android:id="@+id/endTDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="132dp"
             android:text="@string/endDay"
             android:textColor="#D9B596"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/startTDay" />
+
+        <EditText
+            android:id="@+id/eTDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="112dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.361"
+            app:layout_constraintStart_toEndOf="@+id/endTDay"
+            app:layout_constraintTop_toBottomOf="@+id/sTDay"
+            tools:text="@tools:sample/date/ddmmyy" />
+
+        <Button
+            android:id="@+id/btnTSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="8dp"
+            android:background="#D9B596"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/endTDay" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

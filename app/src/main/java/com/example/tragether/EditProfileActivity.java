@@ -21,11 +21,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
+
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -114,54 +111,6 @@ public class EditProfileActivity extends AppCompatActivity {
             countries.setSelection(index);
         }
 
-        //Interests checkbox
-        intBtn = findViewById(R.id.btnInterests);
-        interestsPos = new ArrayList<>();
-
-        final boolean[] checkedCopy = checked;
-
-        for(int i = 0; i<checked.length; i++){
-            Log.d("checked", "" + checked[i]);
-        }
-        final CharSequence[] cs = interests.toArray(new CharSequence[interests.size()]);
-
-        intBtn.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditProfileActivity.this);
-                  mBuilder.setTitle("YOUR INTERESTS");
-
-                  mBuilder.setMultiChoiceItems(cs, checkedCopy, new DialogInterface.OnMultiChoiceClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                          //
-                          if (isChecked) {
-                              interestsPos.add(position);
-
-
-                          } else {
-                              interestsPos.remove((Integer.valueOf(position)));
-                          }
-
-
-                          for(int i = 0; i<checkedCopy.length; i++){
-                              Log.d("checkedCopy", "onClick: " + checkedCopy[i]);
-                              if(checkedCopy[i]){
-                                  if(!toUpdate.contains(interests.get(i))) {
-                                      toUpdate.add(interests.get(i));
-                                  }
-                              }
-                          }
-
-                      }
-                  });
-
-                  AlertDialog mDialog = mBuilder.create();
-                  mDialog.show();
-
-              }
-
-          });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +148,60 @@ public class EditProfileActivity extends AppCompatActivity {
         appUser.setInterests(toUpdate);
         appUser.setTimestamp(Calendar.getInstance().getTime());
 
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        //Interests checkbox
+        intBtn = findViewById(R.id.btnInterests);
+        interestsPos = new ArrayList<>();
+
+        final boolean[] checkedCopy = checked;
+
+        for(int i = 0; i<checked.length; i++){
+            Log.d("checked", "" + checked[i]);
+        }
+        final CharSequence[] cs = interests.toArray(new CharSequence[interests.size()]);
+
+        intBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(EditProfileActivity.this);
+                mBuilder.setTitle("YOUR INTERESTS");
+
+                mBuilder.setMultiChoiceItems(cs, checkedCopy, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                        //
+                        if (isChecked) {
+                            interestsPos.add(position);
+
+
+                        } else {
+                            interestsPos.remove((Integer.valueOf(position)));
+                        }
+
+
+                        for(int i = 0; i<checkedCopy.length; i++){
+                            Log.d("checkedCopy", "onClick: " + checkedCopy[i]);
+                            if(checkedCopy[i]){
+                                if(!toUpdate.contains(interests.get(i))) {
+                                    toUpdate.add(interests.get(i));
+                                }
+                            }
+                        }
+
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+
+            }
+
+        });
     }
 
     @Override

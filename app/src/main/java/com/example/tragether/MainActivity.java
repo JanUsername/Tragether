@@ -57,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
 
-            /*appUser.setEmail(fbUser.getEmail());
-            utility.userCreation(getApplicationContext());*/
-
             Intent intent = new Intent(MainActivity.this, logged_activity.class);
             startActivity(intent);
         }

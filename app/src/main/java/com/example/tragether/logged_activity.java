@@ -1,23 +1,17 @@
 package com.example.tragether;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.LoginFilter;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.tragether.database.SupportDataBase;
-import com.example.tragether.database.UserDao;
-import com.example.tragether.model.FirebaseUtility;
-import com.example.tragether.model.User;
-import com.example.tragether.model.Utility;
+import com.example.tragether.model.*;
+import com.example.tragether.database.*;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 
 import static com.example.tragether.R.id.textView;
 
@@ -43,8 +37,6 @@ public class logged_activity extends  MenuHandler {
         appUser = User.getInstance();
         fbu = FirebaseUtility.getInstance();
 
-
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -53,7 +45,6 @@ public class logged_activity extends  MenuHandler {
         dao = sdb.userDao();
 
         fbu.getInterests();
-
 
         setContentView(R.layout.activity_logged_activity);
 
@@ -99,8 +90,6 @@ public class logged_activity extends  MenuHandler {
     @Override
     public void onStart(){
         super.onStart();
-
-        //Log.d("logged", appUser.getEmail());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -116,7 +105,5 @@ public class logged_activity extends  MenuHandler {
                 txt_logged_email.setText("Hello " + User.getInstance().getUsername());
             }
         }).start();
-
     }
-
 }

@@ -35,7 +35,7 @@
     <!-- travel activity -->
     <string name="countryTLabel">Country</string>
     <string name="cityLabel">City</string>
-    <string name="startDay">Firt Day</string>
+    <string name="startDay">First Day</string>
     <string name="endDay">Last Day</string>
 
 </resources>
