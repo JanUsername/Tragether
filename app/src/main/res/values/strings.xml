@@ -24,6 +24,7 @@
     <string name="yourTrips">YOUR TRIPS</string>
     <string name="yourEvents">YOUR EVENTS</string>
     <string name="editProfile">Edit profile!</string>
+    <string name="addEvent">Add Event</string>
 
     <!-- edit profile activity -->
     <string name="usrnLabel">Username</string>
@@ -32,10 +33,21 @@
     <string name="interestsLabel">Interests</string>
     <string name="descriptionLabel">Description</string>
 
+
     <!-- travel activity -->
     <string name="countryTLabel">Country</string>
     <string name="cityLabel">City</string>
     <string name="startDay">First Day</string>
     <string name="endDay">Last Day</string>
 
+    <!-- event activity -->
+    <string name="eventTitleLabel">Event Title</string>
+    <string name="eventStartsLabel">Event Starts</string>
+    <string name="eventStartTimeLabel">Start Time</string>
+    <string name="eventEndTimeLabel">End Time</string>
+    <string name="eventEndsLabel">Event Ends</string>
+    <string name="eventTagsLabel">Event Tags</string>
+    <string name="countryELabel">Event Country</string>
+    <string name="cityELabel">Event City</string>
+    <string name="tagsELabel">Event Tags</string>
 </resources>

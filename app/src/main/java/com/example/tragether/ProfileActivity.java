@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.measurement.AppMeasurement;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity  extends  MenuHandler {
@@ -18,6 +19,7 @@ public class ProfileActivity  extends  MenuHandler {
     ImageView imageView;
     TextView greetingsProfile;
     Button editProfile;
+    Button addEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,19 @@ public class ProfileActivity  extends  MenuHandler {
 
         greetingsProfile = (TextView)findViewById(R.id.greetingsProfile);
         greetingsProfile.setText("Hello " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        editProfile = (Button) findViewById(R.id.btnGoToProfile);
+        editProfile = findViewById(R.id.btnGoToProfile);
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
+            }
+        });
+
+        addEvent = findViewById(R.id.btnAddEventP);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, EventActivity.class));
             }
         });
 

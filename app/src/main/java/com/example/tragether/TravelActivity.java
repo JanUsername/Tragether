@@ -121,50 +121,6 @@ public class TravelActivity extends AppCompatActivity {
         });
 
 
-
-/*
-
-        username = findViewById(R.id.username);
-        bDay = findViewById(R.id.bDay);
-        countries = findViewById(R.id.countriesSpinner);
-        description = findViewById(R.id.description);
-        save = findViewById(R.id.btnSave);
-
-        username.setText(appUser.getUsername());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-        if(appUser.getBirthday() == null){
-            bDay.setText("");
-        }else{
-            Date date = appUser.getBirthday();
-            bDay.setText(dateFormat.format(date));
-        }
-
-
-        //Country spinner
-        //add also "select a country" in order to know if something has been added??
-        Locale[] locale = Locale.getAvailableLocales();
-        String country;
-        for( Locale loc : locale ){
-            country = loc.getDisplayCountry();
-            if( country.length() > 0 && !countriesArray.contains(country) ){
-                countriesArray.add( country );
-            }
-        }
-
-        Collections.sort(countriesArray, String.CASE_INSENSITIVE_ORDER);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, countriesArray);
-        countries.setAdapter(adapter);
-        if(appUser.getCountry() != null){
-
-            int index = adapter.getPosition(countryName);
-            countries.setSelection(index);
-        }
-
-
-
-        */
-
     }
 
     private Travel createTravel(){
