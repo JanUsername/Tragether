@@ -81,10 +81,6 @@ public class Utility {
                 }
             }
         }).start();
-
-
-
-
     }
 
 }
