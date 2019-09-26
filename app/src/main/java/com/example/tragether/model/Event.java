@@ -1,16 +1,32 @@
 package com.example.tragether.model;
 
+import androidx.room.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity(tableName = "events_table")
 public class Event {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @ColumnInfo(name = "title")
     private String title;
+    @ColumnInfo(name = "start")
     private Date start;
+    @ColumnInfo(name = "end")
     private Date end;
     //tags match with interests
+    @ColumnInfo(name = "tags")
     private ArrayList<String> tags;
-    private Location location;
+    @ColumnInfo(name = "country")
+    private String country;
+    @ColumnInfo(name = "town")
+    private String town;
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public String getTitle() {
         return title;
@@ -44,12 +60,20 @@ public class Event {
         this.tags = tags;
     }
 
-    public Location getLocation() {
-        return location;
+    public String getCountry() {
+        return country;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
     }
 
 
