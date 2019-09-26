@@ -8,20 +8,6 @@
     android:background="@color/TragetherBG"
     >
 
-    <Button
-        android:id="@+id/btnGoToProfile"
-        android:layout_width="107dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="620dp"
-        android:background="#D9B596"
-        android:text="@string/profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.881"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="192dp"
@@ -31,20 +17,6 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="29dp" />
-
-    <Button
-    android:id="@+id/btnLogOut"
-    android:layout_width="77dp"
-    android:layout_height="28dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="672dp"
-    android:background="#D9B596"
-    android:text="@string/log_out"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.845"
-    app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addTravel"

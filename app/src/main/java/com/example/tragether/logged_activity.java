@@ -53,26 +53,7 @@ public class logged_activity extends  MenuHandler {
         logOut = findViewById(R.id.btnLogOut);
 
         txt_logged_email = findViewById(textView);
-        logOut = findViewById(R.id.btnLogOut);
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                FirebaseAuth.getInstance().signOut();
-                appUser.resetUser();
-
-                startActivity(new Intent(logged_activity.this, MainActivity.class));
-            }
-        });
-
-        goToProfile = findViewById(R.id.btnGoToProfile);
-        goToProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(logged_activity.this, ProfileActivity.class));
-            }
-        });
 
         addTravel = findViewById(R.id.addTravel);
         addTravel.setOnClickListener(new View.OnClickListener() {

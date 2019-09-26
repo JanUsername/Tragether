@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.tragether.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MenuHandler extends AppCompatActivity {
 
     @Override
@@ -32,6 +35,11 @@ public class MenuHandler extends AppCompatActivity {
             case R.id.chat:
                 // do what you want here
                 return true;
+            case R.id.logOut:
+                FirebaseAuth.getInstance().signOut();
+                User.getInstance().resetUser();
+
+                startActivity(new Intent(this, MainActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
