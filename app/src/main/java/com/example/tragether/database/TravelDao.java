@@ -11,10 +11,10 @@ public interface TravelDao {
 
    @Insert(onConflict = OnConflictStrategy.REPLACE)
    void insert(Travel travel);
-
+/*
    @Query("SELECT * FROM travels_table")
    ArrayList<Travel> loadTravels();
-
+*/
    @Update(onConflict = OnConflictStrategy.REPLACE)
    void update(Travel travel);
 
