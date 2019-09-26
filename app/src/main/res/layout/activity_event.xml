@@ -114,20 +114,6 @@
             app:layout_constraintStart_toEndOf="@+id/eventStartsLabel"
             app:layout_constraintTop_toBottomOf="@+id/cityE"
             tools:text="@tools:sample/date/ddmmyy" />
-<!--
-        <TimePicker
-            android:id="@+id/datePickerStarts"
-            android:layout_width="228dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:timePickerMode="clock"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/eventStartsLabel"
-            app:layout_constraintTop_toBottomOf="@+id/eventStarts" />
--->
 
         <TextView
             android:id="@+id/eventStartTimeLabel"
