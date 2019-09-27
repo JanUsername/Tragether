@@ -1,10 +1,10 @@
 package com.example.tragether;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +14,7 @@ import com.example.tragether.model.Chat;
 import java.util.ArrayList;
 
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends MenuHandler {
 
     ArrayList<Chat> chatDetails = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -45,6 +45,11 @@ public class ChatActivity extends AppCompatActivity {
             public void onClickItem(View v, int position) {
                 Toast.makeText(getApplicationContext(), "Clicked: " +
                         chatDetails.get(position).getUsername(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                intent.putExtra("user", chatDetails.get(position).getUsername());
+
+                startActivity(intent);
             }
 
             @Override
