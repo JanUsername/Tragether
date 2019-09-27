@@ -258,6 +258,7 @@ public class FirebaseUtility {
 
     }
 
+
     //I can save the events in 2 different documents in the cloud!
     //In the event suggestion we should avoid the user's events
 }

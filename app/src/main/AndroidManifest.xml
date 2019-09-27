@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ChatActivity"
+            android:name=".chat.ChatActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity
-            android:name=".MessageActivity"
+            android:name=".chat.MessageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name=".EventActivity" />

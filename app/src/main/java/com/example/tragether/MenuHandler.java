@@ -3,11 +3,12 @@ package com.example.tragether;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.tragether.chat.ChatActivity;
 import com.example.tragether.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 

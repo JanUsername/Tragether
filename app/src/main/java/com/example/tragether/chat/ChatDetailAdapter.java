@@ -1,4 +1,4 @@
-package com.example.tragether;
+package com.example.tragether.chat;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tragether.R;
 import com.example.tragether.model.Chat;
 
 import java.util.ArrayList;
 
-public class ChatDetailAdapter extends RecyclerView.Adapter<ChatDetailAdapter.CustomViewHolder> {
+public class ChatDetailAdapter extends RecyclerView.Adapter<ChatDetailAdapter.ChatViewHolder> {
 
     private ArrayList<Chat> chats;
 
@@ -20,10 +21,10 @@ public class ChatDetailAdapter extends RecyclerView.Adapter<ChatDetailAdapter.Cu
         this.chats = chats;
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public class ChatViewHolder extends RecyclerView.ViewHolder {
         public TextView usernameChat;
 
-        public CustomViewHolder(View view) {
+        public ChatViewHolder(View view) {
             super(view);
             usernameChat = view.findViewById(R.id.usernameChat);
         }
@@ -31,16 +32,16 @@ public class ChatDetailAdapter extends RecyclerView.Adapter<ChatDetailAdapter.Cu
 
     @NonNull
     @Override
-    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chat_list, parent, false);
 
-        return new ChatDetailAdapter.CustomViewHolder(itemView);
+        return new ChatDetailAdapter.ChatViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
 
         Chat c = chats.get(position);
         holder.usernameChat.setText(c.getUsername());

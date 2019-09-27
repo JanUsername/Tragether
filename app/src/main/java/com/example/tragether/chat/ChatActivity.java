@@ -1,4 +1,4 @@
-package com.example.tragether;
+package com.example.tragether.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tragether.MenuHandler;
+import com.example.tragether.R;
+import com.example.tragether.RecyclerItemListener;
 import com.example.tragether.model.Chat;
 
 import java.util.ArrayList;
