@@ -8,11 +8,10 @@
         tools:context=".MainActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
             android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/TragetherBG"
-        tools:context=".EditProfileActivity">
+            android:layout_height="match_parent"
+            android:background="@color/TragetherBG"
+            tools:context=".EditProfileActivity">
 
 
         <TextView
@@ -80,20 +79,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/interestsLabel" />
 
-            <EditText
-                android:id="@+id/bDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="8dp"
-                android:ems="10"
-                android:inputType="date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toEndOf="@+id/birthdayLabel"
-                app:layout_constraintTop_toBottomOf="@+id/username"
-                tools:text="@tools:sample/date/ddmmyy" />
+        <EditText
+            android:id="@+id/bDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="date"
+            android:hint="dd/mm/yyyy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toEndOf="@+id/birthdayLabel"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            tools:text="@tools:sample/date/ddmmyy" />
 
         <EditText
             android:id="@+id/username"
@@ -106,6 +106,7 @@
             android:layout_marginRight="8dp"
             android:ems="10"
             android:inputType="textPersonName"
+            android:hint="username"
             android:text="Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.487"
@@ -146,6 +147,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
+                android:hint="write your description!"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

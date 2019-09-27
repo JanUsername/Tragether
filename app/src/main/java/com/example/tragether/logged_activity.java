@@ -50,7 +50,6 @@ public class logged_activity extends  MenuHandler {
         setContentView(R.layout.activity_logged_activity);
 
         txt_logged_email = findViewById(textView);
-        logOut = findViewById(R.id.btnLogOut);
 
         txt_logged_email = findViewById(textView);
 

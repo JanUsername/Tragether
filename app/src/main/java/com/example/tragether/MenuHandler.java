@@ -33,7 +33,7 @@ public class MenuHandler extends AppCompatActivity {
                 startActivity(new Intent(this, RecActivity.class));
                 return true;
             case R.id.chat:
-                // do what you want here
+                startActivity(new Intent(this, ChatActivity.class));
                 return true;
             case R.id.logOut:
                 FirebaseAuth.getInstance().signOut();

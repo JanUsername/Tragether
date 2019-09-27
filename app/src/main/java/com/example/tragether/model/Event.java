@@ -23,6 +23,9 @@ public class Event {
     private String country;
     @ColumnInfo(name = "town")
     private String town;
+    @ColumnInfo(name = "organizer")
+    private String organizer;
+
 
     public int getId() {return id;}
 
@@ -75,6 +78,10 @@ public class Event {
     public void setTown(String town) {
         this.town = town;
     }
+
+    public String getOrganizer() { return organizer; }
+
+    public void setOrganizer(String organizer) { this.organizer = organizer; }
 
 
 
