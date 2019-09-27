@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tragether.R;
 import com.example.tragether.model.Message;
+import com.example.tragether.model.User;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
 
-    private ArrayList<Message> msgs;
+    private ArrayList<Message> msgs = new ArrayList<>();
 
     public MessageDetailAdapter(ArrayList<Message> msgs) {
         this.msgs = msgs;
@@ -38,15 +39,26 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
     @NonNull
     @Override
     public MsgViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.chat_list, parent, false);
+        if(viewType == MSG_TYPE_LEFT){
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.chat_item_left, parent, false);
 
-        return new MessageDetailAdapter.MsgViewHolder(itemView);
+            return new MessageDetailAdapter.MsgViewHolder(itemView);
+        }else{
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.chat_item_right, parent, false);
+
+            return new MessageDetailAdapter.MsgViewHolder(itemView);
+        }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull MsgViewHolder holder, int position) {
 
+        Message msg = msgs.get(position);
+
+        holder.show_msg.setText(msg.getMsg());
 
 
     }
@@ -54,5 +66,14 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
     @Override
     public int getItemCount() {
         return msgs.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+       if(msgs.get(position).getSender().equals(User.getInstance().getEmail())){
+           return MSG_TYPE_RIGHT;
+       }else{
+           return MSG_TYPE_LEFT;
+       }
     }
 }

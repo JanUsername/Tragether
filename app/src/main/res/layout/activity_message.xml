@@ -22,28 +22,29 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_msg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout_editor_absoluteX="-1dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="5dp"
         android:background="#4DD9B596"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/text_send"
-            android:layout_width="340dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="6dp"
+            android:layout_width="320dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"

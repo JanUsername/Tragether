@@ -16,8 +16,14 @@
             android:name=".chat.MessageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".EventActivity" />
-        <activity android:name=".TravelActivity" />
+        <activity
+            android:name=".EventActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        <activity
+            android:name=".TravelActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".MenuHandler"
             android:theme="@style/AppTheme.NoActionBar" />
