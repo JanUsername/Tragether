@@ -2,6 +2,7 @@ package com.example.tragether.database;
 
 import androidx.room.TypeConverter;
 
+import com.example.tragether.model.Travel;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
@@ -32,4 +33,6 @@ public class Converters {
         String json = gson.toJson(list);
         return json;
     }
+
+
 }
