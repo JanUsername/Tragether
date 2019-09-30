@@ -8,19 +8,46 @@
     tools:context=".ProfileActivity">
 
 
-        <TextView
-            android:id="@+id/tvEventsProfile"
+        <Button
+            android:id="@+id/btnGoToProfile"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#D9B596"
+            android:text="@string/editProfile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toEndOf="@+id/imageView1"
+            app:layout_constraintTop_toBottomOf="@+id/greetingsProfile" />
+
+        <Button
+            android:id="@+id/btnAddEventP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="224dp"
+            android:layout_marginEnd="8dp"
+            android:background="#D9B596"
+            android:text="@string/addEvent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.527"
+            app:layout_constraintStart_toEndOf="@+id/imageView1"
+            app:layout_constraintTop_toBottomOf="@+id/btnGoToProfile" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="184dp"
-            android:text="@string/yourEvents"
-            android:textColor="#D9B596"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/greetingsProfile"
@@ -39,33 +66,6 @@
             app:layout_constraintStart_toEndOf="@+id/imageView1"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="90dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <Button
-            android:id="@+id/btnGoToProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="#D9B596"
-            android:text="@string/editProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.517"
-            app:layout_constraintStart_toEndOf="@+id/imageView1"
-            app:layout_constraintTop_toBottomOf="@+id/greetingsProfile" />
-
         <TextView
             android:id="@+id/tvTripsProfile"
             android:layout_width="wrap_content"
@@ -80,20 +80,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView1" />
 
-
-        <Button
-            android:id="@+id/btnAddEventP"
+        <TextView
+            android:id="@+id/tvEventsProfile"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="224dp"
-            android:layout_marginEnd="8dp"
-            android:background="#D9B596"
-            android:text="@string/addEvent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.527"
-            app:layout_constraintStart_toEndOf="@+id/imageView1"
-            app:layout_constraintTop_toBottomOf="@+id/btnGoToProfile" />
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="184dp"
+            android:text="@string/yourEvents"
+            android:textColor="#D9B596"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile" />
 
+<!--
+        <fragment
+            android:id="@+id/yourTripsFragment"
+            android:name="com.example.tragether.fragments.YourTrips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvEventsProfile"
+            app:layout_constraintEnd_toStartOf="@+id/tvEventsProfile"
+            app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile" />
+        -->
+
+        <fragment
+            android:id="@+id/yourEventsFragment"
+            android:name="com.example.tragether.fragments.YourEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvEventsProfile"
+            app:layout_constraintEnd_toStartOf="@+id/tvEventsProfile"
+            app:layout_constraintTop_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
