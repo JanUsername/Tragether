@@ -26,13 +26,13 @@
 />
 
         <TextView
-            android:id="@+id/user"
+            android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="48dp"
             android:layout_marginBottom="8dp"
-            android:text="User"
+            android:text="Country, City"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/eventName" />
@@ -46,6 +46,17 @@
             android:layout_marginEnd="16dp"
             android:text="2016"
             android:textColor="#43D9B596"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="16dp"
+            android:text="2016"
+            android:textColor="#43D9B596"
+            android:textSize="18sp" />
 
     </RelativeLayout>

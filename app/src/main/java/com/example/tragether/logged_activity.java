@@ -115,6 +115,7 @@ public class logged_activity extends  MenuHandler {
         Event t7 = new Event();
 
         SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
         try {
             t1.setStart(dateFormatD.parse("02/10/2019"));
             t2.setStart(dateFormatD.parse("05/10/2019"));
@@ -128,13 +129,13 @@ public class logged_activity extends  MenuHandler {
         }
 
         try {
-            t1.setStartTime(dateFormatD.parse("18:30"));
-            t2.setStartTime(dateFormatD.parse("10:30"));
-            t3.setStartTime(dateFormatD.parse("11:00"));
-            t4.setStartTime(dateFormatD.parse("22:30"));
-            t5.setStartTime(dateFormatD.parse("20:15"));
-            t6.setStartTime(dateFormatD.parse("14:00"));
-            t7.setStartTime(dateFormatD.parse("06:00"));
+            t1.setStartTime(dateFormatT.parse("6:30 pm"));
+            t2.setStartTime(dateFormatT.parse("10:30 am"));
+            t3.setStartTime(dateFormatT.parse("11:00 am"));
+            t4.setStartTime(dateFormatT.parse("10:30 pm"));
+            t5.setStartTime(dateFormatT.parse("8:15 pm"));
+            t6.setStartTime(dateFormatT.parse("2:00 pm"));
+            t7.setStartTime(dateFormatT.parse("06:00 am"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -146,6 +147,22 @@ public class logged_activity extends  MenuHandler {
         t5.setTitle("Aperitiv");
         t6.setTitle("Beach");
         t7.setTitle("After party");
+
+        t1.setCountry("Italy");
+        t2.setCountry("Germany");
+        t3.setCountry("Italy");
+        t4.setCountry("France");
+        t5.setCountry("Mexico");
+        t6.setCountry("Gibraltar");
+        t7.setCountry("Italy");
+
+        t1.setTown("Rome");
+        t2.setTown("Berlin");
+        t3.setTown("Bolzano");
+        t4.setTown("Paris");
+        t5.setTown("Mexico City");
+        t6.setTown("Gibraltar");
+        t7.setTown("Milan");
 
         t1.setOrganizer(org);
         t2.setOrganizer(org);

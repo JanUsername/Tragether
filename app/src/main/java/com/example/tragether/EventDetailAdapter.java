@@ -17,13 +17,14 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
     private List<Event> eventDetails;
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        public TextView eventNameView, dateView, userView;
+        public TextView eventNameView, dateView, locationView, timeView;
 
         public CustomViewHolder(View view) {
             super(view);
             eventNameView = view.findViewById(R.id.eventName);
-            userView = view.findViewById(R.id.user);
+            locationView = view.findViewById(R.id.location);
             dateView = view.findViewById(R.id.date);
+            timeView = view.findViewById(R.id.time);
         }
     }
 
@@ -41,11 +42,13 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
         Event eventDetail = eventDetails.get(position);
         holder.eventNameView.setText(eventDetail.getTitle());
-        holder.userView.setText(eventDetail.getOrganizer());
-        holder.dateView.setText(String.valueOf(dateFormat.format(eventDetail.getStart())));
+        holder.locationView.setText(eventDetail.getCountry() + ", " + eventDetail.getTown());
+        holder.dateView.setText(String.valueOf(dateFormatD.format(eventDetail.getStart())));
+        holder.timeView.setText(String.valueOf(dateFormatT.format(eventDetail.getStartTime())));
     }
 
     @Override

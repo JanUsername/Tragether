@@ -260,10 +260,10 @@ public class EventActivity extends AppCompatActivity {
         if(endD.getText().toString() != "" && endT.getText().toString() != ""){
             try {
                 SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
-                temp.setStart(dateFormatD.parse(endD.getText().toString()));
+                temp.setEnd(dateFormatD.parse(endD.getText().toString()));
 
                 SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
-                temp.setStartTime(dateFormatT.parse(endT.getText().toString()));
+                temp.setEndTime(dateFormatT.parse(endT.getText().toString()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
