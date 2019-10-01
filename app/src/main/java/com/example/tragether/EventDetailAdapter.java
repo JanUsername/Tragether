@@ -7,26 +7,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.tragether.model.EventDetail;
+import com.example.tragether.model.Event;
 
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.CustomViewHolder> {
-    private List<EventDetail> eventDetails;
+    private List<Event> eventDetails;
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        public TextView eventNameView, dateView, userView, rating;
+        public TextView eventNameView, dateView, userView;
 
         public CustomViewHolder(View view) {
             super(view);
             eventNameView = view.findViewById(R.id.eventName);
             userView = view.findViewById(R.id.user);
             dateView = view.findViewById(R.id.date);
-            rating = view.findViewById(R.id.rating);
         }
     }
 
-    public EventDetailAdapter(List<EventDetail> eventDetails) {
+    public EventDetailAdapter(List<Event> eventDetails) {
         this.eventDetails = eventDetails;
     }
 
@@ -40,11 +41,11 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        EventDetail eventDetail = eventDetails.get(position);
-        holder.eventNameView.setText(eventDetail.getEventName());
-        holder.userView.setText(eventDetail.getUser());
-        holder.dateView.setText(String.valueOf(eventDetail.getDate()));
-        holder.rating.setText(String.valueOf(eventDetail.getLocation()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Event eventDetail = eventDetails.get(position);
+        holder.eventNameView.setText(eventDetail.getTitle());
+        holder.userView.setText(eventDetail.getOrganizer());
+        holder.dateView.setText(String.valueOf(dateFormat.format(eventDetail.getStart())));
     }
 
     @Override

@@ -2,10 +2,7 @@ package com.example.tragether;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,14 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.tragether.model.EventDetail;
+import com.example.tragether.model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecActivity extends AppCompatActivity {
 
-    List<EventDetail> eventDetails = new ArrayList<>();
+    List<Event> eventDetails = new ArrayList<>();
     private RecyclerView recyclerView;
     private EventDetailAdapter mAdapter;
 
@@ -46,13 +43,13 @@ public class RecActivity extends AppCompatActivity {
             @Override
             public void onClickItem(View v, int position) {
                 Toast.makeText(getApplicationContext(), "Clicked: " +
-                        eventDetails.get(position).getEventName(), Toast.LENGTH_SHORT).show();
+                        eventDetails.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onLongClickItem(View v, int position) {
                 Toast.makeText(getApplicationContext(), "Long Pressed: " +
-                        eventDetails.get(position).getEventName(), Toast.LENGTH_SHORT).show();
+                        eventDetails.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
             }
         }));
@@ -60,15 +57,6 @@ public class RecActivity extends AppCompatActivity {
     }
 
     private void populateMovieDetails() {
-        eventDetails.add(new EventDetail("Sightseeing", "user 1", "25.12", "Bolzano,Italy"));
-        eventDetails.add(new EventDetail("Chilling", "user 2", "25.1", "Bolzano,Italy"));
-        eventDetails.add(new EventDetail("Party", "user 3", "23.10", "Bolzano,Italy"));
-        eventDetails.add(new EventDetail("Good time", "user 4", "11.10", "Bolzano, Italy"));
-        eventDetails.add(new EventDetail("etc", "user 1", "25.10", "Bolzano, Italy"));
-        eventDetails.add(new EventDetail("Oetzi", "user 1", "25.10", "Bolzano, Italy"));
-        eventDetails.add(new EventDetail("Oetzi party", "Jan", "25.10", "Bolzano, Italy"));
-        eventDetails.add(new EventDetail("Sightseeing", "user 1", "25.10", "Bolzano, Italy"));
-        eventDetails.add(new EventDetail("Sightseeing", "user 1", "25.10", "Bolzano, Italy"));
-        eventDetails.add(new EventDetail("Sightseeing", "user 1", "25.10", "here, Italy"));
+
     }
 }

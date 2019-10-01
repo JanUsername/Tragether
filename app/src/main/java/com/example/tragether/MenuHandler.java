@@ -30,9 +30,9 @@ public class MenuHandler extends AppCompatActivity {
             case R.id.user_profile:
                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 return true;
-            case R.id.create_event:
+            /*case R.id.create_event:
                 startActivity(new Intent(getApplicationContext(), RecActivity.class));
-                return true;
+                return true;*/
             case R.id.chat:
                 startActivity(new Intent(getApplicationContext(), ChatActivity.class));
                 return true;
