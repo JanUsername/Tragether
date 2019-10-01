@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.tragether.database.SupportDataBase;
 import com.example.tragether.database.UserDao;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -18,6 +19,9 @@ public class Utility {
     UserDao dao;
     static Date tempCloud;
     static Date tempLocal;
+    public static ArrayList<Event> suggestedEv;
+    public static ArrayList<Event> userEvents;
+
 
     public Utility(Context context){
         fbu = FirebaseUtility.getInstance();

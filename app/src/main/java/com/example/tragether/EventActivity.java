@@ -105,9 +105,14 @@ public class EventActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                startT.setText(sHour + ":" + sMinute);
+                                if(sMinute >=10){
+                                    startT.setText(sHour + ":" + sMinute);
+                                }else{
+                                    startT.setText(sHour + ":0" + sMinute);
+                                }
+
                             }
-                        }, hour, minutes, true);
+                        }, hour, minutes, false);
                 pickerS.show();
 
             }
@@ -140,9 +145,13 @@ public class EventActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                endT.setText(sHour + ":" + sMinute);
+                                if(sMinute >= 10){
+                                    endT.setText(sHour + ":" + sMinute);
+                                }else {
+                                    endT.setText(sHour + ":0" + sMinute);
+                                }
                             }
-                        }, hour, minutes, true);
+                        }, hour, minutes, false);
                 pickerE.show();
 
             }
@@ -248,7 +257,7 @@ public class EventActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
                 temp.setStart(dateFormatD.parse(startD.getText().toString()));
 
-                SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
+                SimpleDateFormat dateFormatT = new SimpleDateFormat("HH:mm");
                 temp.setStartTime(dateFormatT.parse(startT.getText().toString()));
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -262,7 +271,7 @@ public class EventActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
                 temp.setEnd(dateFormatD.parse(endD.getText().toString()));
 
-                SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
+                SimpleDateFormat dateFormatT = new SimpleDateFormat("HH:mm");
                 temp.setEndTime(dateFormatT.parse(endT.getText().toString()));
             } catch (ParseException e) {
                 e.printStackTrace();

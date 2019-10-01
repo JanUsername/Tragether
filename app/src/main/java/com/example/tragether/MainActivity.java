@@ -25,6 +25,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static java.lang.Thread.sleep;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,8 +59,20 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
 
-            Intent intent = new Intent(MainActivity.this, logged_activity.class);
-            startActivity(intent);
+            fbu.getUserEvents();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    startActivity(new Intent(MainActivity.this, logged_activity.class));
+                }
+            }).start();
+
         }
 
         user = findViewById(R.id.eTUsername);
@@ -73,7 +87,20 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    startActivity(new Intent(MainActivity.this, logged_activity.class));
+                                    fbu.getUserEvents();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                sleep(1000);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            startActivity(new Intent(MainActivity.this, logged_activity.class));
+                                        }
+                                    }).start();
+
 
                                 } else {
                                     Toast.makeText(MainActivity.this, task.getException().getMessage(),

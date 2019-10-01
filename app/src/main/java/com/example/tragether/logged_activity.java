@@ -2,6 +2,7 @@ package com.example.tragether;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -48,36 +49,6 @@ public class logged_activity extends  MenuHandler {
         utility = new Utility(getApplicationContext());
         sdb = SupportDataBase.getInstance(getApplicationContext());
         dao = sdb.userDao();
-
-        fbu.getInterests();
-
-        setContentView(R.layout.activity_logged_activity);
-
-
-        welcome = findViewById(R.id.welcome);
-        feedTxt = findViewById(R.id.feedTxt);
-
-        recyclerView = findViewById(R.id.recycler_view_events);
-        eventDetails = new ArrayList<>();
-
-        fillEvents();
-
-        mAdapter = new EventDetailAdapter(eventDetails);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
-
-        mAdapter.notifyDataSetChanged();
-
-
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -90,8 +61,37 @@ public class logged_activity extends  MenuHandler {
                     e.printStackTrace();
                 }
 
+
             }
         }).start();
+
+        fbu.getInterests();
+
+
+        setContentView(R.layout.activity_logged_activity);
+
+        welcome = findViewById(R.id.welcome);
+        feedTxt = findViewById(R.id.feedTxt);
+
+        recyclerView = findViewById(R.id.recycler_view_events);
+        eventDetails = new ArrayList<>();
+
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdapter = new EventDetailAdapter(Utility.userEvents);
+
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
     }
 
 
