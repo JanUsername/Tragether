@@ -28,6 +28,12 @@ public class FirebaseUtility {
     private final String TOWN = "town";
     private final String START = "start";
     private final String END = "end";
+    private final String TITLE = "title";
+    private final String TAGS = "tags";
+    private final String STARTTIME = "startTime";
+    private final String ENDTIME = "endTime";
+    private final String ORGANIZER = "organizer";
+
 
     private FirebaseUtility(){
        db =  FirebaseFirestore.getInstance();
@@ -224,15 +230,15 @@ public class FirebaseUtility {
 
         Map<String, Object> docData = new HashMap<>();
 
-        if(travel.getCountry() != null){
+        if(travel.getCountry() != ""){
             docData.put(COUNTRY, travel.getCountry());
         }
 
-        if(travel.getTown() != null) {
+        if(travel.getTown() != "") {
             docData.put(TOWN, travel.getTown());
         }
 
-        if(travel.getStart() != null){
+        if(travel.getStart()!= null){
             docData.put(START, new Timestamp(travel.getStart()));
         }
         if(travel.getEnd() != null){
@@ -259,6 +265,60 @@ public class FirebaseUtility {
     }
 
 
+
     //I can save the events in 2 different documents in the cloud!
     //In the event suggestion we should avoid the user's events
+
+    public void saveEvent(Event event){
+
+        Map<String, Object> docData = new HashMap<>();
+
+        docData.put(TITLE, event.getTitle());
+        docData.put(COUNTRY, event.getCountry());
+        docData.put(TOWN, event.getTown());
+        docData.put(START, new Timestamp(event.getStart()));
+        docData.put(END, new Timestamp(event.getEnd()));
+        docData.put(STARTTIME, new Timestamp(event.getStartTime()));
+        docData.put(ENDTIME, new Timestamp(event.getEnd()));
+        docData.put(TAGS, event.getTags());
+        docData.put(ORGANIZER, User.getInstance().getEmail());
+
+
+        //save the event in the user document
+        db.collection("users").document(User.getInstance().getEmail())
+                .collection("events").document("myEvents").set(docData, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
+        //save the event in the general events document
+
+        db.collection("events").document(event.getCountry()).set(docData, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+    }
+
+
+
+
+
 }

@@ -13,12 +13,10 @@ import com.example.tragether.database.*;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-import static com.example.tragether.R.id.textView;
-
 public class logged_activity extends  MenuHandler {
 
 
-    TextView txt_logged_email;
+    TextView welcome;
     Button logOut;
     Button goToProfile;
     Button addTravel;
@@ -49,9 +47,8 @@ public class logged_activity extends  MenuHandler {
 
         setContentView(R.layout.activity_logged_activity);
 
-        txt_logged_email = findViewById(textView);
 
-        txt_logged_email = findViewById(textView);
+        welcome = findViewById(R.id.welcome);
 
 
         addTravel = findViewById(R.id.addTravel);
@@ -68,15 +65,6 @@ public class logged_activity extends  MenuHandler {
     }
 
     @Override
-    public void onBackPressed(){
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
-    }
-
-
-    @Override
     public void onStart(){
         super.onStart();
         new Thread(new Runnable() {
@@ -91,8 +79,16 @@ public class logged_activity extends  MenuHandler {
                     e.printStackTrace();
                 }
 
-                txt_logged_email.setText("Hello " + User.getInstance().getUsername());
             }
         }).start();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 }

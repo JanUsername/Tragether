@@ -25,16 +25,16 @@ public class MenuHandler extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                startActivity(new Intent(this, logged_activity.class));
+                startActivity(new Intent(getApplicationContext(), logged_activity.class));
                 return true;
             case R.id.user_profile:
-                startActivity(new Intent(this, ProfileActivity.class));
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 return true;
             case R.id.create_event:
-                startActivity(new Intent(this, RecActivity.class));
+                startActivity(new Intent(getApplicationContext(), RecActivity.class));
                 return true;
             case R.id.chat:
-                startActivity(new Intent(this, ChatActivity.class));
+                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
                 return true;
             case R.id.logOut:
                 FirebaseAuth.getInstance().signOut();
