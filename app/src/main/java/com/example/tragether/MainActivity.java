@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     Utility utility;
     FirebaseUser fbUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        sleep(1400);
+                        sleep(1800);
                         fbu.getSuggEvents();
                         sleep(1500);
                     } catch (InterruptedException e) {

@@ -3,14 +3,19 @@ package com.example.tragether;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tragether.chat.ChatActivity;
 import com.example.tragether.model.*;
 import com.example.tragether.database.*;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,10 +91,47 @@ public class logged_activity extends  MenuHandler {
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
+        recyclerView.addOnItemTouchListener(new RecyclerItemListener(getApplicationContext(),
+                recyclerView, new RecyclerItemListener.RecyclerTouchListener() {
+            @Override
+            public void onClickItem(View v, int position) {
+                registerForContextMenu(v);
+            }
+
+            @Override
+            public void onLongClickItem(View v, int position) {
+
+
+            }
+        }));
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+        super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
+
+        getMenuInflater().inflate(R.menu.sugg_events_menu, contextMenu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.contactOrg:
+                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+
+
     }
 
     @Override
     public void onStart(){
+
+
         super.onStart();
 
 

@@ -2,12 +2,13 @@ package com.example.tragether;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.tragether.model.Event;
-
 
 
 import java.text.SimpleDateFormat;
@@ -15,6 +16,8 @@ import java.util.List;
 
 public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.CustomViewHolder> {
     private List<Event> eventDetails;
+
+
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         public TextView eventNameView, dateView, locationView, timeView;
@@ -26,6 +29,7 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
             dateView = view.findViewById(R.id.date);
             timeView = view.findViewById(R.id.time);
         }
+
     }
 
     public EventDetailAdapter(List<Event> eventDetails) {

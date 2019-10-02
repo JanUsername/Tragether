@@ -42,8 +42,7 @@ public class RecActivity extends AppCompatActivity {
                 recyclerView, new RecyclerItemListener.RecyclerTouchListener() {
             @Override
             public void onClickItem(View v, int position) {
-                Toast.makeText(getApplicationContext(), "Clicked: " +
-                        eventDetails.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
