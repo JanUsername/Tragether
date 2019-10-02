@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
+
 import com.google.android.gms.measurement.AppMeasurement;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -50,6 +54,12 @@ public class ProfileActivity  extends  MenuHandler {
                 startActivity(new Intent(ProfileActivity.this, EventActivity.class));
             }
         });
+        //youreventFragment
+        ListFragment fragment = new ListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.yourEventsFragment, fragment);
+        fragmentTransaction.commit();
 
     }
 

@@ -50,4 +50,7 @@
     <string name="countryELabel">Event Country</string>
     <string name="cityELabel">Event City</string>
     <string name="tagsELabel">Event Tags</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

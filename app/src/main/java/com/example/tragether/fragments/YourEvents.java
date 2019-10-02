@@ -17,6 +17,8 @@ import com.example.tragether.model.EventDetail;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class YourEvents extends Fragment {
     View view;
 
@@ -27,20 +29,18 @@ public class YourEvents extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        view = inflater.inflate(R.layout.fragment_your_events, container, false);
-        //works till here
-        recyclerView =  recyclerView.findViewById(R.id.recycler_view);
+    public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, Bundle savedInstanceState){
+        view = inflater.inflate(R.layout.profile_fragment_rec_main, container, false);
+        recyclerView = view.findViewById(R.id.recycler_view_profile);
         mAdapter = new EventDetailAdapter(eventDetails);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         populateMovieDetails();
         mAdapter.notifyDataSetChanged();
         return view;
     }
+
     private void populateMovieDetails() {
         eventDetails.add(new EventDetail("new Fragment view", "user 1", "25.12", "Bolzano,Italy"));
         eventDetails.add(new EventDetail("Chilling", "user 2", "25.1", "Bolzano,Italy"));
