@@ -24,5 +24,14 @@ public interface EventDao {
     @Delete
     void delete(Event event);
 
+    @Query("DELETE FROM events_table WHERE organizer NOT LIKE:org")
+    public void nukeSuggTable(String org);
+
+    @Query("DELETE FROM events_table WHERE organizer LIKE:org")
+    public void nukeOwnTable(String org);
+
+    @Query("DELETE FROM events_table")
+    public void nukeTable();
+
 
 }

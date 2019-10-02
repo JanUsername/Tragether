@@ -1,14 +1,18 @@
 package com.example.tragether.model;
 
-import java.util.Date;
+
+import java.util.ArrayList;
 
 public class Chat {
 
-    private String username;
-    private Date lastMsg;
+    private String user;
+    private ArrayList<Message> thread;
 
 
-    public String getUsername(){ return username; }
-    public void setUsername(String username) { this.username = username; }
+    public String getUsername(){ return user; }
+    public void setUsername(String user) { this.user = user; }
+
+    public ArrayList<Message> getThread(){ return thread; }
+    public void setThread(ArrayList<Message> thread) { this.thread = thread; }
 
 }

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
 
-            fbu.getTravels();
+            utility.buildUserTravels(getApplicationContext());
             fbu.getUserEvents();
 
 

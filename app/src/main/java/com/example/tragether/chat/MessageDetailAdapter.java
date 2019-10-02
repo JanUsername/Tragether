@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tragether.R;
 import com.example.tragether.model.Message;
 import com.example.tragether.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -70,7 +71,7 @@ public class MessageDetailAdapter extends RecyclerView.Adapter<MessageDetailAdap
 
     @Override
     public int getItemViewType(int position) {
-       if(msgs.get(position).getSender().equals(User.getInstance().getEmail())){
+       if(msgs.get(position).getSender().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
            return MSG_TYPE_RIGHT;
        }else{
            return MSG_TYPE_LEFT;

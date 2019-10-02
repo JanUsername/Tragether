@@ -41,7 +41,6 @@ public class MessageActivity extends AppCompatActivity {
         tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
         Intent intent = getIntent();
-        Log.d("intent", ""+ intent.getStringExtra("user"));
         extras = intent.getExtras();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(extras.getString("user"));

@@ -28,6 +28,7 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
             locationView = view.findViewById(R.id.location);
             dateView = view.findViewById(R.id.date);
             timeView = view.findViewById(R.id.time);
+
         }
 
     }
@@ -40,6 +41,7 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_list, parent, false);
+
 
         return new CustomViewHolder(itemView);
     }

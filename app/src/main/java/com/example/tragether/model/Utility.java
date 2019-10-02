@@ -6,28 +6,35 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.example.tragether.database.SupportDataBase;
+import com.example.tragether.database.TravelDao;
 import com.example.tragether.database.UserDao;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import static java.lang.Thread.sleep;
 
 
 public class Utility {
 
     FirebaseUtility fbu;
     SupportDataBase sdb;
-    UserDao dao;
+    UserDao uDao;
+    TravelDao tDao;
     static Date tempCloud;
     static Date tempLocal;
     public static ArrayList<Event> suggestedEv;
     public static ArrayList<Event> userEvents;
     public static ArrayList<Travel> userTravels;
+    public static boolean isTravel;
 
 
     public Utility(Context context){
         fbu = FirebaseUtility.getInstance();
         sdb = SupportDataBase.getInstance(context);
-        dao = sdb.userDao();
+        uDao = sdb.userDao();
+        tDao = sdb.travelDao();
     }
 
     public void userCreation(Context context){
@@ -43,7 +50,7 @@ public class Utility {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    User.setUser(dao.loadUser(User.getInstance().getEmail()));
+                    User.setUser(uDao.loadUser(User.getInstance().getEmail()));
                 }
             }).start();
 
@@ -60,13 +67,13 @@ public class Utility {
     public void buildUser(){
 
         fbu.getTimestamp();
-        tempLocal = dao.getTimestamp(User.getInstance().getEmail());
+        tempLocal = uDao.getTimestamp(User.getInstance().getEmail());
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -77,7 +84,7 @@ public class Utility {
                     if(tempCloud.compareTo(tempLocal) >= 0){
                         fbu.getUser();
                     }else{
-                        User.setUser(dao.loadUser(User.getInstance().getEmail()));
+                        User.setUser(uDao.loadUser(User.getInstance().getEmail()));
                         fbu.saveUser(User.getInstance());
                     }
 
@@ -88,4 +95,78 @@ public class Utility {
         }).start();
     }
 
+    public void buildUserTravels(Context context){
+
+        final Context ctx = context;
+        new Thread(new Runnable() {
+            ArrayList<Travel> temp = new ArrayList<Travel>();
+            @Override
+            public void run() {
+                temp = (ArrayList<Travel>) tDao.loadTravels();
+
+
+        if(isNetworkAvailable(ctx)){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    fbu.getTravels();
+                    try {
+                        sleep(1500);
+                    } catch (InterruptedException e) {
+
+                    }
+                    tDao.nukeTable();
+                    for (Travel t: userTravels) {
+                        tDao.insert(t);
+
+                    }
+                }
+            }).start();
+            isTravel = true;
+
+        }else if(temp.size()!= 0){
+
+            userTravels = temp;
+            isTravel = true;
+
+        }else{
+            isTravel = false;
+        }
+            }
+        }).start();
+
+
+    }
+
+    //TODO buildUserEvents and buildSuggEvents
+
+    public String oneToOneChatID(String u1, String u2){
+        String id;
+
+        if(u1.compareTo(u2) <0 ){
+            id = u1 + u2;
+            return id;
+
+        }else{
+            id = u2 + u1;
+            return id;
+        }
+    }
+
+    public String getEventOrg(int pos){
+        String org;
+
+        org = suggestedEv.get(pos).getOrganizer();
+
+        return org;
+    }
+
+    public void getChat(int pos){
+
+        String org, id;
+
+        org = getEventOrg(pos);
+        id = oneToOneChatID(FirebaseAuth.getInstance().getCurrentUser().getEmail(), org);
+
+    }
 }

@@ -22,4 +22,7 @@ public interface TravelDao {
    @Delete
    void delete(Travel travel);
 
+   @Query("DELETE FROM travels_table")
+   public void nukeTable();
+
 }

@@ -30,5 +30,8 @@ public interface UserDao {
     @Query("SELECT timestamp FROM user_table WHERE email LIKE :uEmail")
     Date getTimestamp(String uEmail);
 
+    @Query("DELETE FROM user_table")
+    public void nukeTable();
+
 
 }
