@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        sleep(1800);
+                        sleep(3000);
                         fbu.getSuggEvents();
                         sleep(1500);
                     } catch (InterruptedException e) {

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
     android:clickable="true"
+    android:layout_margin="10dp"
     android:background="@color/TragetherBG"
     >
 
@@ -12,98 +17,46 @@
         android:id="@+id/eventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Event Name"
-        android:textSize="18dp"
-        android:textColor="#D9B596" />
+        android:textColor="#D9B596"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        />
 
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/eventName"
-        android:layout_alignStart="@+id/eventName"
-        android:layout_below="@+id/eventName"
-        android:text="User"
-        android:textColor="#D9B596"/>
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_margin="10dp"
-        android:background="@color/TragetherBG"
-        >
-
-        <TextView
-            android:id="@+id/eventName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Event Name"
-            android:textColor="#D9B596"
-            android:textSize="24dp"
-            android:textStyle="bold"
-/>
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="8dp"
-            android:text="Country, City"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/eventName" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="8dp"
+        android:text="Country, City"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/eventName" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/rating"
-        android:layout_alignRight="@+id/rating"
-        android:layout_below="@+id/eventImg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="2016"
-        android:textColor="#D9B596" />
+        android:textColor="#43D9B596"
+        android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/rating"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:text="9.2"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textColor="#D9B596"/>
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="2016"
-            android:textColor="#43D9B596"
-            android:textSize="18sp" />
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="16dp"
+        android:text="2016"
+        android:textColor="#43D9B596"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="16dp"
-            android:text="2016"
-            android:textColor="#43D9B596"
-            android:textSize="18sp" />
-    </RelativeLayout>
+</RelativeLayout>
