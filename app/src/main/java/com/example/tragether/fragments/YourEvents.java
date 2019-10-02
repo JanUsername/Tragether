@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tragether.EventDetailAdapter;
 import com.example.tragether.R;
-import com.example.tragether.model.EventDetail;
+import com.example.tragether.model.Event;
+import com.example.tragether.model.Utility;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class YourEvents extends Fragment {
     View view;
 
 
-    List<EventDetail> eventDetails = new ArrayList<>();
+    List<Event> eventDetails = new ArrayList<>();
     private RecyclerView recyclerView;
     private EventDetailAdapter mAdapter;
 
@@ -32,17 +34,12 @@ public class YourEvents extends Fragment {
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.profile_fragment_rec_main, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_profile);
-        mAdapter = new EventDetailAdapter(eventDetails);
+        mAdapter = new EventDetailAdapter(Utility.userEvents);
         recyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        populateMovieDetails();
         mAdapter.notifyDataSetChanged();
         return view;
     }
 
-    private void populateMovieDetails() {
-        eventDetails.add(new EventDetail("new Fragment view", "user 1", "25.12", "Bolzano,Italy"));
-        eventDetails.add(new EventDetail("Chilling", "user 2", "25.1", "Bolzano,Italy"));
-    }
 }
