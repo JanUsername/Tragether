@@ -9,28 +9,50 @@
     >
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="192dp"
-        android:layout_height="57dp"
-        android:text="Hello"
-        android:textSize="14sp"
+        android:id="@+id/welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/welcome_msg"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#D9B596"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="29dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
-    <Button
-        android:id="@+id/addTravel"
-        android:layout_width="94dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="484dp"
-        android:background="#D9B596"
-        android:text="Add travel"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/feedTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/feed"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#D9B596"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_events"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feedTxt"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

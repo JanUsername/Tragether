@@ -14,6 +14,10 @@
     <string name="profile">Go to profile!</string>
     <string name="changeUrs">Change user</string>
 
+    <!-- logged activity -->
+    <string name="welcome_msg">WELCOME TRAVELER</string>
+    <string name="feed">Events based on you travel list</string>
+
     <!-- profile activity -->
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="dummy_button">Dummy Button</string>

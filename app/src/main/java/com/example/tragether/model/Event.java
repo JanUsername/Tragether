@@ -16,6 +16,10 @@ public class Event {
     private Date start;
     @ColumnInfo(name = "end")
     private Date end;
+    @ColumnInfo(name = "startTime")
+    private Date startTime;
+    @ColumnInfo(name = "endTime")
+    private Date endTime;
     //tags match with interests
     @ColumnInfo(name = "tags")
     private ArrayList<String> tags;
@@ -54,6 +58,14 @@ public class Event {
     public void setEnd(Date end) {
         this.end = end;
     }
+
+    public Date getStartTime() { return startTime; }
+
+    public void setStartTime(Date startTime) { this.startTime = startTime; }
+
+    public Date getEndTime() { return endTime; }
+
+    public void setEndTime(Date endTime) { this.endTime= endTime; }
 
     public ArrayList<String> getTags() {
         return tags;

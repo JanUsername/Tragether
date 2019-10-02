@@ -2,31 +2,41 @@ package com.example.tragether;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.tragether.chat.ChatActivity;
 import com.example.tragether.model.*;
 import com.example.tragether.database.*;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
-import static com.example.tragether.R.id.textView;
 
 public class logged_activity extends  MenuHandler {
 
-
-    TextView txt_logged_email;
-    Button logOut;
-    Button goToProfile;
-    Button addTravel;
+    TextView welcome;
+    TextView feedTxt;
     User appUser;
     FirebaseUtility fbu;
     SupportDataBase sdb;
     UserDao dao;
     Utility utility;
+    RecyclerView recyclerView;
+    EventDetailAdapter mAdapter;
+    ArrayList<Event> eventDetails;
 
     /*
     In this activity we will show a recycle view for the suggested events
@@ -44,41 +54,6 @@ public class logged_activity extends  MenuHandler {
         utility = new Utility(getApplicationContext());
         sdb = SupportDataBase.getInstance(getApplicationContext());
         dao = sdb.userDao();
-
-        fbu.getInterests();
-
-        setContentView(R.layout.activity_logged_activity);
-
-        txt_logged_email = findViewById(textView);
-
-        txt_logged_email = findViewById(textView);
-
-
-        addTravel = findViewById(R.id.addTravel);
-        addTravel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startActivity(new Intent(logged_activity.this, TravelActivity.class));
-
-            }
-        });
-
-
-    }
-
-    @Override
-    public void onBackPressed(){
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
-    }
-
-
-    @Override
-    public void onStart(){
-        super.onStart();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -91,8 +66,162 @@ public class logged_activity extends  MenuHandler {
                     e.printStackTrace();
                 }
 
-                txt_logged_email.setText("Hello " + User.getInstance().getUsername());
+
             }
         }).start();
+
+        fbu.getInterests();
+
+
+        setContentView(R.layout.activity_logged_activity);
+
+        welcome = findViewById(R.id.welcome);
+        feedTxt = findViewById(R.id.feedTxt);
+
+        recyclerView = findViewById(R.id.recycler_view_events);
+        eventDetails = new ArrayList<>();
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        Log.d("FirebaseUtility", "logged size: " + Utility.suggestedEv.size());
+        mAdapter = new EventDetailAdapter(Utility.suggestedEv);
+
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemListener(getApplicationContext(),
+                recyclerView, new RecyclerItemListener.RecyclerTouchListener() {
+            @Override
+            public void onClickItem(View v, int position) {
+                registerForContextMenu(v);
+            }
+
+            @Override
+            public void onLongClickItem(View v, int position) {
+
+
+            }
+        }));
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+        super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
+
+        getMenuInflater().inflate(R.menu.sugg_events_menu, contextMenu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.contactOrg:
+                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+
+
+    }
+
+    @Override
+    public void onStart(){
+
+
+        super.onStart();
+
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
+
+    public void fillEvents() {
+
+        String org = "simply_la_gre@hotmail.it";
+        Event t1 = new Event();
+        Event t2 = new Event();
+        Event t3 = new Event();
+        Event t4 = new Event();
+        Event t5 = new Event();
+        Event t6 = new Event();
+        Event t7 = new Event();
+
+        SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
+        try {
+            t1.setStart(dateFormatD.parse("02/10/2019"));
+            t2.setStart(dateFormatD.parse("05/10/2019"));
+            t3.setStart(dateFormatD.parse("08/10/2019"));
+            t4.setStart(dateFormatD.parse("12/11/2019"));
+            t5.setStart(dateFormatD.parse("13/01/2020"));
+            t6.setStart(dateFormatD.parse("16/02/2020"));
+            t7.setStart(dateFormatD.parse("28/02/2020"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            t1.setStartTime(dateFormatT.parse("6:30 pm"));
+            t2.setStartTime(dateFormatT.parse("10:30 am"));
+            t3.setStartTime(dateFormatT.parse("11:00 am"));
+            t4.setStartTime(dateFormatT.parse("10:30 pm"));
+            t5.setStartTime(dateFormatT.parse("8:15 pm"));
+            t6.setStartTime(dateFormatT.parse("2:00 pm"));
+            t7.setStartTime(dateFormatT.parse("06:00 am"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        t1.setTitle("Music night");
+        t2.setTitle("Swimming");
+        t3.setTitle("Museum");
+        t4.setTitle("Party");
+        t5.setTitle("Aperitiv");
+        t6.setTitle("Beach");
+        t7.setTitle("After party");
+
+        t1.setCountry("Italy");
+        t2.setCountry("Germany");
+        t3.setCountry("Italy");
+        t4.setCountry("France");
+        t5.setCountry("Mexico");
+        t6.setCountry("Gibraltar");
+        t7.setCountry("Italy");
+
+        t1.setTown("Rome");
+        t2.setTown("Berlin");
+        t3.setTown("Bolzano");
+        t4.setTown("Paris");
+        t5.setTown("Mexico City");
+        t6.setTown("Gibraltar");
+        t7.setTown("Milan");
+
+        t1.setOrganizer(org);
+        t2.setOrganizer(org);
+        t3.setOrganizer(org);
+        t4.setOrganizer(org);
+        t5.setOrganizer(org);
+        t6.setOrganizer(org);
+        t7.setOrganizer(org);
+
+        eventDetails.add(t1);
+        eventDetails.add(t2);
+        eventDetails.add(t3);
+        eventDetails.add(t4);
+        eventDetails.add(t5);
+        eventDetails.add(t6);
+        eventDetails.add(t7);
+
     }
 }

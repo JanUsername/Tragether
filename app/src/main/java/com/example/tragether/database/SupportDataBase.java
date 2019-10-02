@@ -16,7 +16,7 @@ import com.example.tragether.model.Travel;
 import com.example.tragether.model.User;
 
 
-@Database(entities = {User.class, Travel.class, Event.class}, version = 4, exportSchema = false)
+@Database(entities = {User.class, Travel.class, Event.class}, version = 5, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class SupportDataBase extends RoomDatabase {
 

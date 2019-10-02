@@ -10,12 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.*;
 
 import com.example.tragether.database.*;
 import com.example.tragether.model.*;
@@ -53,6 +48,9 @@ public class EventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_event);
         appUser = User.getInstance();
@@ -107,9 +105,14 @@ public class EventActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                startT.setText(sHour + ":" + sMinute);
+                                if(sMinute >=10){
+                                    startT.setText(sHour + ":" + sMinute);
+                                }else{
+                                    startT.setText(sHour + ":0" + sMinute);
+                                }
+
                             }
-                        }, hour, minutes, true);
+                        }, hour, minutes, false);
                 pickerS.show();
 
             }
@@ -142,9 +145,13 @@ public class EventActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                endT.setText(sHour + ":" + sMinute);
+                                if(sMinute >= 10){
+                                    endT.setText(sHour + ":" + sMinute);
+                                }else {
+                                    endT.setText(sHour + ":0" + sMinute);
+                                }
                             }
-                        }, hour, minutes, true);
+                        }, hour, minutes, false);
                 pickerE.show();
 
             }
@@ -201,9 +208,85 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                final Event toSave = createEvent();
+
+                if(toSave != null){
+                    if(utility.isNetworkAvailable(getApplicationContext())){
+                        fbu.saveEvent(toSave);
+                    }
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            eventDao.insert(toSave);
+                        }
+                    }).start();
+                    Toast.makeText(getApplicationContext(), "Operation successful", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Saving operation failed, every field should be filled!", Toast.LENGTH_LONG).show();
+                }
+
+
+
             }
         });
 
+    }
 
+    private Event createEvent(){
+        Event temp = new Event();
+
+        if(title.getText().toString() != ""){
+            temp.setTitle(title.getText().toString());
+        }else{
+            return null;
+        }
+
+        if(countries.getSelectedItem() != null){
+            temp.setCountry(countries.getSelectedItem().toString());
+        }else{
+            return null;
+        }
+        if(city.getText().toString() != ""){
+            temp.setTown(city.getText().toString());
+        }else{
+            return null;
+        }
+
+        if(startD.getText().toString() != "" && startT.getText().toString() != ""){
+            try {
+                SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
+                temp.setStart(dateFormatD.parse(startD.getText().toString()));
+
+                SimpleDateFormat dateFormatT = new SimpleDateFormat("HH:mm");
+                temp.setStartTime(dateFormatT.parse(startT.getText().toString()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            return null;
+        }
+
+        if(endD.getText().toString() != "" && endT.getText().toString() != ""){
+            try {
+                SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
+                temp.setEnd(dateFormatD.parse(endD.getText().toString()));
+
+                SimpleDateFormat dateFormatT = new SimpleDateFormat("HH:mm");
+                temp.setEndTime(dateFormatT.parse(endT.getText().toString()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            return null;
+        }
+
+
+        if(toUpdate.size() != 0){
+            temp.setTags(toUpdate);
+        }else {
+            return null;
+        }
+
+        return temp;
     }
 }

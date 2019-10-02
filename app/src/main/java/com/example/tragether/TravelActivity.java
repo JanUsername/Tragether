@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.tragether.database.*;
 import com.example.tragether.model.*;
@@ -105,17 +106,22 @@ public class TravelActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 final Travel toSave = createTravel();
-                //I save the data ONLY if there is internet connection, otherwise I could have
-                //inconsistency problems
-                if(utility.isNetworkAvailable(getApplicationContext())){
-                    fbu.saveTravel(toSave);
-                }
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        travelDao.insert(toSave);
+                if(toSave != null) {
+                    //I save the data ONLY if there is internet connection, otherwise I could have
+                    //inconsistency problems
+                    if (utility.isNetworkAvailable(getApplicationContext())) {
+                        fbu.saveTravel(toSave);
                     }
-                }).start();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            travelDao.insert(toSave);
+                        }
+                    }).start();
+                    Toast.makeText(getApplicationContext(), "Operation successful", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Saving operation failed, every field should be filled!", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -127,18 +133,45 @@ public class TravelActivity extends AppCompatActivity {
 
         Travel temp = new Travel();
 
-        temp.setCountry(countries.getSelectedItem().toString());
-        temp.setTown(city.getText().toString());
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            temp.setStart(dateFormat.parse(start.getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            temp.setEnd(dateFormat.parse(end.getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(countries.getSelectedItem() != null){
+            temp.setCountry(countries.getSelectedItem().toString());
+        }else{
+            return null;
+        }
+        if(city.getText().toString().trim().length() > 0){
+            temp.setTown(city.getText().toString());
+        }else{
+            return null;
+        }
+        if(start.getText().toString().trim().length() > 0){
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date t = dateFormat.parse(start.getText().toString());
+                Log.d("createTravel", "date value: "+ t.toString());
+                if(t != null){
+                    temp.setStart(t);
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            return null;
+
+        }if(end.getText().toString().trim().length() > 0){
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date t = dateFormat.parse(end.getText().toString());
+                if(t != null){
+                    temp.setEnd(t);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            return null;
         }
 
 

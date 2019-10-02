@@ -10,9 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tragether.R;
+import com.example.tragether.model.Message;
 import com.example.tragether.model.User;
+
+import java.util.ArrayList;
 
 
 public class MessageActivity extends AppCompatActivity {
@@ -21,6 +27,9 @@ public class MessageActivity extends AppCompatActivity {
     Toolbar tb;
     ImageButton send;
     EditText sendTxt;
+    MessageDetailAdapter mAdapter;
+    ArrayList<Message> thread;
+    RecyclerView recyclerView;
 
 
     @Override
@@ -42,6 +51,17 @@ public class MessageActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        recyclerView = findViewById(R.id.recycler_view_msg);
+        thread = new ArrayList<>();
+        mAdapter = new MessageDetailAdapter(thread);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        fillThread();
 
         sendTxt = findViewById(R.id.text_send);
         send = findViewById(R.id.sendBtn);
@@ -66,7 +86,32 @@ public class MessageActivity extends AppCompatActivity {
         //we need to use the email, not the username!
 
 
+    }
 
-
+    private void fillThread(){
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "ciao"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "ciao"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "come va? Tutto bene spero"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "Potresti fare tu la spesa?"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "farò il possibile"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "grazie! Ciao"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "ciao"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "ciao"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "come va? Tutto bene spero"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "Potresti fare tu la spesa?"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "farò il possibile"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "grazie! Ciao"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "ciao"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "ciao"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "come va? Tutto bene spero"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "Potresti fare tu la spesa?"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "farò il possibile"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "grazie! Ciao"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "ciao"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "ciao"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "come va? Tutto bene spero"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "Potresti fare tu la spesa?"));
+        thread.add(new Message("user1", User.getInstance().getEmail(), "farò il possibile"));
+        thread.add(new Message(User.getInstance().getEmail(), "user1", "grazie! Ciao"));
     }
 }

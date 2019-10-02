@@ -31,17 +31,6 @@ public class User {
     private String description;
     @ColumnInfo(name = "timestamp")
     private Date timestamp;
-/*
-    @Ignore
-    private Image profilePic;
-    @Ignore
-    private ArrayList<Travel> travels;
-    @Ignore
-    private ArrayList<User> friends;
-    @Ignore
-    private ArrayList<Integer> eventID
-
-*/
 
     public static User getInstance(){
 
@@ -50,7 +39,6 @@ public class User {
         }
 
         return userInstance;
-
     }
 
     public String getUsername() {
@@ -108,30 +96,6 @@ public class User {
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-/*
-    public Image getProfilePic() {
-        return profilePic;
-    }
-
-    public void setProfilePic(Image profilePic) {
-        this.profilePic = profilePic;
-    }
-
-    public ArrayList<Travel> getTravels() {
-        return travels;
-    }
-
-    public void setTravels(ArrayList<Travel> travels) {
-        this.travels = travels;
-    }
-
-    public ArrayList<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(ArrayList<User> friends) {
-        this.friends = friends;
-    }*/
 
     public void resetUser(){
         username = "";
@@ -139,10 +103,6 @@ public class User {
         country = "";
         interests = null;
         description = "";
-       // profilePic = null;
-       // travels = null;
-       // friends = null;
-
     }
 
     public static void setUser(User user){

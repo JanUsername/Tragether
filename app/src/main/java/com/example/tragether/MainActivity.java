@@ -25,6 +25,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static java.lang.Thread.sleep;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,13 +41,12 @@ public class MainActivity extends AppCompatActivity {
     Utility utility;
     FirebaseUser fbUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.content_main);
+
 
         fbu = FirebaseUtility.getInstance();
         fbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -57,14 +58,32 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
 
-            Intent intent = new Intent(MainActivity.this, logged_activity.class);
-            startActivity(intent);
+            fbu.getTravels();
+            fbu.getUserEvents();
+
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        sleep(1800);
+                        fbu.getSuggEvents();
+                        sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    startActivity(new Intent(MainActivity.this, logged_activity.class));
+                }
+            }).start();
+
         }
 
+        setContentView(R.layout.content_main);
         user = findViewById(R.id.eTUsername);
         password = findViewById(R.id.eTPassword);
 
-        signIn = (Button) findViewById(R.id.btnSignIn);
+        signIn = findViewById(R.id.btnSignIn);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +92,24 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    startActivity(new Intent(MainActivity.this, logged_activity.class));
+                                    fbu.getTravels();
+                                    fbu.getUserEvents();
+
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                sleep(3000);
+                                                fbu.getSuggEvents();
+                                                sleep(3000);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            startActivity(new Intent(MainActivity.this, logged_activity.class));
+                                        }
+                                    }).start();
+
 
                                 } else {
                                     Toast.makeText(MainActivity.this, task.getException().getMessage(),

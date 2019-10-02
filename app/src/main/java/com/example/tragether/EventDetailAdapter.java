@@ -2,31 +2,37 @@ package com.example.tragether;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.example.tragether.model.Event;
 
-import com.example.tragether.model.EventDetail;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.CustomViewHolder> {
-    private List<EventDetail> eventDetails;
+    private List<Event> eventDetails;
+
+
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        public TextView eventNameView, dateView, userView, rating;
+        public TextView eventNameView, dateView, locationView, timeView;
 
         public CustomViewHolder(View view) {
             super(view);
             eventNameView = view.findViewById(R.id.eventName);
-            userView = view.findViewById(R.id.user);
+            locationView = view.findViewById(R.id.location);
             dateView = view.findViewById(R.id.date);
-            rating = view.findViewById(R.id.rating);
+            timeView = view.findViewById(R.id.time);
         }
+
     }
 
-    public EventDetailAdapter(List<EventDetail> eventDetails) {
+    public EventDetailAdapter(List<Event> eventDetails) {
         this.eventDetails = eventDetails;
     }
 
@@ -40,15 +46,16 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        EventDetail eventDetail = eventDetails.get(position);
-        holder.eventNameView.setText(eventDetail.getEventName());
-        holder.userView.setText(eventDetail.getUser());
-        holder.dateView.setText(String.valueOf(eventDetail.getDate()));
-        holder.rating.setText(String.valueOf(eventDetail.getLocation()));
+        SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
+        Event eventDetail = eventDetails.get(position);
+        holder.eventNameView.setText(eventDetail.getTitle());
+        holder.locationView.setText(eventDetail.getCountry() + ", " + eventDetail.getTown());
+        holder.dateView.setText(String.valueOf(dateFormatD.format(eventDetail.getStart())));
+        holder.timeView.setText(String.valueOf(dateFormatT.format(eventDetail.getStartTime())));
     }
 
     @Override
     public int getItemCount() {
         return eventDetails.size();
-    }
-}
+    }}
