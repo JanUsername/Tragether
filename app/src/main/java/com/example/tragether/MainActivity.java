@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.content_main);
+
 
         fbu = FirebaseUtility.getInstance();
         fbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -59,12 +59,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
 
+            fbu.getTravels();
             fbu.getUserEvents();
+
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        sleep(1000);
+                        sleep(1400);
+                        fbu.getSuggEvents();
+                        sleep(1500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -75,10 +80,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        setContentView(R.layout.content_main);
         user = findViewById(R.id.eTUsername);
         password = findViewById(R.id.eTPassword);
 
-        signIn = (Button) findViewById(R.id.btnSignIn);
+        signIn = findViewById(R.id.btnSignIn);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,12 +93,16 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    fbu.getTravels();
                                     fbu.getUserEvents();
+
                                     new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             try {
-                                                sleep(1000);
+                                                sleep(3000);
+                                                fbu.getSuggEvents();
+                                                sleep(3000);
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }

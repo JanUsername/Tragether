@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.tragether.model.Event;
-import com.example.tragether.model.User;
-import com.example.tragether.model.Utility;
+
 
 
 import java.text.SimpleDateFormat;
@@ -46,7 +44,7 @@ public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         SimpleDateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormatT = new SimpleDateFormat("h:mm a");
-        Event eventDetail = Utility.userEvents.get(position);
+        Event eventDetail = eventDetails.get(position);
         holder.eventNameView.setText(eventDetail.getTitle());
         holder.locationView.setText(eventDetail.getCountry() + ", " + eventDetail.getTown());
         holder.dateView.setText(String.valueOf(dateFormatD.format(eventDetail.getStart())));

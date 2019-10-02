@@ -32,13 +32,6 @@ public class User {
     @ColumnInfo(name = "timestamp")
     private Date timestamp;
 
-    @Ignore
-    private ArrayList<Travel> travels;
-
-
-
-
-
     public static User getInstance(){
 
         if(userInstance == null){
@@ -46,7 +39,6 @@ public class User {
         }
 
         return userInstance;
-
     }
 
     public String getUsername() {
@@ -105,24 +97,12 @@ public class User {
         this.timestamp = timestamp;
     }
 
-    public ArrayList<Travel> getTravels() {
-        return travels;
-    }
-
-    public void setTravels(ArrayList<Travel> travels) {
-        this.travels = travels;
-    }
-
-
     public void resetUser(){
         username = "";
         birthday = null;
         country = "";
         interests = null;
         description = "";
-        travels = null;
-
-
     }
 
     public static void setUser(User user){

@@ -21,6 +21,7 @@ public class Utility {
     static Date tempLocal;
     public static ArrayList<Event> suggestedEv;
     public static ArrayList<Event> userEvents;
+    public static ArrayList<Travel> userTravels;
 
 
     public Utility(Context context){
