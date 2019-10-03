@@ -55,12 +55,17 @@ public class ProfileActivity  extends  MenuHandler {
             }
         });
         //youreventFragment
-        ListFragment fragment = new ListFragment();
+        ListFragment fragmentEvent  = new ListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.yourEventsFragment, fragment);
+        fragmentTransaction.add(R.id.yourEventsFragment, fragmentEvent );
         fragmentTransaction.commit();
 
+        ListFragment fragmentTrip = new ListFragment();
+        FragmentManager fragmentManagerTrips = getSupportFragmentManager();
+        FragmentTransaction fragmentTransactionTrips = fragmentManagerTrips.beginTransaction();
+        fragmentTransactionTrips.add(R.id.yourEventsFragment, fragmentTrip);
+        fragmentTransactionTrips.commit();
     }
 
     @Override

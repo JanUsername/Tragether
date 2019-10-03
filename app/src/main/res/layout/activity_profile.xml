@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile" />
 
-<!--
+
         <fragment
             android:id="@+id/yourTripsFragment"
             android:name="com.example.tragether.fragments.YourTrips"
@@ -104,7 +104,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tvEventsProfile"
             app:layout_constraintEnd_toStartOf="@+id/tvEventsProfile"
             app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile" />
-        -->
+
 
         <fragment
             android:id="@+id/yourEventsFragment"
