@@ -77,12 +77,14 @@ public class ProfileActivity  extends  MenuHandler {
     @Override
     public void onStart(){
         super.onStart();
-        ListFragment fragment = new ListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.yourEventsFragment, fragment);
-        fragmentTransaction.commit();
+        Fragment fragment  = new Fragment();
+        Fragment fragment2  = new Fragment();
+        fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events" );
+        fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip" );
 
+        fragmentTransaction.commit();
     }
 
     @Override
