@@ -245,7 +245,6 @@ public class Utility {
             }
         }).start();
     }
-    //TODO buildUserEvents and buildSuggEvents
 
     public String oneToOneChatID(String u1, String u2){
         String id;

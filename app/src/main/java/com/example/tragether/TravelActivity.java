@@ -111,6 +111,7 @@ public class TravelActivity extends AppCompatActivity {
                     //inconsistency problems
                     if (utility.isNetworkAvailable(getApplicationContext())) {
                         fbu.saveTravel(toSave);
+
                     }
                     new Thread(new Runnable() {
                         @Override
@@ -118,6 +119,7 @@ public class TravelActivity extends AppCompatActivity {
                             travelDao.insert(toSave);
                         }
                     }).start();
+                    utility.userTravels.add(toSave);
                     Toast.makeText(getApplicationContext(), "Operation successful", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "Saving operation failed, every field should be filled!", Toast.LENGTH_LONG).show();

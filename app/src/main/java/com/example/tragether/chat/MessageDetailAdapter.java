@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tragether.R;
 import com.example.tragether.model.Message;
-import com.example.tragether.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;

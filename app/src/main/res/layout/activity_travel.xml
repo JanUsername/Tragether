@@ -31,9 +31,9 @@
             android:id="@+id/countriesTSpinner"
             android:layout_width="213dp"
             android:layout_height="46dp"
-            android:layout_marginStart="160dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -52,15 +52,12 @@
             android:id="@+id/city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
             android:layout_marginTop="112dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="36dp"
             android:ems="10"
-            android:inputType="text"
             android:hint="City"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
-            app:layout_constraintStart_toEndOf="@+id/cityLabel"
             app:layout_constraintTop_toBottomOf="@+id/countriesTSpinner" />
 
         <TextView
@@ -79,15 +76,12 @@
             android:id="@+id/sTDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
             android:layout_marginTop="112dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="36dp"
             android:ems="10"
-            android:inputType="date"
             android:hint="dd/mm/yyyy"
+            android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.361"
-            app:layout_constraintStart_toEndOf="@+id/startTDay"
             app:layout_constraintTop_toBottomOf="@+id/city"
             tools:text="@tools:sample/date/ddmmyy" />
 
@@ -107,15 +101,12 @@
             android:id="@+id/eTDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
             android:layout_marginTop="112dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="36dp"
             android:ems="10"
-            android:inputType="date"
             android:hint="dd/mm/yyyy"
+            android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.361"
-            app:layout_constraintStart_toEndOf="@+id/endTDay"
             app:layout_constraintTop_toBottomOf="@+id/sTDay"
             tools:text="@tools:sample/date/ddmmyy" />
 
