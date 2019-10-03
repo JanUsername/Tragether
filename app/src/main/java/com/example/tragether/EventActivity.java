@@ -211,15 +211,16 @@ public class EventActivity extends AppCompatActivity {
                 final Event toSave = createEvent();
 
                 if(toSave != null){
-                    if(utility.isNetworkAvailable(getApplicationContext())){
-                        fbu.saveEvent(toSave);
-                    }
+
+                    fbu.saveEvent(toSave);
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             eventDao.insert(toSave);
                         }
                     }).start();
+                    utility.userEvents.add(toSave);
                     Toast.makeText(getApplicationContext(), "Operation successful", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getApplicationContext(), "Saving operation failed, every field should be filled!", Toast.LENGTH_LONG).show();

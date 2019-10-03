@@ -13,6 +13,10 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
+
+import com.example.tragether.model.Travel;
+import com.google.android.gms.measurement.AppMeasurement;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity  extends  MenuHandler {
@@ -20,6 +24,7 @@ public class ProfileActivity  extends  MenuHandler {
     ImageView imageView;
     TextView greetingsProfile;
     Button editProfile;
+    Button addTravel;
     Button addEvent;
 
     @Override
@@ -44,6 +49,12 @@ public class ProfileActivity  extends  MenuHandler {
             }
         });
 
+        addTravel = findViewById(R.id.btnAddTravelP);
+        addTravel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, TravelActivity.class));
+            }});
         addEvent = findViewById(R.id.btnAddEventP);
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +70,17 @@ public class ProfileActivity  extends  MenuHandler {
         fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events" );
         fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip" );
 
+        fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        ListFragment fragment = new ListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.yourEventsFragment, fragment);
         fragmentTransaction.commit();
 
     }

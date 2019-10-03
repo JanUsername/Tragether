@@ -6,6 +6,7 @@ import com.example.tragether.EditProfileActivity;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.*;
 import java.util.*;
@@ -15,7 +16,6 @@ public class FirebaseUtility {
 
     private static FirebaseFirestore dbFS = null;
     private static FirebaseDatabase dbRT = null;
-    private ArrayList<String> interestsList = new ArrayList<>();
 
     private static FirebaseUtility fireBaseUtilityInstance = null;
 
@@ -528,68 +528,6 @@ public class FirebaseUtility {
 
     }
 
-
-    public void getChat(String id){
-
-
-
-    }
-
-
-   /* public void getThread(String id, String u) {
-
-        final ArrayList<Message> thread = new ArrayList<>();
-        final String user = u;
-        dbFS.collection("chats").document(id)
-                .collection(THREAD).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            List<DocumentSnapshot> docs = task.getResult().getDocuments();
-                            Log.d(TAG, "chats: " +docs.size());
-                            Iterator it = docs.iterator();
-                            while(it.hasNext()){
-                                Map<String, Object> dbRes = new HashMap<String, Object>();
-                                DocumentSnapshot temp = (DocumentSnapshot) it.next();
-                                if(temp.exists()){
-                                    dbRes = temp.getData();
-                                    Iterator iterator = dbRes.entrySet().iterator();
-                                    Message m = new Message();
-                                    while(iterator.hasNext()){
-                                        Map.Entry pair = (Map.Entry) iterator.next();
-                                        if(pair.getKey().toString().equals("sender")){
-                                            m.setSender(pair.getValue().toString());
-                                        }
-                                        if(pair.getKey().toString().equals("receiver")){
-                                            m.setReceiver(pair.getValue().toString());
-                                        }
-                                        if(pair.getKey().toString().equals("msg")){
-                                            m.setMsg(pair.getValue().toString());
-                                        }
-
-                                    }
-                                    thread.add(m);
-
-                                    Log.d(TAG, "thread Array: " +thread.size());
-
-                                }
-
-                            }
-
-                        }else{
-                            Log.d("getEvents", "get failed with ", task.getException());
-                        }
-
-                        Log.d(TAG, "getThread: OUT "+thread.size());
-                        Chat c = new Chat();
-                        c.setThread(thread);
-                        c.setUsername(user);
-                        Utility.userChats.add(c);
-                    }
-
-
-                });
-    }*/
 
 
 
