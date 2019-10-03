@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.example.tragether.database.EventDao;
 import com.example.tragether.database.SupportDataBase;
 import com.example.tragether.database.TravelDao;
 import com.example.tragether.database.UserDao;
@@ -22,12 +23,16 @@ public class Utility {
     SupportDataBase sdb;
     UserDao uDao;
     TravelDao tDao;
+    EventDao eDao;
     static Date tempCloud;
     static Date tempLocal;
     public static ArrayList<Event> suggestedEv;
     public static ArrayList<Event> userEvents;
     public static ArrayList<Travel> userTravels;
+    public static ArrayList<Chat> userChats;
     public static boolean isTravel;
+    public static boolean isUEvent;
+    public static boolean isSEvent;
 
 
     public Utility(Context context){
@@ -138,6 +143,85 @@ public class Utility {
 
     }
 
+    public void buildUserEvents(Context context){
+        final Context ctx = context;
+        new Thread(new Runnable() {
+            ArrayList<Event> temp = new ArrayList<Event>();
+            @Override
+            public void run() {
+                temp = (ArrayList<Event>) eDao.loadMyEvents(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+
+                if(isNetworkAvailable(ctx)){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fbu.getUserEvents();
+                            try {
+                                sleep(1500);
+                            } catch (InterruptedException e) {
+
+                            }
+                            tDao.nukeTable();
+                            for (Event e: userEvents) {
+                                eDao.insert(e);
+
+                            }
+                        }
+                    }).start();
+                    isUEvent = true;
+
+                }else if(temp.size()!= 0){
+
+                    userEvents = temp;
+                    isUEvent = true;
+
+                }else{
+                    isUEvent = false;
+                }
+            }
+        }).start();
+    }
+
+    public void buildSuggEvents(Context context){
+        final Context ctx = context;
+        new Thread(new Runnable() {
+            ArrayList<Event> temp = new ArrayList<Event>();
+            @Override
+            public void run() {
+                temp = (ArrayList<Event>) eDao.loadEvents(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+
+                if(isNetworkAvailable(ctx)){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fbu.getSuggEvents();
+                            try {
+                                sleep(1500);
+                            } catch (InterruptedException e) {
+
+                            }
+                            tDao.nukeTable();
+                            for (Event e: suggestedEv) {
+                                eDao.insert(e);
+
+                            }
+                        }
+                    }).start();
+                    isSEvent = true;
+
+                }else if(temp.size()!= 0){
+
+                    suggestedEv = temp;
+                    isSEvent = true;
+
+                }else{
+                    isSEvent = false;
+                }
+            }
+        }).start();
+    }
     //TODO buildUserEvents and buildSuggEvents
 
     public String oneToOneChatID(String u1, String u2){

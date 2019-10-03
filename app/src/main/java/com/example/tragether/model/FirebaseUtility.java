@@ -524,7 +524,54 @@ public class FirebaseUtility {
 
     }
 
+    public void getThread(String id){
+        final ArrayList<Message> thread = new ArrayList<>();
+        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .collection("travels").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            List<DocumentSnapshot> docs = task.getResult().getDocuments();
+                            Log.d(TAG, "travels: " +docs.size());
+                            Iterator it = docs.iterator();
+                            while(it.hasNext()){
+                                Map<String, Object> dbRes = new HashMap<String, Object>();
+                                DocumentSnapshot temp = (DocumentSnapshot) it.next();
+                                if(temp.exists()){
+                                    dbRes = temp.getData();
+                                    Iterator iterator = dbRes.entrySet().iterator();
+                                    Message t = new Message();
+                                    while(iterator.hasNext()){
+                                        Map.Entry pair = (Map.Entry) iterator.next();
+                                        if(pair.getKey().toString().equals("sender")){
+                                            t.setSender(pair.getValue().toString());
+                                        }
+                                        if(pair.getKey().toString().equals("receiver")){
+                                            t.setReceiver(pair.getValue().toString());
+                                        }
+                                        if(pair.getKey().toString().equals("msg")){
+                                            t.setMsg(pair.getValue().toString());
+                                        }
 
+
+                                    }
+                                    thread.add(t);
+                                    Log.d(TAG, "chats Array: " +thread.size());
+
+                                }
+
+                            }
+
+                        }else{
+                            Log.d("getThread", "get failed with ", task.getException());
+                        }
+                        Log.d(TAG, "getThread: OUT "+thread.size());
+
+                    }
+
+
+                });
+    }
 
 
 

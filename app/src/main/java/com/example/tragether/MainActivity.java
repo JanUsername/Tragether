@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
 
             utility.buildUserTravels(getApplicationContext());
-            fbu.getUserEvents();
+            utility.buildUserEvents(getApplicationContext());
 
 
             new Thread(new Runnable() {
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     try {
                         sleep(3000);
-                        fbu.getSuggEvents();
+                        utility.buildSuggEvents(getApplicationContext());
                         sleep(1500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
