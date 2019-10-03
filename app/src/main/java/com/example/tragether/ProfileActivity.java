@@ -10,14 +10,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.fragment.app.ListFragment;
-
-import com.google.android.gms.measurement.AppMeasurement;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity  extends  MenuHandler {
