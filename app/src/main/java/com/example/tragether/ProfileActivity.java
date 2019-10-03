@@ -10,7 +10,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
@@ -55,17 +57,15 @@ public class ProfileActivity  extends  MenuHandler {
             }
         });
         //youreventFragment
-        ListFragment fragmentEvent  = new ListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.yourEventsFragment, fragmentEvent );
+        Fragment fragment  = new Fragment();
+        Fragment fragment2  = new Fragment();
+        fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events" );
+        fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip" );
+
         fragmentTransaction.commit();
 
-        ListFragment fragmentTrip = new ListFragment();
-        FragmentManager fragmentManagerTrips = getSupportFragmentManager();
-        FragmentTransaction fragmentTransactionTrips = fragmentManagerTrips.beginTransaction();
-        fragmentTransactionTrips.add(R.id.yourEventsFragment, fragmentTrip);
-        fragmentTransactionTrips.commit();
     }
 
     @Override
