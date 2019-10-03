@@ -122,9 +122,11 @@ public class Utility {
 
                     }
                     tDao.nukeTable();
-                    for (Travel t: userTravels) {
-                        tDao.insert(t);
+                    if(userEvents != null) {
+                        for (Travel t : userTravels) {
+                            tDao.insert(t);
 
+                        }
                     }
                 }
             }).start();
@@ -164,9 +166,11 @@ public class Utility {
 
                             }
                             tDao.nukeTable();
-                            for (Event e: userEvents) {
-                                eDao.insert(e);
+                            if (userEvents != null) {
+                                for (Event e : userEvents) {
+                                    eDao.insert(e);
 
+                                }
                             }
                         }
                     }).start();
@@ -204,9 +208,11 @@ public class Utility {
 
                             }
                             tDao.nukeTable();
-                            for (Event e: suggestedEv) {
-                                eDao.insert(e);
+                            if(suggestedEv != null) {
+                                for (Event e : suggestedEv) {
+                                    eDao.insert(e);
 
+                                }
                             }
                         }
                     }).start();
@@ -252,6 +258,12 @@ public class Utility {
 
         org = getEventOrg(pos);
         id = oneToOneChatID(FirebaseAuth.getInstance().getCurrentUser().getEmail(), org);
+        Chat c = new Chat();
+        c.setUsername(org);
+        if(userChats.contains(c.getUsername())){
+
+        }
+        fbu.getThread(id, org);
 
     }
 }

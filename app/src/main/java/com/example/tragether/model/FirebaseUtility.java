@@ -9,8 +9,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.*;
 import java.util.*;
 
-import io.grpc.okhttp.internal.Util;
-
 
 public class FirebaseUtility {
 
@@ -34,6 +32,7 @@ public class FirebaseUtility {
     private final String STARTTIME = "startTime";
     private final String ENDTIME = "endTime";
     private final String ORGANIZER = "organizer";
+    private final String THREAD = "threadCollection";
 
 
     private FirebaseUtility(){
@@ -524,15 +523,19 @@ public class FirebaseUtility {
 
     }
 
-    public void getThread(String id){
+
+
+    public void getThread(String id, String u) {
+
         final ArrayList<Message> thread = new ArrayList<>();
-        db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
-                .collection("travels").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        final String user = u;
+        db.collection("chats").document(id)
+                .collection(THREAD).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             List<DocumentSnapshot> docs = task.getResult().getDocuments();
-                            Log.d(TAG, "travels: " +docs.size());
+                            Log.d(TAG, "chats: " +docs.size());
                             Iterator it = docs.iterator();
                             while(it.hasNext()){
                                 Map<String, Object> dbRes = new HashMap<String, Object>();
@@ -540,33 +543,37 @@ public class FirebaseUtility {
                                 if(temp.exists()){
                                     dbRes = temp.getData();
                                     Iterator iterator = dbRes.entrySet().iterator();
-                                    Message t = new Message();
+                                    Message m = new Message();
                                     while(iterator.hasNext()){
                                         Map.Entry pair = (Map.Entry) iterator.next();
                                         if(pair.getKey().toString().equals("sender")){
-                                            t.setSender(pair.getValue().toString());
+                                            m.setSender(pair.getValue().toString());
                                         }
                                         if(pair.getKey().toString().equals("receiver")){
-                                            t.setReceiver(pair.getValue().toString());
+                                            m.setReceiver(pair.getValue().toString());
                                         }
                                         if(pair.getKey().toString().equals("msg")){
-                                            t.setMsg(pair.getValue().toString());
+                                            m.setMsg(pair.getValue().toString());
                                         }
 
-
                                     }
-                                    thread.add(t);
-                                    Log.d(TAG, "chats Array: " +thread.size());
+                                    thread.add(m);
+
+                                    Log.d(TAG, "thread Array: " +thread.size());
 
                                 }
 
                             }
 
                         }else{
-                            Log.d("getThread", "get failed with ", task.getException());
+                            Log.d("getEvents", "get failed with ", task.getException());
                         }
-                        Log.d(TAG, "getThread: OUT "+thread.size());
 
+                        Log.d(TAG, "getThread: OUT "+thread.size());
+                        Chat c = new Chat();
+                        c.setThread(thread);
+                        c.setUsername(user);
+                        Utility.userChats.add(c);
                     }
 
 
