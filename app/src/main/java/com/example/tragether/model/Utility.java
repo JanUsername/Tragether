@@ -40,6 +40,7 @@ public class Utility {
         sdb = SupportDataBase.getInstance(context);
         uDao = sdb.userDao();
         tDao = sdb.travelDao();
+        eDao = sdb.eventDao();
     }
 
     public void userCreation(Context context){
@@ -116,7 +117,7 @@ public class Utility {
                 public void run() {
                     fbu.getTravels();
                     try {
-                        sleep(1500);
+                        sleep(2000);
                     } catch (InterruptedException e) {
 
                     }
