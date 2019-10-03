@@ -98,21 +98,24 @@
             android:id="@+id/yourTripsFragment"
             android:name="com.example.tragether.fragments.YourTrips"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/tvEventsProfile"
             app:layout_constraintEnd_toStartOf="@+id/tvEventsProfile"
-            app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile"
+            tools:layout_editor_absoluteX="0dp" />
 
 
         <fragment
             android:id="@+id/yourEventsFragment"
             android:name="com.example.tragether.fragments.YourEvents"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvEventsProfile"
-            tools:layout_editor_absoluteX="-31dp" />
+            tools:layout_editor_absoluteX="0dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

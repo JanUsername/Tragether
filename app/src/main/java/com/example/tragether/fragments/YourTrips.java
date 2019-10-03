@@ -30,8 +30,8 @@ public class YourTrips extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, Bundle savedInstanceState){
-        view = inflater.inflate(R.layout.profile_fragment_rec_trips, container, false);
-        recyclerView = view.findViewById(R.id.recycler_view_profile_trips);
+        view = inflater.inflate(R.layout.profile_fragment_rec_main, container, false);
+        recyclerView = view.findViewById(R.id.recycler_view_profile);
         mAdapter = new TripDetailAdapter(Utility.userTravels);
         recyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
