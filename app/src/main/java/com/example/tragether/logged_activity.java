@@ -73,7 +73,6 @@ public class logged_activity extends  MenuHandler {
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setHasFixedSize(true);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            Log.d("FirebaseUtility", "logged size: " + Utility.suggestedEv.size());
             mAdapter = new EventDetailAdapter(Utility.suggestedEv);
 
             recyclerView.setAdapter(mAdapter);

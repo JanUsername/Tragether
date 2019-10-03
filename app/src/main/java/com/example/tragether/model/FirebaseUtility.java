@@ -6,13 +6,15 @@ import com.example.tragether.EditProfileActivity;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.*;
 import java.util.*;
 
 
 public class FirebaseUtility {
 
-    private static FirebaseFirestore db = null;
+    private static FirebaseFirestore dbFS = null;
+    private static FirebaseDatabase dbRT = null;
     private ArrayList<String> interestsList = new ArrayList<>();
 
     private static FirebaseUtility fireBaseUtilityInstance = null;
@@ -36,7 +38,10 @@ public class FirebaseUtility {
 
 
     private FirebaseUtility(){
-       db =  FirebaseFirestore.getInstance();
+
+        dbFS =  FirebaseFirestore.getInstance();
+        dbRT = FirebaseDatabase.getInstance();
+        dbRT.setPersistenceEnabled(true);
     }
 
     public static FirebaseUtility getInstance(){
@@ -49,7 +54,7 @@ public class FirebaseUtility {
 
     public void getInterests(){
 
-    DocumentReference interest = db.collection("utility").document("interests");
+    DocumentReference interest = dbFS.collection("utility").document("interests");
 
     interest.get()
             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -89,7 +94,7 @@ public class FirebaseUtility {
 
     public void getUser(){
 
-    DocumentReference user = db.collection("users").document(User.getInstance().getEmail());
+    DocumentReference user = dbFS.collection("users").document(User.getInstance().getEmail());
 
     user.get()
             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -147,7 +152,7 @@ public class FirebaseUtility {
 
     public void getTimestamp(){
 
-        DocumentReference ts = db.collection("users").document(User.getInstance().getEmail());
+        DocumentReference ts = dbFS.collection("users").document(User.getInstance().getEmail());
         ts.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -208,7 +213,7 @@ public class FirebaseUtility {
         }
 
 
-        db.collection("users").document(user.getEmail()).set(docData, SetOptions.merge())
+        dbFS.collection("users").document(user.getEmail()).set(docData, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -226,7 +231,7 @@ public class FirebaseUtility {
 
     public void getTravels(){
         final ArrayList<Travel> travels = new ArrayList<>();
-        final Task<QuerySnapshot> trav = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+        final Task<QuerySnapshot> trav = dbFS.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .collection("travels").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -295,7 +300,7 @@ public class FirebaseUtility {
             docData.put(END, new Timestamp(travel.getEnd()));
         }
 
-        db.collection("users").document(User.getInstance().getEmail())
+        dbFS.collection("users").document(User.getInstance().getEmail())
                 .collection("travels").document(travel.getStart().toString()).
                 set(docData, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -330,7 +335,7 @@ public class FirebaseUtility {
         docData.put(ORGANIZER, User.getInstance().getEmail());
 
         //save the event in the user document
-        db.collection("users").document(User.getInstance().getEmail())
+        dbFS.collection("users").document(User.getInstance().getEmail())
                 .collection("events").document(""+event.getTitle()+event.getStart()+event.getStartTime()).set(docData, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -346,7 +351,7 @@ public class FirebaseUtility {
                 });
 
         //save the event in the general events document
-        db.collection("events").document(event.getCountry()).set(docData, SetOptions.merge())
+        dbFS.collection("events").document(event.getCountry()).set(docData, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -363,7 +368,7 @@ public class FirebaseUtility {
 
     public void getUserEvents(){
         final ArrayList<Event> userE = new ArrayList<>();
-        final Task<QuerySnapshot> events = db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+        final Task<QuerySnapshot> events = dbFS.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .collection("events").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -446,7 +451,7 @@ public class FirebaseUtility {
         Log.d(TAG, " "+Utility.userTravels.size());
         for (Travel travel : Utility.userTravels) {
 
-            final DocumentReference events = db.collection("events").document(travel.getCountry());
+            final DocumentReference events = dbFS.collection("events").document(travel.getCountry());
                     events.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -524,12 +529,18 @@ public class FirebaseUtility {
     }
 
 
+    public void getChat(String id){
 
-    public void getThread(String id, String u) {
+
+
+    }
+
+
+   /* public void getThread(String id, String u) {
 
         final ArrayList<Message> thread = new ArrayList<>();
         final String user = u;
-        db.collection("chats").document(id)
+        dbFS.collection("chats").document(id)
                 .collection(THREAD).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -578,7 +589,7 @@ public class FirebaseUtility {
 
 
                 });
-    }
+    }*/
 
 
 

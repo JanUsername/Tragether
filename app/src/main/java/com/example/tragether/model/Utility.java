@@ -128,9 +128,15 @@ public class Utility {
 
                         }
                     }
+                    if( userTravels != null && userTravels.size() != 0){
+                        isTravel = true;
+                    }else{
+                        isTravel = false;
+                    }
                 }
             }).start();
-            isTravel = true;
+
+
 
         }else if(temp.size()!= 0){
 
@@ -172,9 +178,14 @@ public class Utility {
 
                                 }
                             }
+                            if(userEvents != null && userEvents.size() != 0){
+                                isUEvent = true;
+                            }else{
+                                isUEvent = false;
+                            }
                         }
                     }).start();
-                    isUEvent = true;
+
 
                 }else if(temp.size()!= 0){
 
@@ -214,9 +225,14 @@ public class Utility {
 
                                 }
                             }
+                            if(suggestedEv!= null && suggestedEv.size() != 0){
+                                isSEvent = true;
+                            }else{
+                                isSEvent = false;
+                            }
                         }
                     }).start();
-                    isSEvent = true;
+
 
                 }else if(temp.size()!= 0){
 
@@ -263,7 +279,7 @@ public class Utility {
         if(userChats.contains(c.getUsername())){
 
         }
-        fbu.getThread(id, org);
+        //fbu.getThread(id, org);
 
     }
 }
