@@ -448,7 +448,6 @@ public class FirebaseUtility {
     public void getSuggEvents() {
         final ArrayList<Event> suggested = new ArrayList<>();
 
-        Log.d(TAG, " "+Utility.userTravels.size());
         for (Travel travel : Utility.userTravels) {
 
             final DocumentReference events = dbFS.collection("events").document(travel.getCountry());

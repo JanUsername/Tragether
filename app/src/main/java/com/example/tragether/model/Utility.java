@@ -122,7 +122,7 @@ public class Utility {
 
                     }
                     tDao.nukeTable();
-                    if(userEvents != null) {
+                    if(userTravels != null) {
                         for (Travel t : userTravels) {
                             tDao.insert(t);
 
