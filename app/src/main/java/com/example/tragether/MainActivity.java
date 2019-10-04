@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
 
-            utility.buildUserTravels(getApplicationContext());
+            /*utility.buildUserTravels(getApplicationContext());
             utility.buildUserEvents(getApplicationContext());
 
 
@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
                     startActivity(new Intent(MainActivity.this, logged_activity.class));
                 }
-            }).start();
+            }).start();*/
+            startActivity(new Intent(MainActivity.this, LoadingActivity.class));
 
         }
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    fbu.getTravels();
+                                  /*  fbu.getTravels();
                                     fbu.getUserEvents();
 
                                     new Thread(new Runnable() {
@@ -108,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
                                             startActivity(new Intent(MainActivity.this, logged_activity.class));
                                         }
-                                    }).start();
-
+                                    }).start();*/
+                                    startActivity(new Intent(MainActivity.this, LoadingActivity.class));
 
                                 } else {
                                     Toast.makeText(MainActivity.this, task.getException().getMessage(),
