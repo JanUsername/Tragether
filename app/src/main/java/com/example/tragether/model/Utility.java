@@ -19,6 +19,7 @@ import static java.lang.Thread.sleep;
 
 public class Utility {
 
+    Context context;
     FirebaseUtility fbu;
     SupportDataBase sdb;
     UserDao uDao;
@@ -33,6 +34,10 @@ public class Utility {
     public static boolean isTravel;
     public static boolean isUEvent;
     public static boolean isSEvent;
+    public static boolean loadingT = true;
+    public static boolean loadingSE = true;
+    public static boolean loadingUE = true;
+
 
 
     public Utility(Context context){
@@ -41,6 +46,7 @@ public class Utility {
         uDao = sdb.userDao();
         tDao = sdb.travelDao();
         eDao = sdb.eventDao();
+        this.context = context;
     }
 
     public void userCreation(Context context){
@@ -101,65 +107,70 @@ public class Utility {
         }).start();
     }
 
-    public void buildUserTravels(Context context){
+    public void buildUserTravels(){
 
-        final Context ctx = context;
+        final Context ctx = this.context;
         new Thread(new Runnable() {
+
             ArrayList<Travel> temp = new ArrayList<Travel>();
             @Override
             public void run() {
                 temp = (ArrayList<Travel>) tDao.loadTravels();
 
+                if(isNetworkAvailable(ctx)){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingT = true;
+                            fbu.getTravels();
+                            try {
+                                sleep(1500);
+                            } catch (InterruptedException e) {
 
-        if(isNetworkAvailable(ctx)){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    fbu.getTravels();
-                    try {
-                        sleep(2000);
-                    } catch (InterruptedException e) {
+                            }
+                            tDao.nukeTable();
+                            if(userTravels != null) {
+                                for (Travel t : userTravels) {
+                                    tDao.insert(t);
 
-                    }
-                    tDao.nukeTable();
-                    if(userTravels != null) {
-                        for (Travel t : userTravels) {
-                            tDao.insert(t);
-
+                                }
+                            }
+                            if( userTravels != null && userTravels.size() != 0){
+                                isTravel = true;
+                            }else{
+                                isTravel = false;
+                            }
+                            loadingT = false;
                         }
-                    }
-                    if( userTravels != null && userTravels.size() != 0){
-                        isTravel = true;
-                    }else{
-                        isTravel = false;
-                    }
+                    }).start();
+
+                }else if(temp.size()!= 0){
+                    loadingT = true;
+                    userTravels = temp;
+                    isTravel = true;
+                    loadingT = false;
+
+                }else{
+                    loadingT = true;
+                    isTravel = false;
+                    loadingT = false;
                 }
+
+
+                    }
             }).start();
-
-
-
-        }else if(temp.size()!= 0){
-
-            userTravels = temp;
-            isTravel = true;
-
-        }else{
-            isTravel = false;
-        }
-            }
-        }).start();
 
 
     }
 
-    public void buildUserEvents(Context context){
-        final Context ctx = context;
+    public void buildUserEvents(){
+        final Context ctx = this.context;
         new Thread(new Runnable() {
             ArrayList<Event> temp = new ArrayList<Event>();
             @Override
             public void run() {
                 temp = (ArrayList<Event>) eDao.loadMyEvents(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
+                loadingUE = true;
 
                 if(isNetworkAvailable(ctx)){
                     new Thread(new Runnable() {
@@ -195,23 +206,25 @@ public class Utility {
                 }else{
                     isUEvent = false;
                 }
+                loadingUE = false;
             }
         }).start();
     }
 
-    public void buildSuggEvents(Context context){
-        final Context ctx = context;
+    public void buildSuggEvents(){
+        final Context ctx = this.context;
         new Thread(new Runnable() {
             ArrayList<Event> temp = new ArrayList<Event>();
             @Override
             public void run() {
                 temp = (ArrayList<Event>) eDao.loadEvents(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
+                loadingSE = true;
 
                 if(isNetworkAvailable(ctx)){
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
+                            loadingSE = true;
                             fbu.getSuggEvents();
                             try {
                                 sleep(1500);
@@ -229,20 +242,26 @@ public class Utility {
                                 isSEvent = true;
                             }else{
                                 isSEvent = false;
+
                             }
+                            loadingSE = false;
                         }
                     }).start();
 
 
                 }else if(temp.size()!= 0){
-
+                    loadingSE = true;
                     suggestedEv = temp;
                     isSEvent = true;
+                    loadingSE = false;
 
                 }else{
+                    loadingSE = true;
                     isSEvent = false;
+                    loadingSE = false;
                 }
             }
+
         }).start();
     }
 

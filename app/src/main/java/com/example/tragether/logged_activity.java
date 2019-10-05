@@ -64,7 +64,7 @@ public class logged_activity extends  MenuHandler {
         welcome = findViewById(R.id.welcome);
         feedTxt = findViewById(R.id.feedTxt);
 
-        if(utility.isTravel && utility.isSEvent) {
+        if(utility.isSEvent) {
 
             recyclerView = findViewById(R.id.recycler_view_events);
             eventDetails = new ArrayList<>();
