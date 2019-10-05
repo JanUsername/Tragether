@@ -39,8 +39,6 @@ public class ProfileActivity  extends  MenuHandler {
         int imageRes = getResources().getIdentifier("@drawable/cat", null, this.getPackageName());
         imageView.setImageResource(imageRes);
 
-        greetingsProfile = (TextView)findViewById(R.id.greetingsProfile);
-        greetingsProfile.setText("Hello " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
         editProfile = findViewById(R.id.btnGoToProfile);
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
