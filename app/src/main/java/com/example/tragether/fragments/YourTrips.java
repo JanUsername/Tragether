@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,8 +11,6 @@ import com.example.tragether.R;
 import com.example.tragether.TripDetailAdapter;
 import com.example.tragether.model.Travel;
 import com.example.tragether.model.Utility;
-
-
 import java.util.ArrayList;
 import java.util.List;
 

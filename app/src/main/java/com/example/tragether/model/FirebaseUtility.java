@@ -6,11 +6,9 @@ import com.example.tragether.EditProfileActivity;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.*;
 import java.util.*;
-
 
 public class FirebaseUtility {
 
@@ -426,7 +424,10 @@ public class FirebaseUtility {
                                         }
 
                                     }
-                                    userE.add(t);
+                                    if(!Utility.userEvents.contains(t)){
+                                        userE.add(t);
+                                    }
+
 
                                 }
 
@@ -510,7 +511,10 @@ public class FirebaseUtility {
                                 }
 
                                 if (!(t.getOrganizer().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))) {
-                                    suggested.add(t);
+                                    if(!Utility.suggestedEv.contains(t)){
+                                        suggested.add(t);
+                                    }
+
                                     Log.d(TAG, "onCheck: " + suggested.size());
                                 }
 
