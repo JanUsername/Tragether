@@ -11,10 +11,6 @@
     android:id="@+id/user_profile"
     android:title="Profile" />
     <item
-    android:id="@+id/create_event"
-    android:title="Create event"
-    />
-    <item
     android:id="@+id/chat"
     android:title="Chat"
     />

@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,9 +108,17 @@ public class logged_activity extends  MenuHandler {
     public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.contactOrg:
-                utility.getChat(eventNum);
-                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+            case R.id.tags:
+                ArrayList<String> temp = Utility.suggestedEv.get(eventNum).getTags();
+                String res = "";
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(logged_activity.this);
+                mBuilder.setTitle("EVENT TAGS");
+                for (int i = 0; i < temp.size(); i++) {
+                    res = res + "\n" + temp.get(i);
+                }
+                mBuilder.setMessage(res);
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
                 return true;
             default:
                 return super.onContextItemSelected(item);

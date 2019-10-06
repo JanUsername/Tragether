@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/contactOrg"
-        android:title="Contact the organizer" />
+        android:id="@+id/tags"
+        android:title="Show the event tags!" />
 
 
 </menu>

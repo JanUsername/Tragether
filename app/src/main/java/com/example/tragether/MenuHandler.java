@@ -36,7 +36,6 @@ public class MenuHandler extends AppCompatActivity {
             case R.id.logOut:
                 FirebaseAuth.getInstance().signOut();
                 User.getInstance().resetUser();
-
                 startActivity(new Intent(this, MainActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
