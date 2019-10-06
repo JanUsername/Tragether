@@ -18,7 +18,6 @@ public class TravelRepository {
 
     public TravelRepository(Application application) {
 
-
         allTravels = Utility.userTravels;
     }
 

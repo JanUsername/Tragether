@@ -60,7 +60,7 @@ public class YourTrips extends Fragment {
 
         fbu = FirebaseUtility.getInstance();
 
-        travelViewModel = ViewModelProviders.of(this).get(TravelViewModel.class);
+        travelViewModel = new ViewModelProvider(getActivity()).get(TravelViewModel.class);
 
         recyclerView = view.findViewById(R.id.recycler_view_profile);
         mAdapter = new TripDetailAdapter(travelViewModel.getAllTravels());
@@ -88,6 +88,7 @@ public class YourTrips extends Fragment {
     }
 
 
+
     @Override
     public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
         super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
@@ -113,5 +114,9 @@ public class YourTrips extends Fragment {
 
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setAdapter(mAdapter);
+    }
 }

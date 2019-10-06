@@ -21,6 +21,7 @@ import com.example.tragether.EventDetailAdapter;
 import com.example.tragether.R;
 import com.example.tragether.RecyclerItemListener;
 import com.example.tragether.ViewModel.EventViewModel;
+import com.example.tragether.ViewModel.TravelViewModel;
 import com.example.tragether.model.Event;
 import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.Utility;
@@ -55,7 +56,7 @@ public class YourEvents extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @androidx.annotation.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        eventViewModel = ViewModelProviders.of(this).get(EventViewModel.class);
+        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
 
         fbu = FirebaseUtility.getInstance();
         mAdapter = new EventDetailAdapter(eventViewModel.getAllEvents());
@@ -78,6 +79,12 @@ public class YourEvents extends Fragment {
                 registerForContextMenu(v);
             }
         }));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

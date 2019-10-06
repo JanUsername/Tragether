@@ -512,7 +512,7 @@ public class FirebaseUtility {
                                 }
 
                                 if (!(t.getOrganizer().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))) {
-                                    if(!Utility.suggestedEv.contains(t)){
+                                    if(!(Utility.suggestedEv.contains(t))){
                                         suggested.add(t);
                                     }
 
