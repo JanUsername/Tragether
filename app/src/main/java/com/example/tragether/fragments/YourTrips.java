@@ -31,7 +31,7 @@ public class YourTrips extends Fragment {
         view = inflater.inflate(R.layout.profile_fragment_rec_main, container, false);
 
         travelViewModel = new ViewModelProvider(getActivity()).get(TravelViewModel.class);
-     
+
         recyclerView = view.findViewById(R.id.recycler_view_profile);
         mAdapter = new TripDetailAdapter(travelViewModel.getAllTravels());
         recyclerView.setAdapter(mAdapter);
