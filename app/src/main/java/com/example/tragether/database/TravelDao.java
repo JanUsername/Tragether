@@ -4,7 +4,6 @@ import androidx.room.*;
 
 import com.example.tragether.model.Travel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
