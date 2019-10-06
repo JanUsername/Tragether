@@ -58,5 +58,10 @@ public class TripDetailAdapter extends RecyclerView.Adapter<TripDetailAdapter.Tr
 
     @Override
     public int getItemCount() {
-        return tripDetails.size();
-    }}
+        return this.tripDetails.size();
+    }
+    public void setTravels(List<Travel> travels){
+        this.tripDetails = travels;
+        notifyDataSetChanged();
+    }
+}

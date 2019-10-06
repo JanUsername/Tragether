@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tragether.EventDetailAdapter;
 import com.example.tragether.R;
+import com.example.tragether.ViewModel.EventViewModel;
 import com.example.tragether.model.Event;
 import com.example.tragether.model.Utility;
 
@@ -28,13 +30,16 @@ public class YourEvents extends Fragment {
     List<Event> eventDetails = new ArrayList<>();
     private RecyclerView recyclerView;
     private EventDetailAdapter mAdapter;
+    private EventViewModel eventViewModel;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.profile_fragment_rec_main, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_profile);
-        mAdapter = new EventDetailAdapter(Utility.userEvents);
+        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
+
+        mAdapter = new EventDetailAdapter(eventViewModel.getAllEvents());
         recyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

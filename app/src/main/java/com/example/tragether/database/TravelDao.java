@@ -1,6 +1,5 @@
 package com.example.tragether.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
 import com.example.tragether.model.Travel;
@@ -15,7 +14,7 @@ public interface TravelDao {
    void insert(Travel travel);
 
    @Query("SELECT * FROM travels_table")
-   public LiveData<List<Travel>> loadTravels();
+   List<Travel> loadTravels();
 
    @Update(onConflict = OnConflictStrategy.REPLACE)
    void update(Travel travel);
