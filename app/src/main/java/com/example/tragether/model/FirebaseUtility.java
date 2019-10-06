@@ -6,6 +6,7 @@ import com.example.tragether.EditProfileActivity;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.*;
 import java.util.*;
@@ -164,11 +165,10 @@ public class FirebaseUtility {
                             Map.Entry pair = (Map.Entry) it.next();
                             if (pair.getKey().toString().equals(TIMESTAMP)) {
                                 Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
-                                Log.d("getUser", "onComplete: in timestamp " + ts.toDate().toString());
                                 Date tempTs = ts.toDate();
 
                                 Utility.tempCloud = tempTs;
-                                Log.d("timestampBuildUser", "onComplete: " + tempTs);
+
                             }
                         }
                     } else {
@@ -349,7 +349,8 @@ public class FirebaseUtility {
                 });
 
         //save the event in the general events document
-        dbFS.collection("events").document(event.getCountry()).set(docData, SetOptions.merge())
+        dbFS.collection("events").document(event.getCountry()).collection("local")
+                .document(""+event.getTitle()+event.getStart()+event.getStartTime()).set(docData, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -536,6 +537,56 @@ public class FirebaseUtility {
 
     }
 
+    public void deleteTravel(Travel t){
+
+        dbFS.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .collection("travels").document(t.getStart().toString()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+
+    }
+
+    public void deleteEvent(Event event){
+
+        dbFS.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .collection("events").document(event.getTitle()+event.getStart()+event.getStartTime()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+        dbFS.collection("events").document(event.getCountry()).collection("local")
+                .document("" + event.getTitle()+event.getStart()+event.getStartTime()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
 
 
 

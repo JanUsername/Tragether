@@ -2,7 +2,6 @@ package com.example.tragether;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,13 +14,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tragether.chat.ChatActivity;
 import com.example.tragether.model.*;
 import com.example.tragether.database.*;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 

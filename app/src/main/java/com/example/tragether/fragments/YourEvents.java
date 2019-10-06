@@ -1,20 +1,28 @@
 package com.example.tragether.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tragether.EventDetailAdapter;
 import com.example.tragether.R;
+import com.example.tragether.RecyclerItemListener;
 import com.example.tragether.ViewModel.EventViewModel;
 import com.example.tragether.model.Event;
+import com.example.tragether.model.FirebaseUtility;
 import com.example.tragether.model.Utility;
 
 
@@ -25,26 +33,79 @@ import javax.annotation.Nullable;
 
 public class YourEvents extends Fragment {
     View view;
+    private int eventNum;
 
 
     List<Event> eventDetails = new ArrayList<>();
     private RecyclerView recyclerView;
     private EventDetailAdapter mAdapter;
     private EventViewModel eventViewModel;
+    private FirebaseUtility fbu;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.profile_fragment_rec_main, container, false);
         recyclerView = view.findViewById(R.id.recycler_view_profile);
-        eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
 
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @androidx.annotation.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        eventViewModel = ViewModelProviders.of(this).get(EventViewModel.class);
+
+        fbu = FirebaseUtility.getInstance();
         mAdapter = new EventDetailAdapter(eventViewModel.getAllEvents());
         recyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         mAdapter.notifyDataSetChanged();
-        return view;
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemListener(view.getContext(),
+                recyclerView, new RecyclerItemListener.RecyclerTouchListener() {
+            @Override
+            public void onClickItem(View v, int position) {
+                eventNum = position;
+                registerForContextMenu(v);
+            }
+
+            @Override
+            public void onLongClickItem(View v, int position) {
+                eventNum = position;
+                registerForContextMenu(v);
+            }
+        }));
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+        super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.delete_edit_menu, contextMenu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        Event selected = Utility.userEvents.get(eventNum);
+        switch (item.getItemId()){
+            case R.id.delete:
+
+                eventViewModel.delete(selected);
+                fbu.deleteEvent(selected);
+                //Utility.userEvents.remove(eventNum);
+
+
+                return true;
+            case R.id.edit:
+
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+
+    }
 }

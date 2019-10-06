@@ -2,6 +2,8 @@ package com.example.tragether;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -12,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 
+import com.example.tragether.ViewModel.EventViewModel;
 import com.example.tragether.database.*;
 import com.example.tragether.model.*;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,6 +47,7 @@ public class EventActivity extends AppCompatActivity {
     Utility utility;
     SupportDataBase sdb;
     EventDao eventDao;
+    EventViewModel evm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class EventActivity extends AppCompatActivity {
         appUser = User.getInstance();
         fbu = FirebaseUtility.getInstance();
         utility = new Utility(getApplicationContext());
+        evm = ViewModelProviders.of(this).get(EventViewModel.class);
 
         sdb = SupportDataBase.getInstance(getApplicationContext());
         eventDao = sdb.eventDao();
