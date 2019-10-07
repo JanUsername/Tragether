@@ -75,10 +75,23 @@ public class ProfileActivity extends MenuHandler {
 
 
     }
-
+/*
     @Override
     public void onStart() {
         super.onStart();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = new Fragment();
+        Fragment fragment2 = new Fragment();
+        fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events");
+        fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip");
+
+        fragmentTransaction.commit();
+    }
+*/
+    @Override
+    protected void onResume() {
+        super.onResume();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Fragment fragment = new Fragment();

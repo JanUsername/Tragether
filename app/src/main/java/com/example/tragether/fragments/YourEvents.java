@@ -59,11 +59,14 @@ public class YourEvents extends Fragment {
         eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
 
         fbu = FirebaseUtility.getInstance();
-        mAdapter = new EventDetailAdapter(Utility.userEvents);
-        recyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter.notifyDataSetChanged();
+        if(Utility.isUEvent) {
+            mAdapter = new EventDetailAdapter(Utility.userEvents);
+            recyclerView.setAdapter(mAdapter);
+
+            mAdapter.notifyDataSetChanged();
+        }
 
         recyclerView.addOnItemTouchListener(new RecyclerItemListener(view.getContext(),
                 recyclerView, new RecyclerItemListener.RecyclerTouchListener() {
@@ -79,11 +82,13 @@ public class YourEvents extends Fragment {
                 registerForContextMenu(v);
             }
         }));
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mAdapter = new EventDetailAdapter(Utility.userEvents);
         recyclerView.setAdapter(mAdapter);
     }
 

@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tragether.model.Utility;
 
+import java.util.ArrayList;
+
 import static java.lang.Thread.sleep;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -30,6 +32,9 @@ public class LoadingActivity extends AppCompatActivity {
         msg = findViewById(R.id.loadingMsg);
         loading = findViewById(R.id.progressLoading);
         utility = new Utility(getApplicationContext());
+        Utility.userEvents = new ArrayList<>();
+        Utility.userTravels = new ArrayList<>();
+        Utility.suggestedEv = new ArrayList<>();
 
         new Thread(new Runnable() {
             @Override
