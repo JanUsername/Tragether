@@ -124,7 +124,7 @@ public class Utility {
                             loadingT = true;
                             fbu.getTravels();
                             try {
-                                sleep(1500);
+                                sleep(2000);
                             } catch (InterruptedException e) {
 
                             }
@@ -144,7 +144,7 @@ public class Utility {
                         }
                     }).start();
 
-                }else if(temp.size()!= 0){
+                }else if(temp != null && temp.size()!= 0){
                     loadingT = true;
                     userTravels = temp;
                     isTravel = true;

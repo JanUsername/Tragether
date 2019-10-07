@@ -41,12 +41,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="168dp"
+            android:layout_marginTop="232dp"
             android:layout_marginEnd="8dp"
             android:background="#D9B596"
             android:text="@string/addEvent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintHorizontal_bias="0.528"
             app:layout_constraintStart_toEndOf="@+id/imageView1"
             app:layout_constraintTop_toBottomOf="@+id/btnAddTravelP" />
 
@@ -73,19 +73,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView1" />
 
+
         <TextView
             android:id="@+id/tvEventsProfile"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="184dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="248dp"
             android:text="@string/yourEvents"
             android:textColor="#D9B596"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTripsProfile" />
-
 
         <fragment
             android:id="@+id/yourTripsFragment"
@@ -107,6 +107,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvEventsProfile"
+            app:layout_constraintVertical_bias="1.0"
             tools:layout_editor_absoluteX="0dp" />
 
 
