@@ -6,7 +6,6 @@ import com.example.tragether.EditProfileActivity;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.*;
 import java.util.*;
@@ -455,72 +454,77 @@ public class FirebaseUtility {
 
             for (Travel travel : Utility.userTravels) {
 
-                final DocumentReference events = dbFS.collection("events").document(travel.getCountry());
-                events.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                dbFS.collection("events").document(travel.getCountry())
+                        .collection("local").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        Map<String, Object> dbRes;
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            DocumentSnapshot doc = task.getResult();
-                            if (doc.exists()) {
-                                dbRes = doc.getData();
-                                Log.d("eventsNum", "" + dbRes.size());
-                                Iterator iterator = dbRes.entrySet().iterator();
-                                Event t = new Event();
-                                while (iterator.hasNext()) {
-                                    Map.Entry pair = (Map.Entry) iterator.next();
-                                    if (pair.getKey().toString().equals(COUNTRY)) {
-                                        t.setCountry(pair.getValue().toString());
-                                    }
-                                    if (pair.getKey().toString().equals(TOWN)) {
-                                        t.setTown(pair.getValue().toString());
-                                    }
-                                    if (pair.getKey().toString().equals(START)) {
-                                        Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
-                                        t.setStart(ts.toDate());
-                                    }
-                                    if (pair.getKey().toString().equals(END)) {
-                                        Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
-                                        t.setEnd(ts.toDate());
-                                    }
-                                    if (pair.getKey().toString().equals(STARTTIME)) {
-                                        Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
-                                        t.setStartTime(ts.toDate());
-
-                                    }
-                                    if (pair.getKey().toString().equals(ENDTIME)) {
-                                        Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
-                                        t.setEndTime(ts.toDate());
-
-                                    }
-                                    if (pair.getKey().toString().equals(ORGANIZER)) {
-                                        t.setOrganizer(pair.getValue().toString());
-                                    }
-                                    if (pair.getKey().toString().equals(TITLE)) {
-                                        t.setTitle(pair.getValue().toString());
-                                    }
-                                    if (pair.getKey().toString().equals(TAGS)) {
-                                        ArrayList<String> tags = new ArrayList<>();
-                                        ArrayList<String> stuff = (ArrayList<String>) pair.getValue();
-                                        while (!stuff.isEmpty()) {
-                                            tags.add(stuff.get(0));
-                                            stuff.remove(0);
+                            List<DocumentSnapshot> docs = task.getResult().getDocuments();
+                            Log.d(TAG, "travels: " + docs.size());
+                            Iterator it = docs.iterator();
+                            if (it.hasNext()){
+                                Map<String, Object> dbRes = new HashMap<String, Object>();
+                                DocumentSnapshot temp = (DocumentSnapshot) it.next();
+                                if (temp.exists()) {
+                                    dbRes = temp.getData();
+                                    Log.d("eventsNum", "" + dbRes.size());
+                                    Iterator iterator = dbRes.entrySet().iterator();
+                                    Event t = new Event();
+                                    while (iterator.hasNext()) {
+                                        Map.Entry pair = (Map.Entry) iterator.next();
+                                        if (pair.getKey().toString().equals(COUNTRY)) {
+                                            t.setCountry(pair.getValue().toString());
                                         }
-                                        t.setTags(tags);
+                                        if (pair.getKey().toString().equals(TOWN)) {
+                                            t.setTown(pair.getValue().toString());
+                                        }
+                                        if (pair.getKey().toString().equals(START)) {
+                                            Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
+                                            t.setStart(ts.toDate());
+                                        }
+                                        if (pair.getKey().toString().equals(END)) {
+                                            Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
+                                            t.setEnd(ts.toDate());
+                                        }
+                                        if (pair.getKey().toString().equals(STARTTIME)) {
+                                            Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
+                                            t.setStartTime(ts.toDate());
+
+                                        }
+                                        if (pair.getKey().toString().equals(ENDTIME)) {
+                                            Timestamp ts = new Timestamp(((Timestamp) pair.getValue()).getSeconds(), ((Timestamp) pair.getValue()).getNanoseconds());
+                                            t.setEndTime(ts.toDate());
+
+                                        }
+                                        if (pair.getKey().toString().equals(ORGANIZER)) {
+                                            t.setOrganizer(pair.getValue().toString());
+                                        }
+                                        if (pair.getKey().toString().equals(TITLE)) {
+                                            t.setTitle(pair.getValue().toString());
+                                        }
+                                        if (pair.getKey().toString().equals(TAGS)) {
+                                            ArrayList<String> tags = new ArrayList<>();
+                                            ArrayList<String> stuff = (ArrayList<String>) pair.getValue();
+                                            while (!stuff.isEmpty()) {
+                                                tags.add(stuff.get(0));
+                                                stuff.remove(0);
+                                            }
+                                            t.setTags(tags);
+                                        }
+
+                                    }
+
+                                    if (!(t.getOrganizer().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))) {
+                                        if (!(Utility.suggestedEv.contains(t))) {
+                                            suggested.add(t);
+                                        }
+
+                                        Log.d(TAG, "onCheck: " + suggested.size());
                                     }
 
                                 }
-
-                                if (!(t.getOrganizer().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))) {
-                                    if(!(Utility.suggestedEv.contains(t))){
-                                        suggested.add(t);
-                                    }
-
-                                    Log.d(TAG, "onCheck: " + suggested.size());
-                                }
-
                             }
-
                         } else {
                             Log.d("getEvents", "get failed with ", task.getException());
                         }
