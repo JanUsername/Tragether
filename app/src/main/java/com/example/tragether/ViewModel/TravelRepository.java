@@ -2,8 +2,6 @@ package com.example.tragether.ViewModel;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
-import com.example.tragether.database.SupportDataBase;
 import com.example.tragether.database.TravelDao;
 import com.example.tragether.model.Travel;
 import com.example.tragether.model.Utility;

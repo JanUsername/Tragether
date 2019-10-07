@@ -9,10 +9,8 @@ import com.example.tragether.model.Utility;
 
 import java.util.List;
 
-
 public class EventRepository {
     private EventDao eventDao;
-
     private List<Event> allEvents;
 
     public EventRepository(Application application) {

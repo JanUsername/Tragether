@@ -100,9 +100,9 @@ public class YourTrips extends Fragment {
         Travel t = Utility.userTravels.get(eventNum);
         switch (item.getItemId()){
             case R.id.delete:
-                travelViewModel.delete(t);
+                //travelViewModel.delete(t);
                 fbu.deleteTravel(t);
-                //Utility.userTravels.remove(eventNum);
+                Utility.userTravels.remove(eventNum);
                 return true;
             case R.id.edit:
 

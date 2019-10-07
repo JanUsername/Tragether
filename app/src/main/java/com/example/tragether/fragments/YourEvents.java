@@ -84,7 +84,7 @@ public class YourEvents extends Fragment {
     public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
         super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.delete_edit_menu, contextMenu);
+        inflater.inflate(R.menu.delete_edit_menu_event, contextMenu);
     }
 
     @Override
@@ -92,15 +92,15 @@ public class YourEvents extends Fragment {
 
         Event selected = Utility.userEvents.get(eventNum);
         switch (item.getItemId()){
-            case R.id.delete:
+            case R.id.delete_event:
 
-                eventViewModel.delete(selected);
+                //eventViewModel.delete(selected);
                 fbu.deleteEvent(selected);
-                //Utility.userEvents.remove(eventNum);
+                Utility.userEvents.remove(eventNum);
 
 
                 return true;
-            case R.id.edit:
+            case R.id.edit_event:
 
                 return true;
             default:
