@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,7 +20,7 @@ import com.example.tragether.model.Travel;
 import com.google.android.gms.measurement.AppMeasurement;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ProfileActivity  extends  MenuHandler {
+public class ProfileActivity extends MenuHandler {
 
     ImageView imageView;
     TextView greetingsProfile;
@@ -52,7 +53,8 @@ public class ProfileActivity  extends  MenuHandler {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ProfileActivity.this, TravelActivity.class));
-            }});
+            }
+        });
         addEvent = findViewById(R.id.btnAddEventP);
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,33 +62,35 @@ public class ProfileActivity  extends  MenuHandler {
                 startActivity(new Intent(ProfileActivity.this, EventActivity.class));
             }
         });
-        //youreventFragment
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment  = new Fragment();
-        Fragment fragment2  = new Fragment();
-        fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events" );
-        fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip" );
 
+        Fragment fragment = new Fragment();
+        Fragment fragment2 = new Fragment();
+        fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events");
+        fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip");
         fragmentTransaction.commit();
+
 
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment  = new Fragment();
-        Fragment fragment2  = new Fragment();
-        fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events" );
-        fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip" );
+        Fragment fragment = new Fragment();
+        Fragment fragment2 = new Fragment();
+        fragmentTransaction.add(R.id.yourEventsFragment, fragment, "fragment Events");
+        fragmentTransaction.add(R.id.yourTripsFragment, fragment2, "fragment Trip");
 
         fragmentTransaction.commit();
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         startActivity(new Intent(ProfileActivity.this, logged_activity.class));
     }
 

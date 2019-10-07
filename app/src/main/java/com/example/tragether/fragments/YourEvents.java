@@ -104,7 +104,7 @@ public class YourEvents extends Fragment {
                 //eventViewModel.delete(selected);
                 fbu.deleteEvent(selected);
                 Utility.userEvents.remove(eventNum);
-
+                mAdapter.notifyDataSetChanged();
 
                 return true;
             case R.id.edit_event:
