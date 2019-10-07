@@ -130,6 +130,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     }
                 }).start();
 
+                finish();
+
             }
         });
 

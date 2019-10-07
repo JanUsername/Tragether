@@ -105,10 +105,9 @@ public class YourTrips extends Fragment {
                 fbu.deleteTravel(t);
                 Utility.userTravels.remove(eventNum);
                 mAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(mAdapter);
                 return true;
-            case R.id.edit:
 
-                return true;
             default:
                 return super.onContextItemSelected(item);
         }

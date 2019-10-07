@@ -182,7 +182,7 @@ public class Utility {
                             } catch (InterruptedException e) {
 
                             }
-                            tDao.nukeTable();
+                            eDao.nukeTable();
                             if (userEvents != null) {
                                 for (Event e : userEvents) {
                                     eDao.insert(e);
@@ -231,7 +231,7 @@ public class Utility {
                             } catch (InterruptedException e) {
 
                             }
-                            tDao.nukeTable();
+
                             if(suggestedEv != null) {
                                 for (Event e : suggestedEv) {
                                     eDao.insert(e);

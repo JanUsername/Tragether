@@ -35,8 +35,9 @@ public class LoadingActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                utility.buildUserTravels();
                 utility.buildUserEvents();
+                utility.buildUserTravels();
+
 
                 while(Utility.loadingT){
                     try {

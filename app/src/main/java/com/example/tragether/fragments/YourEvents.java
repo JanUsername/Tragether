@@ -59,7 +59,7 @@ public class YourEvents extends Fragment {
         eventViewModel = new ViewModelProvider(getActivity()).get(EventViewModel.class);
 
         fbu = FirebaseUtility.getInstance();
-        mAdapter = new EventDetailAdapter(eventViewModel.getAllEvents());
+        mAdapter = new EventDetailAdapter(Utility.userEvents);
         recyclerView.setAdapter(mAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -105,11 +105,10 @@ public class YourEvents extends Fragment {
                 fbu.deleteEvent(selected);
                 Utility.userEvents.remove(eventNum);
                 mAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(mAdapter);
 
                 return true;
-            case R.id.edit_event:
 
-                return true;
             default:
                 return super.onContextItemSelected(item);
         }

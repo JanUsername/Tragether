@@ -231,9 +231,10 @@ public class EventActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Saving operation failed, every field should be filled!", Toast.LENGTH_LONG).show();
                 }
 
-
+                finish();
 
             }
+
         });
 
     }
