@@ -104,6 +104,7 @@ public class YourTrips extends Fragment {
                 //travelViewModel.delete(t);
                 fbu.deleteTravel(t);
                 Utility.userTravels.remove(eventNum);
+                mAdapter.notifyDataSetChanged();
                 return true;
             case R.id.edit:
 
