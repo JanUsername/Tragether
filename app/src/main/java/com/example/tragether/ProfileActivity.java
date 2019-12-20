@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ProfileActivity extends MenuHandler {
 
     ImageView imageView;
-    TextView greetingsProfile;
+
     Button editProfile;
     Button addTravel;
     Button addEvent;
